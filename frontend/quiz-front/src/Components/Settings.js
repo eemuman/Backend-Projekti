@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import LangMenu from "./LangMenu";
 import { Grid, Typography } from "@mui/material";
@@ -7,6 +7,12 @@ import { grey } from "@mui/material/colors";
 export default function Settings(props) {
   const [primaryLang, setPrimaryLang] = useState("");
   const [secondaryLang, setSecondaryLang] = useState("");
+  const [amountofWords, setAmountofWords] = useState(0);
+  const [langs, setLangs] = useState();
+
+  useEffect(() => {
+    setLangs(["Test", "Test2", "Test3", "Test4"]);
+  }, []);
 
   const handlePrimary = (e) => {
     setPrimaryLang(e.target.value);
@@ -14,6 +20,10 @@ export default function Settings(props) {
 
   const handleSecondary = (e) => {
     setSecondaryLang(e.target.value);
+  };
+
+  const handleAmount = (e) => {
+    setAmountofWords(e.target.value);
   };
 
   return (
@@ -56,7 +66,7 @@ export default function Settings(props) {
               handle={handlePrimary}
               curLang={primaryLang}
               secondLang={secondaryLang}
-              langs={props.langs}
+              langs={langs}
               helperTxt="VALITSE KYSYTTÄVÄN SANAN KIELI"
             />
           </Grid>
@@ -68,9 +78,20 @@ export default function Settings(props) {
               handle={handleSecondary}
               curLang={secondaryLang}
               secondLang={primaryLang}
-              langs={props.langs}
+              langs={langs}
               helperTxt="VALITSE VASTATTAVAN SANAN KIELI"
             />
+          </Grid>
+        </Grid>
+        <Grid
+          container
+          spacing={2}
+          justifyContent="space-evenly"
+          alignItems="center"
+        >
+          {" "}
+          <Grid item>
+            <h1>HASHAH</h1>
           </Grid>
         </Grid>
       </Box>
