@@ -8,16 +8,15 @@ import FormHelperText from "@mui/material/FormHelperText";
 export default function LangMenu(props) {
   return (
     <div>
-      <FormControl sx={{ m: 1, minWidth: 120 }}>
+      <div>{props.label}</div>
+      <FormControl sx={{ m: 1 }}>
         <InputLabel id={props.label}>{props.label}</InputLabel>
-
         <Select
           labelId={props.labelId}
           id={props.id}
           value={props.curLang}
           label={props.label}
           onChange={props.handle}
-          autoWidth
         >
           {" "}
           {props.langs.map((lang, index) => {
