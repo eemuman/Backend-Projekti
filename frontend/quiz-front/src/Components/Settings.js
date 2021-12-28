@@ -13,10 +13,13 @@ export default function Settings(props) {
   const [primaryLang, setPrimaryLang] = useState("");
   const [secondaryLang, setSecondaryLang] = useState("");
   const [amountofWords, setAmountofWords] = useState("");
+  const [curTheme, setCurTheme] = useState("");
   const [langs, setLangs] = useState([]);
+  const [themes, setThemes] = useState([]);
 
   useEffect(() => {
     setLangs(["Test", "Test2", "Test3", "Test4"]);
+    setThemes(["Kaikki", "Eläimet", "Värit", "Numerot"]);
   }, []);
 
   const handlePrimary = (e) => {
@@ -29,6 +32,10 @@ export default function Settings(props) {
 
   const handleAmount = (e) => {
     setAmountofWords(e.target.value);
+  };
+
+  const handleTheme = (e) => {
+    setCurTheme(e.target.value);
   };
 
   return (
@@ -59,7 +66,7 @@ export default function Settings(props) {
         </Typography>
         <Grid
           container
-          spacing={2}
+          spacing={1}
           justifyContent="space-evenly"
           alignItems="center"
         >
@@ -91,12 +98,12 @@ export default function Settings(props) {
           <Grid item>
             <div>Sanojen määrä</div>
             <FormControl sx={{ m: 1 }}>
-              <InputLabel id={"WORDLBL"}>Sanojen määrä</InputLabel>
+              <InputLabel id={"WORDLBL"}>Määrä</InputLabel>
               <Select
                 labelId="Amount of Words"
                 id="AmountofWords"
                 value={amountofWords}
-                label="Sanojen määrä"
+                label="Määrä"
                 onChange={handleAmount}
               >
                 <MenuItem value={5}>Viisi</MenuItem>
@@ -105,6 +112,27 @@ export default function Settings(props) {
                 <MenuItem value={20}>Kaksikymmentä</MenuItem>
               </Select>
               <FormHelperText>VALITSE HALUTTU MÄÄRÄ SANOJA</FormHelperText>
+            </FormControl>
+          </Grid>
+          <Grid item>
+            <div>Sanojen teema</div>
+
+            <FormControl sx={{ m: 1 }}>
+              <InputLabel id={"THMLBL"}>Teema</InputLabel>
+              <Select
+                labelId="Theme"
+                id="Themes"
+                value={curTheme}
+                label="teema"
+                onChange={handleTheme}
+              >
+                {themes.map((theme, index) => (
+                  <MenuItem key={index} value={index}>
+                    {theme}
+                  </MenuItem>
+                ))}
+              </Select>
+              <FormHelperText>VALITSE SANOJEN TEEMA</FormHelperText>
             </FormControl>
           </Grid>
         </Grid>
