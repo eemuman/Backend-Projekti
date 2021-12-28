@@ -10,11 +10,7 @@ import FormHelperText from "@mui/material/FormHelperText";
 import MenuItem from "@mui/material/MenuItem";
 import SendIcon from "@mui/icons-material/Send";
 
-export default function Settings() {
-  const [primaryLang, setPrimaryLang] = useState("");
-  const [secondaryLang, setSecondaryLang] = useState("");
-  const [amountofWords, setAmountofWords] = useState("");
-  const [curTheme, setCurTheme] = useState("");
+export default function Settings(props) {
   const [isDisabled, setDisabled] = useState(true);
   const [langs, setLangs] = useState([]);
   const [themes, setThemes] = useState([]);
@@ -26,29 +22,34 @@ export default function Settings() {
 
   useEffect(() => {
     if (
-      primaryLang !== "" &&
-      secondaryLang !== "" &&
-      amountofWords !== "" &&
-      curTheme !== ""
+      props.primaryLang !== "" &&
+      props.secondaryLang !== "" &&
+      props.amountofWords !== "" &&
+      props.curTheme !== ""
     ) {
       setDisabled(false);
     }
-  }, [primaryLang, secondaryLang, amountofWords, curTheme]);
+  }, [
+    props.primaryLang,
+    props.secondaryLang,
+    props.amountofWords,
+    props.curTheme,
+  ]);
 
   const handlePrimary = (e) => {
-    setPrimaryLang(e.target.value);
+    props.setPrimaryLang(e.target.value);
   };
 
   const handleSecondary = (e) => {
-    setSecondaryLang(e.target.value);
+    props.setSecondaryLang(e.target.value);
   };
 
   const handleAmount = (e) => {
-    setAmountofWords(e.target.value);
+    props.setAmountofWords(e.target.value);
   };
 
   const handleTheme = (e) => {
-    setCurTheme(e.target.value);
+    props.setCurTheme(e.target.value);
   };
 
   return (
@@ -90,8 +91,8 @@ export default function Settings() {
               id="Primary helper"
               label="Kysymyskieli"
               handle={handlePrimary}
-              curLang={primaryLang}
-              secondLang={secondaryLang}
+              curLang={props.primaryLang}
+              secondLang={props.secondaryLang}
               langs={langs}
               helperTxt="VALITSE KYSYTTÄVÄN SANAN KIELI"
             />
@@ -102,8 +103,8 @@ export default function Settings() {
               id="Secondary helper"
               label="Vastauskieli"
               handle={handleSecondary}
-              curLang={secondaryLang}
-              secondLang={primaryLang}
+              curLang={props.secondaryLang}
+              secondLang={props.primaryLang}
               langs={langs}
               helperTxt="VALITSE VASTATTAVAN SANAN KIELI"
             />
@@ -116,7 +117,7 @@ export default function Settings() {
               <Select
                 labelId="Amount of Words"
                 id="AmountofWords"
-                value={amountofWords}
+                value={props.amountofWords}
                 label="Määrä"
                 onChange={handleAmount}
               >
@@ -136,7 +137,7 @@ export default function Settings() {
               <Select
                 labelId="Theme"
                 id="Themes"
-                value={curTheme}
+                value={props.curTheme}
                 label="teema"
                 onChange={handleTheme}
               >
