@@ -12,10 +12,12 @@ export default function Main() {
   const [curTheme, setCurTheme] = useState("");
 
   useEffect(() => {
-    setPrimaryLang("");
-    setSecondaryLang("");
-    setAmountofWords("");
-    setCurTheme("");
+    if (!isPlaying) {
+      setPrimaryLang("");
+      setSecondaryLang("");
+      setAmountofWords("");
+      setCurTheme("");
+    }
   }, [isPlaying]);
 
   return (

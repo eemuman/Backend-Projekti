@@ -14,7 +14,7 @@ export default function LangMenu(props) {
         <Select
           labelId={props.labelId}
           id={props.id}
-          value={props.curLang}
+          defaultValue=""
           label={props.label}
           onChange={props.handle}
         >

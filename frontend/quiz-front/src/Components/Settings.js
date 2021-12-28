@@ -121,7 +121,7 @@ export default function Settings(props) {
               <Select
                 labelId="Amount of Words"
                 id="AmountofWords"
-                value={props.amountofWords}
+                defaultValue=""
                 label="Määrä"
                 onChange={handleAmount}
               >
@@ -141,7 +141,7 @@ export default function Settings(props) {
               <Select
                 labelId="Theme"
                 id="Themes"
-                value={props.curTheme}
+                defaultValue=""
                 label="teema"
                 onChange={handleTheme}
               >
