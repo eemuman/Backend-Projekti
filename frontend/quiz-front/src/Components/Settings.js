@@ -16,7 +16,7 @@ export default function Settings(props) {
   const [themes, setThemes] = useState([]);
 
   useEffect(() => {
-    setLangs(["Test", "Test2", "Test3", "Test4"]);
+    setLangs(["Suomi", "Englanti", "Ruotsi", "Saksa"]);
     setThemes(["Kaikki", "Eläimet", "Värit", "Numerot"]);
   }, []);
 
@@ -50,6 +50,10 @@ export default function Settings(props) {
 
   const handleTheme = (e) => {
     props.setCurTheme(e.target.value);
+  };
+
+  const handleClickkeri = () => {
+    props.setIsPlaying(true);
   };
 
   return (
@@ -157,6 +161,7 @@ export default function Settings(props) {
                 disabled={isDisabled}
                 variant="contained"
                 color="success"
+                onClick={handleClickkeri}
                 endIcon={<SendIcon />}
               >
                 PELAAMAAN
