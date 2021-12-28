@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import LangMenu from "./LangMenu";
-import { Grid, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import FormHelperText from "@mui/material/FormHelperText";
 import MenuItem from "@mui/material/MenuItem";
+import SendIcon from "@mui/icons-material/Send";
 
-export default function Settings(props) {
+export default function Settings() {
   const [primaryLang, setPrimaryLang] = useState("");
   const [secondaryLang, setSecondaryLang] = useState("");
   const [amountofWords, setAmountofWords] = useState("");
   const [curTheme, setCurTheme] = useState("");
+  const [isDisabled, setDisabled] = useState(true);
   const [langs, setLangs] = useState([]);
   const [themes, setThemes] = useState([]);
 
@@ -21,6 +23,17 @@ export default function Settings(props) {
     setLangs(["Test", "Test2", "Test3", "Test4"]);
     setThemes(["Kaikki", "Eläimet", "Värit", "Numerot"]);
   }, []);
+
+  useEffect(() => {
+    if (
+      primaryLang !== "" &&
+      secondaryLang !== "" &&
+      amountofWords !== "" &&
+      curTheme !== ""
+    ) {
+      setDisabled(false);
+    }
+  }, [primaryLang, secondaryLang, amountofWords, curTheme]);
 
   const handlePrimary = (e) => {
     setPrimaryLang(e.target.value);
@@ -69,6 +82,7 @@ export default function Settings(props) {
           spacing={1}
           justifyContent="space-evenly"
           alignItems="center"
+          direction={{ xs: "column", sm: "column", md: "row" }}
         >
           <Grid item>
             <LangMenu
@@ -133,6 +147,19 @@ export default function Settings(props) {
                 ))}
               </Select>
               <FormHelperText>VALITSE SANOJEN TEEMA</FormHelperText>
+            </FormControl>
+          </Grid>
+          <Grid item>
+            <FormControl sx={{ m: 1 }}>
+              <Button
+                style={{ width: 200, height: 60 }}
+                disabled={isDisabled}
+                variant="contained"
+                color="success"
+                endIcon={<SendIcon />}
+              >
+                PELAAMAAN
+              </Button>
             </FormControl>
           </Grid>
         </Grid>
