@@ -125,10 +125,11 @@ export default function Settings(props) {
                 label="Määrä"
                 onChange={handleAmount}
               >
+                <MenuItem value={1}>Yksi</MenuItem>
+                <MenuItem value={3}>Kolme</MenuItem>
                 <MenuItem value={5}>Viisi</MenuItem>
+                <MenuItem value={7}>Seitsemän</MenuItem>
                 <MenuItem value={10}>Kymmenen</MenuItem>
-                <MenuItem value={15}>Viisitoista</MenuItem>
-                <MenuItem value={20}>Kaksikymmentä</MenuItem>
               </Select>
               <FormHelperText>VALITSE HALUTTU MÄÄRÄ SANOJA</FormHelperText>
             </FormControl>
