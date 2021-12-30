@@ -22,4 +22,16 @@ module.exports = {
       });
     });
   },
+
+  getWordsLang: (lang) => {
+    return new Promise((resolve, reject) => {
+      connection.query(
+        `SELECT * FROM words WHERE ${lang} IS NOT NULL`,
+        (err, res) => {
+          if (err) reject(err);
+          resolve(res);
+        }
+      );
+    });
+  },
 };
