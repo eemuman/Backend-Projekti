@@ -9,6 +9,7 @@ import InputLabel from "@mui/material/InputLabel";
 import FormHelperText from "@mui/material/FormHelperText";
 import MenuItem from "@mui/material/MenuItem";
 import SendIcon from "@mui/icons-material/Send";
+const axios = require("axios").default;
 
 export default function Settings(props) {
   const [isDisabled, setDisabled] = useState(true);
@@ -16,8 +17,15 @@ export default function Settings(props) {
   const [themes, setThemes] = useState([]);
 
   useEffect(() => {
-    setLangs(["Suomi", "Englanti", "Ruotsi", "Saksa"]);
-    setThemes(["Kaikki", "Eläimet", "Värit", "Numerot"]);
+    async function fetchAll() {
+      const langs = await axios.get("http://localhost:8080/langs");
+      console.log(langs);
+      setLangs(langs);
+      const themes = await axios.get("http://localhost:8080/themes");
+      console.log(themes);
+      setThemes(themes);
+    }
+    fetchAll();
   }, []);
 
   useEffect(() => {

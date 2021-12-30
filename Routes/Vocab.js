@@ -1,8 +1,18 @@
 const express = require("express");
 router = express.Router();
-const conn = require("../connections");
 router.use(express.json());
-var connection = conn.sConnection;
+
+const mysql = require("mysql");
+
+config = {
+  connectionLimit: 10,
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DB,
+};
+
+const connection = mysql.createPool(config);
 
 module.exports = {
   getThemes: () => {
