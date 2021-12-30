@@ -9,3 +9,41 @@ app.get("/themes", async (req, res) => {
     res.status(400).send(err);
   }
 });
+
+app.get("/langs", async (req, res) => {
+  try {
+    const langs = await vocab.getLangs();
+    res.send(langs);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
+
+app.get("/words", async (req, res) => {
+  try {
+    if (req.query.primLang != null && req.query.secondLang != null) {
+      if (req.query.theme_id == null) req.query.theme_id = 0;
+
+      const wantedWords = await vocab.getWantedWords(
+        req.query.primLang,
+        req.query.secondLang,
+        req.query.theme_id
+      );
+      res.send(wantedWords);
+    } else {
+      const allWords = await vocab.getAllWords();
+      res.send(allWords);
+    }
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
+
+app.get("/words/:lang", async (req, res) => {
+  try {
+    const allWordsLang = await vocab.getWordsLang(req.params.lang);
+    res.send(allWordsLang);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
