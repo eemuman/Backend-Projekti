@@ -34,4 +34,15 @@ module.exports = {
       );
     });
   },
+  getWantedWords: (primLang, secondLang, theme_id) => {
+    return new Promise((resolve, reject) => {
+      connection.query(
+        `SELECT ${primLang}, ${secondLang} FROM words WHERE ${primLang} IS NOT NULL AND ${secondLang} IS NOT NULL AND theme_id = ${theme_id}`,
+        (err, res) => {
+          if (err) reject(err);
+          resolve(res);
+        }
+      );
+    });
+  },
 };
