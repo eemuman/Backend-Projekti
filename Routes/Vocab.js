@@ -14,6 +14,15 @@ module.exports = {
     });
   },
 
+  getLangs: () => {
+    return new Promise((resolve, reject) => {
+      connection.query("SELECT * From langs", (err, res) => {
+        if (err) reject(err);
+        resolve(res);
+      });
+    });
+  },
+
   getAllWords: () => {
     return new Promise((resolve, reject) => {
       connection.query("SELECT * FROM words", (err, res) => {
@@ -36,13 +45,15 @@ module.exports = {
   },
   getWantedWords: (primLang, secondLang, theme_id) => {
     return new Promise((resolve, reject) => {
-      connection.query(
-        `SELECT ${primLang}, ${secondLang} FROM words WHERE ${primLang} IS NOT NULL AND ${secondLang} IS NOT NULL AND theme_id = ${theme_id}`,
-        (err, res) => {
-          if (err) reject(err);
-          resolve(res);
-        }
-      );
+      const sqlQuery =
+        theme_id !== 0
+          ? `SELECT ${primLang}, ${secondLang} FROM words WHERE ${primLang} IS NOT NULL AND ${secondLang} IS NOT NULL AND theme_id = ${theme_id}`
+          : `SELECT ${primLang}, ${secondLang} FROM words WHERE ${primLang} IS NOT NULL AND ${secondLang} IS NOT NULL`;
+
+      connection.query(sqlQuery, (err, res) => {
+        if (err) reject(err);
+        resolve(res);
+      });
     });
   },
 };
