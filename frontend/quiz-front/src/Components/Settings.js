@@ -19,11 +19,11 @@ export default function Settings(props) {
   useEffect(() => {
     async function fetchAll() {
       const langs = await axios.get("http://localhost:8080/langs");
-      console.log(langs);
-      setLangs(langs);
+      console.log(langs.data);
+      setLangs(langs.data);
       const themes = await axios.get("http://localhost:8080/themes");
-      console.log(themes);
-      setThemes(themes);
+      console.log(themes.data);
+      setThemes(themes.data);
     }
     fetchAll();
   }, []);
@@ -156,7 +156,7 @@ export default function Settings(props) {
               >
                 {themes.map((theme, index) => (
                   <MenuItem key={index} value={index}>
-                    {theme}
+                    {theme.name}
                   </MenuItem>
                 ))}
               </Select>

@@ -17,7 +17,7 @@ const connection = mysql.createPool(config);
 module.exports = {
   getThemes: () => {
     return new Promise((resolve, reject) => {
-      connection.query("SELECT * FROM themes", (err, res) => {
+      connection.query("SELECT name FROM themes", (err, res) => {
         if (err) reject(err);
         resolve(res);
       });
@@ -26,7 +26,7 @@ module.exports = {
 
   getLangs: () => {
     return new Promise((resolve, reject) => {
-      connection.query("SELECT * From langs", (err, res) => {
+      connection.query("SELECT Name From langs", (err, res) => {
         if (err) reject(err);
         resolve(res);
       });

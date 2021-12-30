@@ -16,6 +16,7 @@ app.use(cors());
 app.get(`/themes`, async (req, res) => {
   try {
     const themes = await vocab.getThemes();
+    console.log(themes);
     res.send(themes);
   } catch (err) {
     console.log(err);

@@ -6,6 +6,7 @@ import InputLabel from "@mui/material/InputLabel";
 import FormHelperText from "@mui/material/FormHelperText";
 
 export default function LangMenu(props) {
+  console.log(props.secondLang);
   return (
     <div>
       <div>{props.label}</div>
@@ -20,16 +21,16 @@ export default function LangMenu(props) {
         >
           {" "}
           {props.langs.map((lang, index) => {
-            if (lang !== props.secondLang) {
+            if (lang.Name !== props.secondLang.Name) {
               return (
                 <MenuItem key={index} value={lang}>
-                  {lang}
+                  {lang.Name}
                 </MenuItem>
               );
             } else {
               return (
                 <MenuItem disabled key={index} value={lang}>
-                  {lang}
+                  {lang.Name}
                 </MenuItem>
               );
             }
