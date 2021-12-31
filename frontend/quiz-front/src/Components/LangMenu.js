@@ -6,7 +6,6 @@ import InputLabel from "@mui/material/InputLabel";
 import FormHelperText from "@mui/material/FormHelperText";
 
 export default function LangMenu(props) {
-  console.log(props.secondLang);
   return (
     <div>
       <div>{props.label}</div>
