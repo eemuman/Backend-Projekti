@@ -19,10 +19,8 @@ export default function Settings(props) {
   useEffect(() => {
     async function fetchAll() {
       const langs = await axios.get("http://localhost:8080/langs");
-      console.log(langs.data);
       setLangs(langs.data);
       const themes = await axios.get("http://localhost:8080/themes");
-      console.log(themes.data);
       setThemes(themes.data);
     }
     fetchAll();
@@ -45,11 +43,11 @@ export default function Settings(props) {
   ]);
 
   const handlePrimary = (e) => {
-    props.setPrimaryLang(e.target.value);
+    props.setPrimaryLang(e.target.value.Name);
   };
 
   const handleSecondary = (e) => {
-    props.setSecondaryLang(e.target.value);
+    props.setSecondaryLang(e.target.value.Name);
   };
 
   const handleAmount = (e) => {
@@ -57,7 +55,8 @@ export default function Settings(props) {
   };
 
   const handleTheme = (e) => {
-    props.setCurTheme(e.target.value);
+    console.log(e.target.value.name);
+    props.setCurTheme(e.target.value.name);
   };
 
   const handleClickkeri = () => {
@@ -155,7 +154,7 @@ export default function Settings(props) {
                 onChange={handleTheme}
               >
                 {themes.map((theme, index) => (
-                  <MenuItem key={index} value={index}>
+                  <MenuItem key={index} value={theme}>
                     {theme.name}
                   </MenuItem>
                 ))}
