@@ -14,8 +14,6 @@ import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 
 export default function Play(props) {
-  const testData1 = ["TEST", "TEST", "TEST", "TEST", "TEST"];
-  const testData2 = ["TEST", "TEST", "TEST", "TEST", "TEST"];
   const [answArray, setAnswArray] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [isVis, setisVis] = useState("none");
@@ -42,12 +40,11 @@ export default function Play(props) {
     answArray.map((ans, index) => {
       const upd = [...answArray];
       upd[index].correct =
-        ans.data.toLowerCase() === testData2[index].toLowerCase()
+        ans.data.toLowerCase() === props.secondaryWords[index].toLowerCase()
           ? true
           : false;
 
       upd[index].disabled = true;
-      console.log(answArray[index].markVis);
       setisVis("inline-block");
       setAnswArray(upd);
       return ans;
@@ -111,7 +108,7 @@ export default function Play(props) {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {testData1.map((test, index) => (
+                    {props.primaryWords.map((test, index) => (
                       <TableRow key={index}>
                         <TableCell align="center">{test}</TableCell>
                         <TableCell align="center">
