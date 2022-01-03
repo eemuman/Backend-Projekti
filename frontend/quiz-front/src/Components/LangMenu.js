@@ -20,7 +20,7 @@ export default function LangMenu(props) {
         >
           {" "}
           {props.langs.map((lang, index) => {
-            if (lang.Name !== props.secondLang.Name) {
+            if (lang.Name !== props.secondLang) {
               return (
                 <MenuItem key={index} value={lang}>
                   {lang.Name}
