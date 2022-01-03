@@ -27,6 +27,7 @@ app.get(`/themes`, async (req, res) => {
 app.get(`/langs`, async (req, res) => {
   try {
     const langs = await vocab.getLangs();
+    console.log(langs);
     res.send(langs);
   } catch (err) {
     res.status(400).send(err);
@@ -34,14 +35,15 @@ app.get(`/langs`, async (req, res) => {
 });
 
 app.get(`/words`, async (req, res) => {
+  console.log(req.query);
   try {
     if (req.query.primLang != null && req.query.secondLang != null) {
       if (req.query.theme_id == null) req.query.theme_id = 0;
-
       const wantedWords = await vocab.getWantedWords(
         req.query.primLang,
         req.query.secondLang,
-        req.query.theme_id
+        req.query.theme_id,
+        req.query.amountofWords
       );
       res.send(wantedWords);
     } else {
