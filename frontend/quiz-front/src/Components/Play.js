@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -14,54 +14,37 @@ import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 
 export default function Play(props) {
-  const [answArray, setAnswArray] = useState([]);
-  const [loaded, setLoaded] = useState(false);
   const [isVis, setisVis] = useState("none");
 
   const style = { display: isVis, marginTop: "0.75em" };
 
-  useEffect(() => {
-    const test = Array(props.amountofWords)
-      .fill()
-      .map(() => ({
-        correct: false,
-        disabled: false,
-        data: "",
-      }));
-    setAnswArray(test);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    setLoaded(true);
-  }, [answArray]);
-
   const checkAnsw = () => {
-    answArray.map((ans, index) => {
-      const upd = [...answArray];
+    props.answArray.map((ans, index) => {
+      const upd = [...props.answArray];
       upd[index].correct =
-        ans.data.toLowerCase() === props.secondaryWords[index].toLowerCase()
+        ans.data.toLowerCase() ===
+        props.words[index][props.secondaryLang].toLowerCase()
           ? true
           : false;
 
       upd[index].disabled = true;
       setisVis("inline-block");
-      setAnswArray(upd);
+      props.setAnswArray(upd);
       return ans;
     });
   };
 
   const handleData = (index, e) => {
-    const upd = [...answArray];
+    const upd = [...props.answArray];
     upd[index].data = e.target.value;
-    setAnswArray(upd);
+    props.setAnswArray(upd);
   };
 
   const handleBack = () => {
-    props.setIsPlaying(false);
+    props.setIsPlaying();
   };
 
-  if (!loaded) {
+  if (props.answArray === null) {
     return <div>LOADING</div>;
   } else {
     return (
@@ -101,25 +84,29 @@ export default function Play(props) {
                 <Table aria-label="simple table" sx={{ tableLayout: "fixed" }}>
                   <TableHead>
                     <TableRow>
-                      <TableCell align="center">{props.primaryLang}</TableCell>
                       <TableCell align="center">
-                        {props.secondaryLang}
+                        <strong>{props.primaryLang}</strong>
+                      </TableCell>
+                      <TableCell align="center">
+                        <strong> {props.secondaryLang}</strong>
                       </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {props.primaryWords.map((test, index) => (
+                    {props.words.map((test, index) => (
                       <TableRow key={index}>
-                        <TableCell align="center">{test}</TableCell>
+                        <TableCell align="center">
+                          <strong>{test[props.primaryLang]}</strong>
+                        </TableCell>
                         <TableCell align="center">
                           <TextField
                             id={index.toString()}
                             label="Vastaus tähän"
                             variant="standard"
-                            disabled={answArray[index].disabled}
+                            disabled={props.answArray[index].disabled}
                             onChange={(e) => handleData(index, e)}
                           />
-                          {answArray[index].correct ? (
+                          {props.answArray[index].correct ? (
                             <CheckOutlinedIcon color="success" sx={style} />
                           ) : (
                             <ClearOutlinedIcon color="error" sx={style} />
