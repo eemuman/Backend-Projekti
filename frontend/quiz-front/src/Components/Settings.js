@@ -9,6 +9,9 @@ import InputLabel from "@mui/material/InputLabel";
 import FormHelperText from "@mui/material/FormHelperText";
 import MenuItem from "@mui/material/MenuItem";
 import SendIcon from "@mui/icons-material/Send";
+import Alert from "@mui/material/Alert";
+import Snackbar from "@mui/material/Snackbar";
+import Slide from "@mui/material/Slide";
 const axios = require("axios").default;
 
 export default function Settings(props) {
@@ -55,7 +58,6 @@ export default function Settings(props) {
   };
 
   const handleTheme = (e) => {
-    console.log(e.target.value.name);
     props.setCurTheme(e.target.value.name);
   };
 
@@ -63,8 +65,29 @@ export default function Settings(props) {
     props.setIsPlaying(true);
   };
 
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    props.setFalse(false);
+  };
+
   return (
     <div>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        TransitionComponent={Slide}
+        open={props.false}
+        autoHideDuration={4000}
+        onClose={handleClose}
+      >
+        <Alert onClose={handleClose} severity="error" variant="filled">
+          {`Halutuilla vaihtoehdoilla ei löytynyt tarpeeksi sanoja! \n
+          Yritä
+          uudestaan!`}
+        </Alert>
+      </Snackbar>
       <Box
         sx={{
           border: 1,
