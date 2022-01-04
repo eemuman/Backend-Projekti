@@ -9,6 +9,10 @@ import InputLabel from "@mui/material/InputLabel";
 import FormHelperText from "@mui/material/FormHelperText";
 import MenuItem from "@mui/material/MenuItem";
 import SendIcon from "@mui/icons-material/Send";
+import Alert from "@mui/material/Alert";
+import Snackbar from "@mui/material/Snackbar";
+import Slide from "@mui/material/Slide";
+const axios = require("axios").default;
 
 export default function Settings(props) {
   const [isDisabled, setDisabled] = useState(true);
@@ -16,8 +20,13 @@ export default function Settings(props) {
   const [themes, setThemes] = useState([]);
 
   useEffect(() => {
-    setLangs(["Suomi", "Englanti", "Ruotsi", "Saksa"]);
-    setThemes(["Kaikki", "Eläimet", "Värit", "Numerot"]);
+    async function fetchAll() {
+      const langs = await axios.get("http://localhost:8080/langs");
+      setLangs(langs.data);
+      const themes = await axios.get("http://localhost:8080/themes");
+      setThemes(themes.data);
+    }
+    fetchAll();
   }, []);
 
   useEffect(() => {
@@ -37,11 +46,11 @@ export default function Settings(props) {
   ]);
 
   const handlePrimary = (e) => {
-    props.setPrimaryLang(e.target.value);
+    props.setPrimaryLang(e.target.value.Name);
   };
 
   const handleSecondary = (e) => {
-    props.setSecondaryLang(e.target.value);
+    props.setSecondaryLang(e.target.value.Name);
   };
 
   const handleAmount = (e) => {
@@ -49,15 +58,36 @@ export default function Settings(props) {
   };
 
   const handleTheme = (e) => {
-    props.setCurTheme(e.target.value);
+    props.setCurTheme(e.target.value.name);
   };
 
   const handleClickkeri = () => {
-    props.setIsPlaying(true);
+    props.fetchData();
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    props.setFalse(false);
   };
 
   return (
     <div>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        TransitionComponent={Slide}
+        open={props.false}
+        autoHideDuration={4000}
+        onClose={handleClose}
+      >
+        <Alert onClose={handleClose} severity="error" variant="filled">
+          {`Halutuilla vaihtoehdoilla ei löytynyt tarpeeksi sanoja! \n
+          Yritä
+          uudestaan!`}
+        </Alert>
+      </Snackbar>
       <Box
         sx={{
           border: 1,
@@ -147,8 +177,8 @@ export default function Settings(props) {
                 onChange={handleTheme}
               >
                 {themes.map((theme, index) => (
-                  <MenuItem key={index} value={index}>
-                    {theme}
+                  <MenuItem key={index} value={theme}>
+                    {theme.name}
                   </MenuItem>
                 ))}
               </Select>
