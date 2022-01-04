@@ -3,43 +3,55 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 import Settings from "../Components/Settings";
 import Play from "../Components/Play";
+
 const axios = require("axios").default;
 
 export default function Main() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [primaryLang, setPrimaryLang] = useState("");
-  const [primaryWords, setPrimaryWords] = useState([]);
-  const [secondaryWords, setSecondaryWords] = useState([]);
+  const [fetchedWords, setFetchedWords] = useState({});
   const [secondaryLang, setSecondaryLang] = useState("");
   const [amountofWords, setAmountofWords] = useState("");
+  const [answArray, setAnswArray] = useState([]);
   const [curTheme, setCurTheme] = useState("");
+  const [isFalse, setIsFalse] = useState(false);
 
-  useEffect(() => {
-    async function getWords() {
-      console.log(curTheme);
-      const wantedWords = await axios.get("http://localhost:8080/words", {
-        params: {
-          primLang: primaryLang,
-          secondLang: secondaryLang,
-          theme_id: curTheme,
-          amountofWords: amountofWords,
-        },
-      });
-      const primWords = wantedWords.data.map((word) => word[primaryLang]);
-      const secWords = wantedWords.data.map((word) => word[secondaryLang]);
+  const fetchData = async () => {
+    const wantedWords = await axios.get("http://localhost:8080/words", {
+      params: {
+        primLang: primaryLang,
+        secondLang: secondaryLang,
+        theme_id: curTheme,
+        amountofWords: amountofWords,
+      },
+    });
+    wantedWords.data.length === amountofWords
+      ? setFetchedWords(wantedWords.data)
+      : setIsFalse(true);
+  };
 
-      console.log(primaryLang);
-      setPrimaryWords(primWords);
-      setSecondaryWords(secWords);
-    }
-    if (isPlaying) {
-      getWords();
-    }
+  const resetAll = () => {
     setPrimaryLang("");
     setSecondaryLang("");
     setAmountofWords("");
     setCurTheme("");
-  }, [isPlaying]);
+    setIsFalse(false);
+    setIsPlaying(false);
+  };
+
+  useEffect(() => {
+    if (Object.keys(fetchedWords).length !== 0) {
+      const test = Array(fetchedWords.length)
+        .fill()
+        .map(() => ({
+          correct: false,
+          disabled: false,
+          data: "",
+        }));
+      setAnswArray(test);
+      setIsPlaying(true);
+    }
+  }, [fetchedWords]);
 
   return (
     <React.Fragment>
@@ -55,17 +67,19 @@ export default function Main() {
             setAmountofWords={setAmountofWords}
             curTheme={curTheme}
             setCurTheme={setCurTheme}
-            setIsPlaying={setIsPlaying}
+            fetchData={fetchData}
+            false={isFalse}
+            setFalse={setIsFalse}
           />
         ) : (
           <Play
+            words={fetchedWords}
+            answArray={answArray}
+            setAnswArray={setAnswArray}
             primaryLang={primaryLang}
-            primaryWords={primaryWords}
-            secondaryWords={secondaryWords}
             secondaryLang={secondaryLang}
-            amountofWords={amountofWords}
             curTheme={curTheme}
-            setIsPlaying={setIsPlaying}
+            setIsPlaying={resetAll}
           ></Play>
         )}
       </Container>

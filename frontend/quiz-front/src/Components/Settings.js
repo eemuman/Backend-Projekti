@@ -62,7 +62,7 @@ export default function Settings(props) {
   };
 
   const handleClickkeri = () => {
-    props.setIsPlaying(true);
+    props.fetchData();
   };
 
   const handleClose = (event, reason) => {
