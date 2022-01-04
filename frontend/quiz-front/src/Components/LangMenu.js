@@ -20,16 +20,16 @@ export default function LangMenu(props) {
         >
           {" "}
           {props.langs.map((lang, index) => {
-            if (lang !== props.secondLang) {
+            if (lang.Name !== props.secondLang) {
               return (
                 <MenuItem key={index} value={lang}>
-                  {lang}
+                  {lang.Name}
                 </MenuItem>
               );
             } else {
               return (
                 <MenuItem disabled key={index} value={lang}>
-                  {lang}
+                  {lang.Name}
                 </MenuItem>
               );
             }
