@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from "react";
-import Box from "@mui/material/Box";
 import LangMenu from "./LangMenu";
-import { Button, Grid, Typography } from "@mui/material";
+import {
+  Button,
+  Grid,
+  Typography,
+  Box,
+  Select,
+  FormControl,
+  InputLabel,
+  FormHelperText,
+  MenuItem,
+  SendIcon,
+  Alert,
+  Snackbar,
+  Slide,
+} from "@mui/material";
 import { grey } from "@mui/material/colors";
-import Select from "@mui/material/Select";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import FormHelperText from "@mui/material/FormHelperText";
-import MenuItem from "@mui/material/MenuItem";
-import SendIcon from "@mui/icons-material/Send";
-import Alert from "@mui/material/Alert";
-import Snackbar from "@mui/material/Snackbar";
-import Slide from "@mui/material/Slide";
 const axios = require("axios").default;
 
 export default function Settings(props) {
@@ -83,7 +87,7 @@ export default function Settings(props) {
         onClose={handleClose}
       >
         <Alert onClose={handleClose} severity="error" variant="filled">
-          {`Halutuilla vaihtoehdoilla ei löytynyt tarpeeksi sanoja! \n
+          {`Halutuilla vaihtoehdoilla ei löytynyt tarpeeksi sanoja!
           Yritä
           uudestaan!`}
         </Alert>
