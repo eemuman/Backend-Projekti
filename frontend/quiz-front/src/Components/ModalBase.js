@@ -27,6 +27,7 @@ export default function TransitionsModal(props) {
     <div>
       <Button onClick={handleOpen}>{props.btnTitle}</Button>
       <Modal
+        sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         open={open}
@@ -39,8 +40,8 @@ export default function TransitionsModal(props) {
       >
         <Fade in={open}>
           <Box sx={style}>
-            <Typography id="transition-modal-title" variant="h6" component="h2">
-              {props.title}
+            <Typography id="transition-modal-title" variant="h5" component="h2">
+              <strong>{props.title}</strong>
             </Typography>
             {props.form}
           </Box>
