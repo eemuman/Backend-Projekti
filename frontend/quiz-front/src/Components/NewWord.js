@@ -11,26 +11,21 @@ export default function NewWord(props) {
   const [newWord, setNewWord] = useState("");
 
   useEffect(() => {
-    const newWordBase = Array.from(props.langs)
-      .map((lang) => ({
-        [lang.Name]: "",
-      }))
-      .concat([{ Theme: "" }]);
-
+    const newWordBase = { Theme: "" };
+    props.langs.map((langg) => (newWordBase[langg.Name] = ""));
     setNewWord(newWordBase);
   }, [props.langs]);
 
   const handleChange = (index, e) => {
     const upd = newWord;
-    const key = Object.keys(upd[index]);
-    upd[index][key] = e.target.value;
+    upd[index] = e.target.value;
     console.log(upd);
     setNewWord(upd);
   };
 
   const handleTheme = (e) => {
     const upd = newWord;
-    upd[upd.length - 1].Theme = e.target.value.name;
+    upd.Theme = e.target.value.name;
     setNewWord(upd);
   };
 
@@ -51,7 +46,7 @@ export default function NewWord(props) {
             label={test.Name}
             variant="outlined"
             helperText={`Lisää sanan käännös kielelle ${test.Name}`}
-            onChange={(e) => handleChange(index, e)}
+            onChange={(e) => handleChange(test.Name, e)}
           />
         </Grid>
       ))}
