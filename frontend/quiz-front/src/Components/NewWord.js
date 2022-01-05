@@ -9,6 +9,7 @@ import Button from "@mui/material/Button";
 import InputLabel from "@mui/material/InputLabel";
 
 import SendIcon from "@mui/icons-material/Send";
+import { postWord } from "../Utils/AxiosUtils";
 
 export default function NewWord(props) {
   const [newWord, setNewWord] = useState("");
@@ -35,7 +36,7 @@ export default function NewWord(props) {
   };
 
   const handleClickkeri = () => {
-    //TODO...
+    postWord(newWord);
   };
 
   const checkDisabled = () => {
