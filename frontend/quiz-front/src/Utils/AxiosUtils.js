@@ -12,3 +12,12 @@ export const fetchData = async (dataToFetch) => {
     console.log(err);
   }
 };
+
+export const postWord = async ({ data }) => {
+  try {
+    const resp = await axios.post(`http://localhost:8080/words`, { data });
+    console.log(resp);
+  } catch (err) {
+    console.log(err);
+  }
+};
