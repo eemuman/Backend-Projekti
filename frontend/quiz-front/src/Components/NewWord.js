@@ -39,20 +39,17 @@ export default function NewWord(props) {
       <h3>Loading...</h3>
     </div>
   ) : (
-    <Grid
-      container
-      spacing={1}
-      justifyContent="center"
-      alignItems="center"
-      direction={{ xs: "column", sm: "column", md: "row" }}
-    >
+    <Grid container>
       {props.langs.map((test, index) => (
         <Grid key={index} item>
           <TextField
-            key={index}
+            fullWidth
+            autoComplete="off"
             id={index.toString()}
+            margin="normal"
+            key={index}
             label={test.Name}
-            variant="standard"
+            variant="outlined"
             helperText={`Lisää sanan käännös kielelle ${test.Name}`}
             onChange={(e) => handleChange(index, e)}
           />
@@ -74,7 +71,7 @@ export default function NewWord(props) {
               </MenuItem>
             ))}
           </Select>
-          <FormHelperText>VALITSE SANOJEN TEEMA</FormHelperText>
+          <FormHelperText>VALITSE SANAN TEEMA</FormHelperText>
         </FormControl>
       </Grid>
     </Grid>

@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 const style = {
   position: "absolute",
   top: "50%",
+  textAlign: "center",
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 400,
@@ -27,7 +28,7 @@ export default function TransitionsModal(props) {
     <div>
       <Button onClick={handleOpen}>{props.btnTitle}</Button>
       <Modal
-        sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+        sx={{ maxWidth: "100%" }}
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         open={open}
