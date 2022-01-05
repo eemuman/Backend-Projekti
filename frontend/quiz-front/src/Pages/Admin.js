@@ -7,6 +7,7 @@ import TabPanel from "@mui/lab/TabPanel";
 import Words from "../Components/Words";
 import Languages from "../Components/Languages";
 import Themes from "../Components/Themes";
+import { fetchData } from "../Utils/AxiosUtils";
 
 export default function Admin() {
   const [pageVal, setPageVal] = useState("1");
@@ -15,7 +16,15 @@ export default function Admin() {
   const [allWords, setAllWords] = useState([]);
 
   useEffect(() => {
-    //FETCH DATA
+    async function fetchAll() {
+      const langData = await fetchData("langs");
+      setLangs(langData);
+      const themeData = await fetchData("themes");
+      setThemes(themeData);
+      const wordData = await fetchData("words");
+      setAllWords(wordData);
+    }
+    fetchAll();
   }, []);
 
   const handleChange = (e, val) => {
