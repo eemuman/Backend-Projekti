@@ -5,10 +5,14 @@ import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import Button from "@mui/material/Button";
 import InputLabel from "@mui/material/InputLabel";
+
+import SendIcon from "@mui/icons-material/Send";
 
 export default function NewWord(props) {
   const [newWord, setNewWord] = useState("");
+  const [isDisabled, setIsDisabled] = useState(true);
 
   useEffect(() => {
     const newWordBase = { Theme: "" };
@@ -19,14 +23,27 @@ export default function NewWord(props) {
   const handleChange = (index, e) => {
     const upd = newWord;
     upd[index] = e.target.value;
-    console.log(upd);
     setNewWord(upd);
+    checkDisabled();
   };
 
   const handleTheme = (e) => {
     const upd = newWord;
     upd.Theme = e.target.value.name;
     setNewWord(upd);
+    checkDisabled();
+  };
+
+  const handleClickkeri = () => {
+    //TODO...
+  };
+
+  const checkDisabled = () => {
+    if (newWord.Suomi !== "" && newWord.Theme !== "") {
+      setIsDisabled(false);
+    } else {
+      setIsDisabled(true);
+    }
   };
 
   return newWord.length === 0 ? (
@@ -67,6 +84,21 @@ export default function NewWord(props) {
             ))}
           </Select>
           <FormHelperText>VALITSE SANAN TEEMA</FormHelperText>
+        </FormControl>
+      </Grid>
+      <Grid item>
+        {" "}
+        <FormControl sx={{ m: 1 }}>
+          <Button
+            style={{ width: 200, height: 60 }}
+            disabled={isDisabled}
+            variant="contained"
+            color="success"
+            onClick={handleClickkeri}
+            endIcon={<SendIcon />}
+          >
+            LUO UUSI
+          </Button>
         </FormControl>
       </Grid>
     </Grid>
