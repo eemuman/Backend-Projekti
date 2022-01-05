@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Typography, Box, Container, Tab } from "@mui/material";
 import TabContext from "@mui/lab/TabContext";
@@ -10,9 +10,22 @@ import Themes from "../Components/Themes";
 
 export default function Admin() {
   const [pageVal, setPageVal] = useState("1");
+  const [langs, setLangs] = useState([]);
+  const [themes, setThemes] = useState([]);
+  const [allWords, setAllWords] = useState([]);
+
+  useEffect(() => {
+    //FETCH DATA
+  }, []);
 
   const handleChange = (e, val) => {
     setPageVal(val);
+  };
+
+  const propsit = {
+    langs: langs,
+    themes: themes,
+    allWords: allWords,
   };
 
   return (
@@ -50,13 +63,13 @@ export default function Admin() {
               <Tab value="3" label="TEEMAT" />
             </TabList>
             <TabPanel value="1">
-              <Words />
+              <Words {...propsit} />
             </TabPanel>
             <TabPanel value="2">
-              <Languages />
+              <Languages {...propsit} />
             </TabPanel>
             <TabPanel value="3">
-              <Themes />
+              <Themes {...propsit} />
             </TabPanel>
           </TabContext>
         </Box>
