@@ -1,11 +1,82 @@
-import React from "react";
-import Box from "@mui/material/Box";
+import React, { useEffect, useState } from "react";
+import Grid from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
+import FormControl from "@mui/material/FormControl";
+import FormHelperText from "@mui/material/FormHelperText";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
 
-export default function NewWord() {
-  return (
-    <Box component="form">
-      <TextField id="TEST" label="Standard" variant="standard" />
-    </Box>
+export default function NewWord(props) {
+  const [newWord, setNewWord] = useState("");
+
+  useEffect(() => {
+    const newWordBase = Array.from(props.langs)
+      .map((lang) => ({
+        [lang.Name]: "",
+      }))
+      .concat([{ Theme: "" }]);
+
+    setNewWord(newWordBase);
+  }, [props.langs]);
+
+  const handleChange = (index, e) => {
+    const upd = newWord;
+    const key = Object.keys(upd[index]);
+    upd[index][key] = e.target.value;
+    console.log(upd);
+    setNewWord(upd);
+  };
+
+  const handleTheme = (e) => {
+    const upd = newWord;
+    upd[upd.length - 1].Theme = e.target.value.name;
+    setNewWord(upd);
+  };
+
+  return newWord.length === 0 ? (
+    <div>
+      <h3>Loading...</h3>
+    </div>
+  ) : (
+    <Grid
+      container
+      spacing={1}
+      justifyContent="center"
+      alignItems="center"
+      direction={{ xs: "column", sm: "column", md: "row" }}
+    >
+      {props.langs.map((test, index) => (
+        <Grid key={index} item>
+          <TextField
+            key={index}
+            id={index.toString()}
+            label={test.Name}
+            variant="standard"
+            helperText={`Lisää sanan käännös kielelle ${test.Name}`}
+            onChange={(e) => handleChange(index, e)}
+          />
+        </Grid>
+      ))}
+      <Grid item>
+        <FormControl sx={{ m: 3 }}>
+          <InputLabel id={"THMLBL"}>Teema</InputLabel>
+          <Select
+            labelId="Theme"
+            id="Themes"
+            defaultValue=""
+            label="teema"
+            onChange={handleTheme}
+          >
+            {props.themes.map((theme, index) => (
+              <MenuItem key={index} value={theme}>
+                {theme.name}
+              </MenuItem>
+            ))}
+          </Select>
+          <FormHelperText>VALITSE SANOJEN TEEMA</FormHelperText>
+        </FormControl>
+      </Grid>
+    </Grid>
   );
 }
