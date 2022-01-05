@@ -12,7 +12,7 @@ import SendIcon from "@mui/icons-material/Send";
 import Alert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 import Slide from "@mui/material/Slide";
-const axios = require("axios").default;
+import { fetchData } from "../Utils/AxiosUtils";
 
 export default function Settings(props) {
   const [isDisabled, setDisabled] = useState(true);
@@ -21,10 +21,10 @@ export default function Settings(props) {
 
   useEffect(() => {
     async function fetchAll() {
-      const langs = await axios.get("http://localhost:8080/langs");
-      setLangs(langs.data);
-      const themes = await axios.get("http://localhost:8080/themes");
-      setThemes(themes.data);
+      const langData = await fetchData("langs");
+      setLangs(langData);
+      const themeData = await fetchData("themes");
+      setThemes(themeData);
     }
     fetchAll();
   }, []);
