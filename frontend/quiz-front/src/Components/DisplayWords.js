@@ -11,15 +11,42 @@ import TableHead from "@mui/material/TableHead";
 import Paper from "@mui/material/Paper";
 import WordPagination from "./WordPagination";
 import WordHeader from "./WordHeader";
+import SortableHeader from "./SortableHeader";
 
 export default function DisplayWords(props) {
+  const [order, setOrder] = React.useState("asc");
+  const [orderBy, setOrderBy] = React.useState("calories");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [selected, setSelected] = useState([]);
 
+  const handleRequestSort = (event, property) => {
+    const isAsc = orderBy === property && order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
+    setOrderBy(property);
+  };
+
+  const descendingComparator = (a, b, orderBy) => {
+    if (b[orderBy] < a[orderBy]) {
+      return -1;
+    }
+    if (b[orderBy] > a[orderBy]) {
+      return 1;
+    }
+    return 0;
+  };
+
+  const getComparator = (order, orderBy) => {
+    return order === "desc"
+      ? (a, b) => descendingComparator(a, b, orderBy)
+      : (a, b) => -descendingComparator(a, b, orderBy);
+  };
+
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - props.words.length) : 0;
+    page > 0
+      ? Math.max(0, (1 + page) * rowsPerPage - props.allWords.length)
+      : 0;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -51,19 +78,19 @@ export default function DisplayWords(props) {
         {...props}
       />
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
-        <TableHead>
-          <TableRow>
-            {Object.entries(props.allWords[0]).map(([key]) => (
-              <TableCell align="center">{key}</TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
+        <SortableHeader
+          numSelected={selected.length}
+          order={order}
+          orderBy={orderBy}
+          onRequestSort={handleRequestSort}
+          rowCount={props.allWords.length}
+          headCells={props.allWords[0]}
+        />
         <TableBody>
           {(rowsPerPage > 0
-            ? props.allWords.slice(
-                page * rowsPerPage,
-                page * rowsPerPage + rowsPerPage
-              )
+            ? props.allWords
+                .sort(getComparator(order, orderBy))
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : props.allWords
           ).map((row) => {
             const isItemSelected = isSelected(row.id);
@@ -76,9 +103,7 @@ export default function DisplayWords(props) {
                 selected={isItemSelected}
               >
                 {Object.entries(row).map(([key, value]) => (
-                  <TableCell style={{ width: 160 }} align="center">
-                    {value}
-                  </TableCell>
+                  <TableCell style={{ width: 160 }}>{value}</TableCell>
                 ))}
               </TableRow>
             );
