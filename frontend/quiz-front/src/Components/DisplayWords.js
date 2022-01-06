@@ -40,14 +40,16 @@ export default function DisplayWords(props) {
       newSelected = newSelected.concat(name);
     }
 
-    console.log(newSelected);
-
     setSelected(newSelected);
   };
 
   return (
     <TableContainer component={Paper}>
-      <WordHeader numSelected={selected.length} {...props} />
+      <WordHeader
+        numSelected={selected.length}
+        selectedId={selected[0]}
+        {...props}
+      />
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
         <TableHead>
           <TableRow>
