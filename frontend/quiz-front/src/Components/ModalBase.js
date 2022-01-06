@@ -34,7 +34,7 @@ export default function TransitionsModal(props) {
           {props.variant}
         </IconButton>
       ) : (
-        <Button onClick={handleOpen} size="large">
+        <Button onClick={handleOpen} variant="outlined" size="large">
           {props.btnTitle}
         </Button>
       )}

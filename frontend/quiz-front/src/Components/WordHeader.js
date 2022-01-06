@@ -56,6 +56,7 @@ export default function WordHeader(props) {
               <ModalBase
                 btnTitle="Muokkaa valittua sanaa"
                 title="MUOKKAA SANAA"
+                isIcon={true}
                 variant={<EditIcon fontSize="large" />}
                 size="small"
                 form={
@@ -76,6 +77,7 @@ export default function WordHeader(props) {
             <ModalBase
               btnTitle="LUO UUSI SANA"
               title="LUO UUSI SANA"
+              isIcon={true}
               variant={<AddIcon fontSize="large" />}
               form={
                 <NewWord

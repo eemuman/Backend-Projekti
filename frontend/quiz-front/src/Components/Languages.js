@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ModalBase from "./ModalBase";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
 
-export default function Languages() {
-  console.log("COMING HERE! L");
+import Select from "@mui/material/Select";
+import Typography from "@mui/material/Typography";
+import InputLabel from "@mui/material/InputLabel";
+import { Grid } from "@mui/material";
+import RemoveAlert from "./RemoveAlert";
+import NewLangThem from "./NewLangThem";
+import LangTheme from "./LangTheme";
 
+export default function Languages(props) {
   return (
-    <div>
-      <ModalBase btnTitle="Luo Kieli" title="Luo uusi Kieli" />
-    </div>
+    <LangTheme
+      elemModified="KIELIÄ"
+      elem="KIELI"
+      elemSmallMod="Kielet"
+      isLang={true}
+      {...props}
+    />
   );
 }

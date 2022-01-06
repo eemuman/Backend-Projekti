@@ -35,7 +35,6 @@ export default function NewWord(props) {
   const handleTheme = (e) => {
     const upd = newWord;
     upd.theme_id = e.target.value;
-    console.log(upd);
     setNewWord(upd);
     checkDisabled();
   };

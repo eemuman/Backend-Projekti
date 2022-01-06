@@ -1,12 +1,14 @@
 import React from "react";
-import ModalBase from "./ModalBase";
+import LangTheme from "./LangTheme";
 
-export default function Themes() {
-  console.log("COMING HERE! T");
-
+export default function Themes(props) {
   return (
-    <div>
-      <ModalBase btnTitle="Luo Teema" title="Luo uusi Teema" />
-    </div>
+    <LangTheme
+      elemModified="TEEMOJA"
+      elem="TEEMA"
+      elemSmallMod="Teemat"
+      isLang={false}
+      {...props}
+    />
   );
 }
