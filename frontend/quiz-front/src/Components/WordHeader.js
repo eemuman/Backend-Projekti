@@ -11,7 +11,11 @@ import EditIcon from "@mui/icons-material/Edit";
 import NewWord from "./NewWord";
 
 export default function WordHeader(props) {
-  const { numSelected } = props;
+  const numSelected = props.numSelected;
+
+  const editWord = props.allWords.find((word) => word.id === props.selectedId);
+
+  console.log(editWord);
 
   return (
     <Toolbar
@@ -56,6 +60,13 @@ export default function WordHeader(props) {
                 title="MUOKKAA SANAA"
                 variant={<EditIcon fontSize="large" />}
                 size="small"
+                form={
+                  <NewWord
+                    langs={props.langs}
+                    themes={props.themes}
+                    editWord={editWord}
+                  />
+                }
               />
             </div>
           </Tooltip>
