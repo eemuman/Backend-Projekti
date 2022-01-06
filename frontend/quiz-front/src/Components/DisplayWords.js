@@ -91,7 +91,7 @@ export default function DisplayWords(props) {
             ? props.allWords
                 .sort(getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            : props.allWords
+            : props.allWords.sort(getComparator(order, orderBy))
           ).map((row) => {
             const isItemSelected = isSelected(row.id);
             return (
