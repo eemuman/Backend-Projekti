@@ -7,19 +7,23 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
 import InputLabel from "@mui/material/InputLabel";
-
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import SendIcon from "@mui/icons-material/Send";
 import { postWord } from "../Utils/AxiosUtils";
 
 export default function NewWord(props) {
   const [newWord, setNewWord] = useState("");
   const [isDisabled, setIsDisabled] = useState(true);
+  const isEdit = props.isEdit;
 
   useEffect(() => {
-    const newWordBase = { Theme: "" };
-    props.langs.map((langg) => (newWordBase[langg.Name] = ""));
-    setNewWord(newWordBase);
-  }, [props.langs]);
+    if (isEdit) setNewWord({ ...props.editWord });
+    else {
+      const newWordBase = { theme_id: "" };
+      props.langs.map((langg) => (newWordBase[langg.Name] = ""));
+      setNewWord(newWordBase);
+    }
+  }, [props.langs, props.editWord, isEdit]);
 
   const handleChange = (index, e) => {
     const upd = newWord;
@@ -30,7 +34,8 @@ export default function NewWord(props) {
 
   const handleTheme = (e) => {
     const upd = newWord;
-    upd.Theme = e.target.value.name;
+    upd.theme_id = e.target.value;
+    console.log(upd);
     setNewWord(upd);
     checkDisabled();
   };
@@ -40,7 +45,7 @@ export default function NewWord(props) {
   };
 
   const checkDisabled = () => {
-    if (newWord.Suomi !== "" && newWord.Theme !== "") {
+    if (newWord.Suomi !== "" && newWord.theme_id !== "") {
       setIsDisabled(false);
     } else {
       setIsDisabled(true);
@@ -62,6 +67,7 @@ export default function NewWord(props) {
             margin="normal"
             key={index}
             label={test.Name}
+            defaultValue={newWord[test.Name]}
             variant="outlined"
             helperText={`Lisää sanan käännös kielelle ${test.Name}`}
             onChange={(e) => handleChange(test.Name, e)}
@@ -72,14 +78,15 @@ export default function NewWord(props) {
         <FormControl sx={{ m: 3 }}>
           <InputLabel id={"THMLBL"}>Teema</InputLabel>
           <Select
+            key={newWord.theme_id}
             labelId="Theme"
             id="Themes"
-            defaultValue=""
+            defaultValue={newWord.theme_id}
             label="teema"
             onChange={handleTheme}
           >
             {props.themes.map((theme, index) => (
-              <MenuItem key={index} value={theme}>
+              <MenuItem key={index} value={theme.name}>
                 {theme.name}
               </MenuItem>
             ))}
@@ -98,10 +105,28 @@ export default function NewWord(props) {
             onClick={handleClickkeri}
             endIcon={<SendIcon />}
           >
-            LUO UUSI
+            TALLENNA
           </Button>
         </FormControl>
       </Grid>
+      {isEdit ? (
+        <Grid item>
+          {" "}
+          <FormControl sx={{ m: 1 }}>
+            <Button
+              style={{ width: 200, height: 60 }}
+              variant="contained"
+              color="error"
+              onClick={handleClickkeri}
+              endIcon={<DeleteForeverIcon />}
+            >
+              POISTA
+            </Button>
+          </FormControl>
+        </Grid>
+      ) : (
+        <></>
+      )}
     </Grid>
   );
 }

@@ -15,8 +15,6 @@ export default function WordHeader(props) {
 
   const editWord = props.allWords.find((word) => word.id === props.selectedId);
 
-  console.log(editWord);
-
   return (
     <Toolbar
       sx={{
@@ -65,6 +63,7 @@ export default function WordHeader(props) {
                     langs={props.langs}
                     themes={props.themes}
                     editWord={editWord}
+                    isEdit={true}
                   />
                 }
               />
@@ -78,7 +77,13 @@ export default function WordHeader(props) {
               btnTitle="LUO UUSI SANA"
               title="LUO UUSI SANA"
               variant={<AddIcon fontSize="large" />}
-              form={<NewWord langs={props.langs} themes={props.themes} />}
+              form={
+                <NewWord
+                  langs={props.langs}
+                  themes={props.themes}
+                  isEdit={false}
+                />
+              }
             />
           </div>
         </Tooltip>
