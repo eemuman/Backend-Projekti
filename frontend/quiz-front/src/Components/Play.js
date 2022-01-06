@@ -44,7 +44,7 @@ export default function Play(props) {
     props.setIsPlaying();
   };
 
-  if (props.answArray === null) {
+  if (props.answArray.length === 0) {
     return <div>LOADING</div>;
   } else {
     return (
