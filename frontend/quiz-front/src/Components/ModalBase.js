@@ -25,11 +25,20 @@ export default function TransitionsModal(props) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const isIcon = props.isIcon;
+
   return (
     <div>
-      <IconButton onClick={handleOpen} size="large">
-        {props.variant}
-      </IconButton>
+      {isIcon ? (
+        <IconButton onClick={handleOpen} size="large">
+          {props.variant}
+        </IconButton>
+      ) : (
+        <Button onClick={handleOpen} size="large">
+          {props.btnTitle}
+        </Button>
+      )}
+
       <Modal
         sx={{ maxWidth: "100%" }}
         aria-labelledby="transition-modal-title"
