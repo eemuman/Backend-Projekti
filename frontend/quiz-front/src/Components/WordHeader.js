@@ -3,12 +3,12 @@ import { alpha } from "@mui/material/styles";
 
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import ModalBase from "./ModalBase";
 
-import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
-import Edit from "@mui/icons-material/Edit";
+import NewWord from "./NewWord";
 
 export default function WordHeader(props) {
   const { numSelected } = props;
@@ -50,18 +50,27 @@ export default function WordHeader(props) {
       {numSelected > 0 ? (
         <>
           <Tooltip title="Muokkaa">
-            <IconButton>
-              <EditIcon />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Poista">
-            <IconButton>
-              <DeleteIcon />
-            </IconButton>
+            <div>
+              <ModalBase
+                btnTitle="Muokkaa valittua sanaa"
+                title="MUOKKAA SANAA"
+                variant={<EditIcon fontSize="large" />}
+                size="small"
+              />
+            </div>
           </Tooltip>
         </>
       ) : (
-        <></>
+        <Tooltip title="Lisää uusi sana">
+          <div>
+            <ModalBase
+              btnTitle="LUO UUSI SANA"
+              title="LUO UUSI SANA"
+              variant={<AddIcon fontSize="large" />}
+              form={<NewWord langs={props.langs} themes={props.themes} />}
+            />
+          </div>
+        </Tooltip>
       )}
     </Toolbar>
   );

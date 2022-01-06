@@ -47,22 +47,22 @@ export default function DisplayWords(props) {
 
   return (
     <TableContainer component={Paper}>
-      <WordHeader numSelected={selected.length} />
+      <WordHeader numSelected={selected.length} {...props} />
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
         <TableHead>
           <TableRow>
-            {Object.entries(props.words[0]).map(([key]) => (
+            {Object.entries(props.allWords[0]).map(([key]) => (
               <TableCell align="center">{key}</TableCell>
             ))}
           </TableRow>
         </TableHead>
         <TableBody>
           {(rowsPerPage > 0
-            ? props.words.slice(
+            ? props.allWords.slice(
                 page * rowsPerPage,
                 page * rowsPerPage + rowsPerPage
               )
-            : props.words
+            : props.allWords
           ).map((row) => {
             const isItemSelected = isSelected(row.id);
             return (
@@ -93,7 +93,7 @@ export default function DisplayWords(props) {
             <TablePagination
               rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
               colSpan={3}
-              count={props.words.length}
+              count={props.allWords.length}
               rowsPerPage={rowsPerPage}
               page={page}
               SelectProps={{

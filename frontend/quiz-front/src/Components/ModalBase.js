@@ -1,10 +1,11 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
 
 const style = {
   position: "absolute",
@@ -20,13 +21,15 @@ const style = {
 };
 
 export default function TransitionsModal(props) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   return (
     <div>
-      <Button onClick={handleOpen}>{props.btnTitle}</Button>
+      <IconButton onClick={handleOpen} size="large">
+        {props.variant}
+      </IconButton>
       <Modal
         sx={{ maxWidth: "100%" }}
         aria-labelledby="transition-modal-title"
