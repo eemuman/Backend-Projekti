@@ -48,7 +48,7 @@ export default function LangTheme(props) {
             btnTitle={`LUO UUSI ${props.elem}`}
             title={`LUO UUSI ${props.elem}`}
             isIcon={false}
-            form={<NewLangThem />}
+            form={<NewLangThem isLang={props.isLang} />}
           ></ModalBase>
         </Grid>
 

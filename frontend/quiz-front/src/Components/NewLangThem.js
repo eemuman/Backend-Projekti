@@ -8,6 +8,9 @@ export default function NewLangThem(props) {
   const [newElement, setNewElement] = useState("");
   const [isDisabled, setIsDisabled] = useState(true);
 
+  const lang = props.isLang ? "kielen" : "teeman";
+  const lang2 = props.isLang ? "kieli" : "teema";
+
   const handleChange = (e) => {
     setNewElement(e.target.value);
   };
@@ -28,10 +31,10 @@ export default function NewLangThem(props) {
         autoComplete="off"
         id="NEWNAME"
         margin="normal"
-        label="Uusi kieli"
+        label={`Uusi ${lang2}`}
         defaultValue=""
         variant="outlined"
-        helperText={`Anna uuden kielen nimi`}
+        helperText={`Anna uuden ${lang} nimi`}
         onChange={(e) => handleChange(e)}
       />
       <Button
