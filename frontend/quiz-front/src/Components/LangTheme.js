@@ -67,10 +67,10 @@ export default function LangTheme(props) {
             >
               {props.isLang
                 ? props.langs.map((lang) => {
-                    if (lang.Name !== "Suomi")
+                    if (lang.name !== "Suomi")
                       return (
-                        <MenuItem key={lang.Name} value={lang.Name}>
-                          {lang.Name}
+                        <MenuItem key={lang.name} value={lang.name}>
+                          {lang.name}
                         </MenuItem>
                       );
                     return null;

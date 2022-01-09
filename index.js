@@ -13,9 +13,9 @@ app.listen(8080, () => {
 app.use(express.json());
 app.use(cors());
 
-app.get(`/themes`, async (req, res) => {
+app.get(`/theme`, async (req, res) => {
   try {
-    const themes = await vocab.getThemes();
+    const themes = await vocab.getWanted("themes");
     console.log(themes);
     res.send(themes);
   } catch (err) {
@@ -24,9 +24,9 @@ app.get(`/themes`, async (req, res) => {
   }
 });
 
-app.get(`/langs`, async (req, res) => {
+app.get(`/lang`, async (req, res) => {
   try {
-    const langs = await vocab.getLangs();
+    const langs = await vocab.getWanted("langs");
     console.log(langs);
     res.send(langs);
   } catch (err) {
@@ -59,6 +59,17 @@ app.get(`/words/:lang`, async (req, res) => {
   try {
     const allWordsLang = await vocab.getWordsLang(req.params.lang);
     res.send(allWordsLang);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
+
+app.post(`/theme`, async (req, res) => {
+  try {
+    const name = req.query.name;
+    const addThemeData = await vocab.addNew(name, "themes");
+    const updNames = await vocab.updNames(name, false);
+    res.send(addThemeData, updNames);
   } catch (err) {
     res.status(400).send(err);
   }

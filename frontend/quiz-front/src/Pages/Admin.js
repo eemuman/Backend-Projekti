@@ -17,9 +17,9 @@ export default function Admin() {
 
   useEffect(() => {
     async function fetchAll() {
-      const langData = await fetchData("langs");
+      const langData = await fetchData("lang");
       setLangs(langData);
-      const themeData = await fetchData("themes");
+      const themeData = await fetchData("theme");
       setThemes(themeData);
       const wordData = await fetchData("words");
       setAllWords(wordData);
