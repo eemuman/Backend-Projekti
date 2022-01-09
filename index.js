@@ -69,7 +69,7 @@ app.post(`/theme`, async (req, res) => {
     const name = req.body.name;
     console.log(req.body.name);
     const addThemeData = await vocab.addNew(name, "themes");
-    res.send(addThemeData, updNames);
+    res.send("NEW THEME ADDED");
   } catch (err) {
     res.status(400).send(err);
   }
@@ -81,7 +81,7 @@ app.post(`/lang`, async (req, res) => {
     console.log(req.body.name);
     const addThemeData = await vocab.addNew(name, "themes");
     const updNames = await vocab.updNames(name, false);
-    res.send(addThemeData, updNames);
+    res.send("NEW LANG ADDED");
   } catch (err) {
     res.status(400).send(err);
   }
