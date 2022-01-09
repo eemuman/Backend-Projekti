@@ -79,7 +79,7 @@ app.post(`/lang`, async (req, res) => {
   try {
     const name = req.body.name;
     console.log(req.body.name);
-    const addThemeData = await vocab.addNew(name, "themes");
+    const addThemeData = await vocab.addNew(name, "langs");
     const updNames = await vocab.updNames(name, false);
     res.send("NEW LANG ADDED");
   } catch (err) {
