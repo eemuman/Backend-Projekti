@@ -15,18 +15,10 @@ config = {
 const connection = mysql.createPool(config);
 
 module.exports = {
-  getThemes: () => {
+  getWanted: (wanted) => {
     return new Promise((resolve, reject) => {
-      connection.query("SELECT name FROM themes", (err, res) => {
-        if (err) reject(err);
-        resolve(res);
-      });
-    });
-  },
-
-  getLangs: () => {
-    return new Promise((resolve, reject) => {
-      connection.query("SELECT Name From langs", (err, res) => {
+      const query = `SELECT name FROM ${wanted}`;
+      connection.query(query, (err, res) => {
         if (err) reject(err);
         resolve(res);
       });
@@ -61,6 +53,27 @@ module.exports = {
           : `SELECT ${primLang}, ${secondLang} FROM words WHERE ${primLang} IS NOT NULL AND ${secondLang} IS NOT NULL ORDER BY RAND() LIMIT ${amountofWords}`;
 
       connection.query(sqlQuery, (err, res) => {
+        if (err) reject(err);
+        resolve(res);
+      });
+    });
+  },
+
+  addNew: (nameToAdd, whereToAdd) => {
+    return new Promise((resolve, reject) => {
+      const query = `INSERT INTO ${whereToAdd} (name) VALUES (${nameToAdd})`;
+      connection.query(query, (err, res) => {
+        if (err) reject(err);
+        resolve(res);
+      });
+    });
+  },
+  updNames: (updName, isDelete) => {
+    return new Promise((resolve, reject) => {
+      const query = isDelete
+        ? `ALTER TABLE words DROP COLUMN ${updName}`
+        : `ALTER TABLE words ADD ${updName} varchar(255)`;
+      connection.query(query, (err, res) => {
         if (err) reject(err);
         resolve(res);
       });
