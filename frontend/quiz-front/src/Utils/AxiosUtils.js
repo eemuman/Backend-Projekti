@@ -16,7 +16,7 @@ export const fetchData = async (dataToFetch) => {
 export const postWord = async ({ data }) => {
   try {
     const resp = await axios.post(`http://localhost:8080/words`, { data });
-    console.log(resp);
+    return resp;
   } catch (err) {
     console.log(err);
   }
@@ -27,7 +27,7 @@ export const postNew = async (newName, WhatToPost) => {
     const resp = await axios.post(`http://localhost:8080/${WhatToPost}`, {
       name: newName,
     });
-    console.log(resp);
+    return resp;
   } catch (err) {
     console.log(err);
   }

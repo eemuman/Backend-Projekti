@@ -56,7 +56,7 @@ export default function TransitionsModal(props) {
             <Typography id="transition-modal-title" variant="h5" component="h2">
               <strong>{props.title}</strong>
             </Typography>
-            {props.form}
+            {React.cloneElement(props.form, { handleClose: handleClose })}
           </Box>
         </Fade>
       </Modal>
