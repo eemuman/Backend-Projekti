@@ -21,3 +21,14 @@ export const postWord = async ({ data }) => {
     console.log(err);
   }
 };
+
+export const postNew = async (newName, WhatToPost) => {
+  try {
+    const resp = await axios.post(`http://localhost:8080/${WhatToPost}`, {
+      name: newName,
+    });
+    console.log(resp);
+  } catch (err) {
+    console.log(err);
+  }
+};

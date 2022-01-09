@@ -61,7 +61,8 @@ module.exports = {
 
   addNew: (nameToAdd, whereToAdd) => {
     return new Promise((resolve, reject) => {
-      const query = `INSERT INTO ${whereToAdd} (name) VALUES (${nameToAdd})`;
+      console.log(`INSERT INTO ${whereToAdd} (name) VALUES ("${nameToAdd}")`);
+      const query = `INSERT INTO ${whereToAdd} (name) VALUES ("${nameToAdd}")`;
       connection.query(query, (err, res) => {
         if (err) reject(err);
         resolve(res);

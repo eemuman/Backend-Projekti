@@ -66,11 +66,37 @@ app.get(`/words/:lang`, async (req, res) => {
 
 app.post(`/theme`, async (req, res) => {
   try {
-    const name = req.query.name;
+    const name = req.body.name;
+    console.log(req.body.name);
+    const addThemeData = await vocab.addNew(name, "themes");
+    res.send(addThemeData, updNames);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
+
+app.post(`/lang`, async (req, res) => {
+  try {
+    const name = req.body.name;
+    console.log(req.body.name);
     const addThemeData = await vocab.addNew(name, "themes");
     const updNames = await vocab.updNames(name, false);
     res.send(addThemeData, updNames);
   } catch (err) {
     res.status(400).send(err);
   }
+});
+
+app.delete(`/theme`, async (req, res) => {
+  try {
+    const name = req.body.name;
+  } catch (err) {}
+});
+
+app.delete(`/lang`, async (req, res) => {
+  try {
+    const name = req.body.name;
+
+    const updNames = await vocab.updNames(name, true);
+  } catch (err) {}
 });
