@@ -20,7 +20,7 @@ export default function Admin() {
     setLangs(langData);
     const themeData = await fetchData("theme");
     setThemes(themeData);
-    const wordData = await fetchData("words");
+    const wordData = await fetchData("word");
     setAllWords(wordData);
   }
 

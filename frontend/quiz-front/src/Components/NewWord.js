@@ -12,15 +12,16 @@ import SendIcon from "@mui/icons-material/Send";
 import { postWord } from "../Utils/AxiosUtils";
 
 export default function NewWord(props) {
-  const [newWord, setNewWord] = useState("");
+  const [newWord, setNewWord] = useState({});
   const [isDisabled, setIsDisabled] = useState(true);
   const isEdit = props.isEdit;
 
   useEffect(() => {
+    console.log(props.editWord);
     if (isEdit) setNewWord({ ...props.editWord });
     else {
       const newWordBase = { theme_id: "" };
-      props.langs.map((langg) => (newWordBase[langg.Name] = ""));
+      props.langs.map((langg) => (newWordBase[langg.name] = ""));
       setNewWord(newWordBase);
     }
   }, [props.langs, props.editWord, isEdit]);
@@ -51,7 +52,7 @@ export default function NewWord(props) {
     }
   };
 
-  return newWord.length === 0 ? (
+  return Object.keys(newWord).length === 0 ? (
     <div>
       <h3>Loading...</h3>
     </div>
@@ -65,11 +66,11 @@ export default function NewWord(props) {
             id={index.toString()}
             margin="normal"
             key={index}
-            label={test.Name}
-            defaultValue={newWord[test.Name]}
+            label={test.name}
+            defaultValue={newWord[test.name]}
             variant="outlined"
-            helperText={`Lisää sanan käännös kielelle ${test.Name}`}
-            onChange={(e) => handleChange(test.Name, e)}
+            helperText={`Lisää sanan käännös kielelle ${test.name}`}
+            onChange={(e) => handleChange(test.name, e)}
           />
         </Grid>
       ))}
