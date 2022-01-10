@@ -32,3 +32,16 @@ export const postNew = async (newName, WhatToPost) => {
     console.log(err);
   }
 };
+
+export const delByName = async (whereToDelete, whatToDelete) => {
+  try {
+    const resp = await axios.delete(`http://localhost:8080/${whereToDelete}`, {
+      data: {
+        name: whatToDelete,
+      },
+    });
+    return resp;
+  } catch (err) {
+    console.log(err);
+  }
+};

@@ -6,12 +6,21 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { delByName } from "../Utils/AxiosUtils";
 
 export default function AlertDialog(props) {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
+  };
+
+  const handleDelete = async () => {
+    const whereToDelete = props.isLang ? "lang" : "theme";
+    const deleted = await delByName(whereToDelete, props.toDelete);
+    console.log(deleted);
+    props.fetchAll();
+    handleClose();
   };
 
   const handleClose = () => {
@@ -50,7 +59,7 @@ export default function AlertDialog(props) {
           <Button
             color="error"
             variant="contained"
-            onClick={handleClose}
+            onClick={handleDelete}
             autoFocus
           >
             POISTA

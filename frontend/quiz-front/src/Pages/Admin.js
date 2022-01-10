@@ -15,15 +15,16 @@ export default function Admin() {
   const [themes, setThemes] = useState([]);
   const [allWords, setAllWords] = useState([]);
 
+  async function fetchAll() {
+    const langData = await fetchData("lang");
+    setLangs(langData);
+    const themeData = await fetchData("theme");
+    setThemes(themeData);
+    const wordData = await fetchData("words");
+    setAllWords(wordData);
+  }
+
   useEffect(() => {
-    async function fetchAll() {
-      const langData = await fetchData("lang");
-      setLangs(langData);
-      const themeData = await fetchData("theme");
-      setThemes(themeData);
-      const wordData = await fetchData("words");
-      setAllWords(wordData);
-    }
     fetchAll();
   }, []);
 
@@ -35,6 +36,7 @@ export default function Admin() {
     langs: langs,
     themes: themes,
     allWords: allWords,
+    fetchAll: fetchAll,
   };
 
   return (

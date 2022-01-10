@@ -24,8 +24,9 @@ export default function NewLangThem(props) {
   const handleClickkeri = async () => {
     const whatToPost = props.isLang ? "lang" : "theme";
     const data = await postNew(newElement, whatToPost);
-    props.handleClose();
     console.log(data.status);
+    props.fetchAll();
+    props.handleClose();
   };
 
   return (
