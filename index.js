@@ -90,13 +90,31 @@ app.post(`/lang`, async (req, res) => {
 app.delete(`/theme`, async (req, res) => {
   try {
     const name = req.body.name;
-  } catch (err) {}
+    const deleted = await vocab.deleteDataName("themes", name);
+    res.send(`SUCCESFULLY DELETED! ${name} FROM THEMES`);
+  } catch (err) {
+    res.status(400).send(err);
+  }
 });
 
 app.delete(`/lang`, async (req, res) => {
   try {
     const name = req.body.name;
-
+    console.log(req.body);
+    const deleted = await vocab.deleteDataName("langs", name);
     const updNames = await vocab.updNames(name, true);
-  } catch (err) {}
+    res.send(`SUCCESFULLY DELETED! ${name} FROM LANGS`);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
+
+app.delete(`/words`, async (req, res) => {
+  try {
+    const name = req.body.name;
+    const deleted = await vocab.deleteDataName("words", name);
+    res.send(`SUCCESFULLY DELETED! ${name} FROM WORDS`);
+  } catch (err) {
+    res.status(400).send(err);
+  }
 });

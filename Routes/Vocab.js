@@ -80,4 +80,15 @@ module.exports = {
       });
     });
   },
+
+  deleteDataName: (whereToDelete, whatToDelete) => {
+    return new Promise((resolve, reject) => {
+      const query = `DELETE FROM ${whereToDelete} WHERE  name="${whatToDelete}"`;
+      console.log(query);
+      connection.query(query, (err, res) => {
+        if (err) reject(err);
+        resolve(res);
+      });
+    });
+  },
 };
