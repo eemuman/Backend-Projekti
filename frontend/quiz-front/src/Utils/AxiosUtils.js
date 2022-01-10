@@ -13,9 +13,18 @@ export const fetchData = async (dataToFetch) => {
   }
 };
 
-export const postWord = async ({ data }) => {
+export const postWord = async (data) => {
   try {
-    const resp = await axios.post(`http://localhost:8080/words`, { data });
+    const values = Object.values(data);
+    const keys = Object.keys(data);
+    const joinedKeys = keys.join(",");
+    const joinedValues = values.map((val) => `"${val}"`).join(",");
+    console.log(joinedValues);
+
+    const resp = await axios.post(`http://localhost:8080/word`, {
+      joinedValues,
+      joinedKeys,
+    });
     return resp;
   } catch (err) {
     console.log(err);
