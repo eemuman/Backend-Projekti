@@ -92,18 +92,20 @@ export default function DisplayWords(props) {
                 .sort(getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : props.allWords.sort(getComparator(order, orderBy))
-          ).map((row) => {
+          ).map((row, index) => {
             const isItemSelected = isSelected(row.id);
             return (
               <TableRow
                 hover
                 onClick={(event) => handleClick(event, row.id)}
-                key={row.name}
+                key={index}
                 tabIndex={-1}
                 selected={isItemSelected}
               >
-                {Object.entries(row).map(([key, value]) => (
-                  <TableCell style={{ width: 160 }}>{value}</TableCell>
+                {Object.entries(row).map(([key, value], index) => (
+                  <TableCell key={index} style={{ width: 160 }}>
+                    {value}
+                  </TableCell>
                 ))}
               </TableRow>
             );
