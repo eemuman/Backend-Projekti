@@ -25,7 +25,7 @@ export default function NewLangThem(props) {
     const whatToPost = props.isLang ? "lang" : "theme";
     const data = await postNew(newElement, whatToPost);
     console.log(data.status);
-    props.fetchAll();
+    await props.fetchAll();
     props.handleClose();
   };
 

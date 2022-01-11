@@ -16,8 +16,9 @@ export default function NewWord(props) {
   const [isDisabled, setIsDisabled] = useState(true);
   const isEdit = props.isEdit;
 
+  console.log(props);
+
   useEffect(() => {
-    console.log(props.editWord);
     if (isEdit) setNewWord({ ...props.editWord });
     else {
       const newWordBase = { theme_id: "" };
@@ -40,8 +41,11 @@ export default function NewWord(props) {
     checkDisabled();
   };
 
-  const handleClickkeri = () => {
-    postWord(newWord);
+  const handleClickkeri = async () => {
+    const data = await postWord(newWord);
+    console.log(data);
+    await props.fetchAll();
+    props.handleClose();
   };
 
   const checkDisabled = () => {
