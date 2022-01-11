@@ -28,6 +28,10 @@ export default function SignIn(props) {
     await checkifLogged();
   };
 
+  const goPlay = () => {
+    navigate(`/Play`);
+  };
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -39,10 +43,21 @@ export default function SignIn(props) {
           alignItems: "center",
         }}
       >
-        <Typography component="h1" variant="h5">
-          KIRJAUDU SISÄÄN
-        </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <Box
+          component="form"
+          onSubmit={handleSubmit}
+          noValidate
+          sx={{
+            mt: 1,
+            border: 1,
+            padding: "50px",
+            borderRadius: 3,
+            textAlign: "center",
+          }}
+        >
+          <Typography component="h1" variant="h5">
+            KIRJAUDU SISÄÄN
+          </Typography>
           <TextField
             margin="normal"
             fullWidth
@@ -65,11 +80,21 @@ export default function SignIn(props) {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{ mt: 2, mb: 2 }}
           >
             Sign In
           </Button>
         </Box>
+        <Button
+          color="success"
+          fullWidth
+          variant="contained"
+          size="large"
+          sx={{ mt: 3, mb: 2 }}
+          onClick={goPlay}
+        >
+          SIIRRY PELAAMAAN
+        </Button>
       </Box>
     </Container>
   );
