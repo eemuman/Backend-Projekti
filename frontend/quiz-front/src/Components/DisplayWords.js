@@ -7,7 +7,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableFooter from "@mui/material/TableFooter";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import TableHead from "@mui/material/TableHead";
 import Paper from "@mui/material/Paper";
 import WordPagination from "./WordPagination";
 import WordHeader from "./WordHeader";
