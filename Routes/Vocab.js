@@ -15,18 +15,10 @@ config = {
 const connection = mysql.createPool(config);
 
 module.exports = {
-  getThemes: () => {
+  getWanted: (wanted) => {
     return new Promise((resolve, reject) => {
-      connection.query("SELECT name FROM themes", (err, res) => {
-        if (err) reject(err);
-        resolve(res);
-      });
-    });
-  },
-
-  getLangs: () => {
-    return new Promise((resolve, reject) => {
-      connection.query("SELECT Name From langs", (err, res) => {
+      const query = `SELECT name FROM ${wanted}`;
+      connection.query(query, (err, res) => {
         if (err) reject(err);
         resolve(res);
       });
@@ -35,7 +27,7 @@ module.exports = {
 
   getAllWords: () => {
     return new Promise((resolve, reject) => {
-      connection.query("SELECT * FROM words", (err, res) => {
+      connection.query("SELECT * FROM word", (err, res) => {
         if (err) reject(err);
         resolve(res);
       });
@@ -45,7 +37,7 @@ module.exports = {
   getWordsLang: (lang) => {
     return new Promise((resolve, reject) => {
       connection.query(
-        `SELECT * FROM words WHERE ${lang} IS NOT NULL`,
+        `SELECT * FROM word WHERE ${lang} IS NOT NULL`,
         (err, res) => {
           if (err) reject(err);
           resolve(res);
@@ -57,10 +49,86 @@ module.exports = {
     return new Promise((resolve, reject) => {
       const sqlQuery =
         theme_id !== 0
-          ? `SELECT ${primLang}, ${secondLang} FROM words WHERE ${primLang} IS NOT NULL AND ${secondLang} IS NOT NULL AND theme_id = "${theme_id}" ORDER BY RAND() LIMIT ${amountofWords}`
-          : `SELECT ${primLang}, ${secondLang} FROM words WHERE ${primLang} IS NOT NULL AND ${secondLang} IS NOT NULL ORDER BY RAND() LIMIT ${amountofWords}`;
+          ? `SELECT ${primLang}, ${secondLang} FROM word WHERE ${primLang} IS NOT NULL AND ${secondLang} IS NOT NULL AND theme_id = "${theme_id}" ORDER BY RAND() LIMIT ${amountofWords}`
+          : `SELECT ${primLang}, ${secondLang} FROM word WHERE ${primLang} IS NOT NULL AND ${secondLang} IS NOT NULL ORDER BY RAND() LIMIT ${amountofWords}`;
 
       connection.query(sqlQuery, (err, res) => {
+        if (err) reject(err);
+        resolve(res);
+      });
+    });
+  },
+
+  addNew: (nameToAdd, whereToAdd) => {
+    return new Promise((resolve, reject) => {
+      console.log(`INSERT INTO ${whereToAdd} (name) VALUES ("${nameToAdd}")`);
+      const query = `INSERT INTO ${whereToAdd} (name) VALUES ("${nameToAdd}")`;
+      connection.query(query, (err, res) => {
+        if (err) reject(err);
+        resolve(res);
+      });
+    });
+  },
+
+  addNewWord: (values, keys) => {
+    return new Promise((resolve, reject) => {
+      const query = `INSERT INTO word (${keys})  VALUES (${values})`;
+      console.log(query);
+      connection.query(query, (err, res) => {
+        if (err) reject(err);
+        resolve(res);
+      });
+    });
+  },
+
+  updNames: (updName, isDelete) => {
+    return new Promise((resolve, reject) => {
+      const query = isDelete
+        ? `ALTER TABLE word DROP COLUMN ${updName}`
+        : `ALTER TABLE word ADD ${updName} varchar(255)`;
+      connection.query(query, (err, res) => {
+        if (err) reject(err);
+        resolve(res);
+      });
+    });
+  },
+
+  deleteDataName: (whereToDelete, whatToDelete) => {
+    return new Promise((resolve, reject) => {
+      const query = `DELETE FROM ${whereToDelete} WHERE  name="${whatToDelete}"`;
+      console.log(query);
+      connection.query(query, (err, res) => {
+        if (err) reject(err);
+        resolve(res);
+      });
+    });
+  },
+
+  deleteWordById: (whatToDelete) => {
+    return new Promise((resolve, reject) => {
+      const query = `DELETE FROM word WHERE id="${whatToDelete}"`;
+      console.log(query);
+      connection.query(query, (err, res) => {
+        if (err) reject(err);
+        resolve(res);
+      });
+    });
+  },
+  deleteWordByTheme: (whatToDelete) => {
+    return new Promise((resolve, reject) => {
+      const query = `DELETE FROM word WHERE theme_id="${whatToDelete}"`;
+      console.log(query);
+      connection.query(query, (err, res) => {
+        if (err) reject(err);
+        resolve(res);
+      });
+    });
+  },
+  updateWordById: (id, data) => {
+    return new Promise((resolve, reject) => {
+      const query = `UPDATE word SET ${data} WHERE id=${id}`;
+      console.log(query);
+      connection.query(query, (err, res) => {
         if (err) reject(err);
         resolve(res);
       });

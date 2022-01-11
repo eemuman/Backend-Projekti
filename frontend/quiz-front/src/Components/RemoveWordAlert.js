@@ -6,9 +6,9 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { delByName } from "../Utils/AxiosUtils";
+import { deleteWordById } from "../Utils/AxiosUtils";
 
-export default function RemoveAlert(props) {
+export default function RemoveWordAlert(props) {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -16,11 +16,10 @@ export default function RemoveAlert(props) {
   };
 
   const handleDelete = async () => {
-    const whereToDelete = props.isLang ? "lang" : "theme";
-    const deleted = await delByName(whereToDelete, props.toDelete);
+    const deleted = await deleteWordById(props.id);
     console.log(deleted);
-    await props.fetchAll();
     handleClose();
+    props.handleClose();
   };
 
   const handleClose = () => {
@@ -46,11 +45,11 @@ export default function RemoveAlert(props) {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Poistetaanko kieli?"}
+          {"Poistetaanko sana?"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Jos poistat, menetät kaikki kyseisen kielen/teeman tiedot{" "}
+            Jos poistat, menetät kaikki kyseisen sanan tiedot{" "}
             <strong>LOPULLISESTI</strong>!
           </DialogContentText>
         </DialogContent>
