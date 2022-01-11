@@ -7,9 +7,9 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
 import InputLabel from "@mui/material/InputLabel";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import SendIcon from "@mui/icons-material/Send";
 import { postWord } from "../Utils/AxiosUtils";
+import RemoveWordAlert from "./RemoveWordAlert";
 
 export default function NewWord(props) {
   const [newWord, setNewWord] = useState({});
@@ -26,6 +26,11 @@ export default function NewWord(props) {
       setNewWord(newWordBase);
     }
   }, [props.langs, props.editWord, isEdit]);
+
+  const handleData = async () => {
+    await props.fetchAll();
+    props.handleClose();
+  };
 
   const handleChange = (index, e) => {
     const upd = newWord;
@@ -44,8 +49,7 @@ export default function NewWord(props) {
   const handleClickkeri = async () => {
     const data = await postWord(newWord);
     console.log(data);
-    await props.fetchAll();
-    props.handleClose();
+    await handleData();
   };
 
   const checkDisabled = () => {
@@ -117,15 +121,7 @@ export default function NewWord(props) {
         <Grid item>
           {" "}
           <FormControl sx={{ m: 1 }}>
-            <Button
-              style={{ width: 200, height: 60 }}
-              variant="contained"
-              color="error"
-              onClick={handleClickkeri}
-              endIcon={<DeleteForeverIcon />}
-            >
-              POISTA
-            </Button>
+            <RemoveWordAlert id={newWord.id} handleClose={handleData} />
           </FormControl>
         </Grid>
       ) : (
