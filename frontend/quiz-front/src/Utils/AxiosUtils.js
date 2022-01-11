@@ -2,7 +2,7 @@ const axios = require("axios").default;
 
 export const fetchData = async (dataToFetch) => {
   try {
-    const data = await axios.get(`http://localhost:8080/${dataToFetch}`);
+    const data = await axios.get(`/${dataToFetch}`);
     if (data.data != null) {
       return data.data;
     } else {
@@ -21,7 +21,7 @@ export const postWord = async (data) => {
     const joinedValues = values.map((val) => `"${val}"`).join(",");
     console.log(joinedValues);
 
-    const resp = await axios.post(`http://localhost:8080/word`, {
+    const resp = await axios.post(`/word`, {
       joinedValues,
       joinedKeys,
     });
@@ -33,7 +33,7 @@ export const postWord = async (data) => {
 
 export const postNew = async (newName, WhatToPost) => {
   try {
-    const resp = await axios.post(`http://localhost:8080/${WhatToPost}`, {
+    const resp = await axios.post(`/${WhatToPost}`, {
       name: newName,
     });
     return resp;
@@ -44,7 +44,7 @@ export const postNew = async (newName, WhatToPost) => {
 
 export const delByName = async (whereToDelete, whatToDelete) => {
   try {
-    const resp = await axios.delete(`http://localhost:8080/${whereToDelete}`, {
+    const resp = await axios.delete(`/${whereToDelete}`, {
       data: {
         name: whatToDelete,
       },
@@ -57,7 +57,7 @@ export const delByName = async (whereToDelete, whatToDelete) => {
 
 export const deleteWordById = async (whatToDelete) => {
   try {
-    const resp = await axios.delete(`http://localhost:8080/word`, {
+    const resp = await axios.delete(`/word`, {
       data: {
         id: whatToDelete,
       },
@@ -77,12 +77,43 @@ export const updateWordById = async (data) => {
     .join(", ");
   const id = data.id;
   try {
-    const resp = await axios.patch(`http://localhost:8080/word`, {
+    const resp = await axios.patch(`/word`, {
       data: joinedUpdt,
       id: id,
     });
     return resp;
   } catch (err) {
     console.log(err);
+  }
+};
+export const logUserIn = async (username, password) => {
+  try {
+    const resp = await axios.post(`/login`, {
+      username: username,
+      password: password,
+    });
+    if (resp.data.accesToken) {
+      localStorage.setItem("user", JSON.stringify(resp.data));
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+export const getCurrentUser = () => {
+  if (localStorage.getItem("user") !== null)
+    return JSON.parse(localStorage.getItem("user"));
+
+  return -1;
+};
+
+export const checkLogin = async () => {
+  const curUser = getCurrentUser().accesToken;
+  if (curUser !== undefined) {
+    try {
+      const resp = await axios.get(`/login`, {
+        params: { curUser },
+      });
+      return resp.status;
+    } catch (err) {}
   }
 };

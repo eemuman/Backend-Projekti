@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
+import Button from "@mui/material/Button";
 import Settings from "../Components/Settings";
 import Play from "../Components/Play";
+import { useNavigate } from "react-router-dom";
 
 const axios = require("axios").default;
 
@@ -15,9 +17,10 @@ export default function Main() {
   const [answArray, setAnswArray] = useState([]);
   const [curTheme, setCurTheme] = useState("");
   const [isFalse, setIsFalse] = useState(false);
+  const navigate = useNavigate();
 
   const fetchData = async () => {
-    const wantedWords = await axios.get("http://localhost:8080/words", {
+    const wantedWords = await axios.get("/word", {
       params: {
         primLang: primaryLang,
         secondLang: secondaryLang,
@@ -39,6 +42,10 @@ export default function Main() {
     setIsPlaying(false);
   };
 
+  const goAdmin = () => {
+    navigate(`/SignIn`);
+  };
+
   useEffect(() => {
     if (Object.keys(fetchedWords).length !== 0) {
       const test = Array(fetchedWords.length)
@@ -56,7 +63,12 @@ export default function Main() {
   return (
     <React.Fragment>
       <CssBaseline />
+
       <Container fixed>
+        <Button onClick={goAdmin} sx={{ marginBottom: "-40px" }}>
+          HALLINTAPANEELI
+        </Button>
+
         {!isPlaying ? (
           <Settings
             primaryLang={primaryLang}
