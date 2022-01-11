@@ -119,12 +119,23 @@ app.delete(`/lang`, async (req, res) => {
   }
 });
 
+app.patch(`/word`, async (req, res) => {
+  try {
+    const id = req.body.id;
+    const data = req.body.data;
+    await vocab.updateWordById(id, data);
+    res.send(`SUCCESFULLY UPDATED ID= ${id} WORD`);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
+
 app.delete(`/word`, async (req, res) => {
   try {
     const id = req.body.id;
     console.log(id);
     const deleted = await vocab.deleteWordById(id);
-    res.send(`SUCCESFULLY DELETED! ${id} FROM WORDS`);
+    res.send(`SUCCESFULLY DELETED! ID= ${id} FROM WORDS`);
   } catch (err) {
     res.status(400).send(err);
   }

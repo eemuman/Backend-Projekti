@@ -124,4 +124,14 @@ module.exports = {
       });
     });
   },
+  updateWordById: (id, data) => {
+    return new Promise((resolve, reject) => {
+      const query = `UPDATE word SET ${data} WHERE id=${id}`;
+      console.log(query);
+      connection.query(query, (err, res) => {
+        if (err) reject(err);
+        resolve(res);
+      });
+    });
+  },
 };
