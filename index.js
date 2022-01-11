@@ -143,6 +143,7 @@ app.delete(`/word`, async (req, res) => {
 
 app.post(`/login`, async (req, res) => {
   const { username, password } = req.body;
+  console.log("HERE");
   try {
     const user = await vocab.checkUser(username, password);
     if (user.length > 0) {
