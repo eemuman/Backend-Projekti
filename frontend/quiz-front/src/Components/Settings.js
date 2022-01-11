@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import LangMenu from "./LangMenu";
 import Box from "@mui/material/Box";
 import { Button, Grid, Typography } from "@mui/material";
-import { grey } from "@mui/material/colors";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
@@ -21,9 +20,9 @@ export default function Settings(props) {
 
   useEffect(() => {
     async function fetchAll() {
-      const langData = await fetchData("langs");
+      const langData = await fetchData("lang");
       setLangs(langData);
-      const themeData = await fetchData("themes");
+      const themeData = await fetchData("theme");
       setThemes(themeData);
     }
     fetchAll();
@@ -46,11 +45,11 @@ export default function Settings(props) {
   ]);
 
   const handlePrimary = (e) => {
-    props.setPrimaryLang(e.target.value.Name);
+    props.setPrimaryLang(e.target.value.name);
   };
 
   const handleSecondary = (e) => {
-    props.setSecondaryLang(e.target.value.Name);
+    props.setSecondaryLang(e.target.value.name);
   };
 
   const handleAmount = (e) => {

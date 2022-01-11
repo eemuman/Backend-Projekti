@@ -17,7 +17,7 @@ export default function Main() {
   const [isFalse, setIsFalse] = useState(false);
 
   const fetchData = async () => {
-    const wantedWords = await axios.get("http://localhost:8080/words", {
+    const wantedWords = await axios.get("http://localhost:8080/word", {
       params: {
         primLang: primaryLang,
         secondLang: secondaryLang,
