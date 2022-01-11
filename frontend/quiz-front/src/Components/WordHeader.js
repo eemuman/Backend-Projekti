@@ -13,8 +13,6 @@ import NewWord from "./NewWord";
 export default function WordHeader(props) {
   const numSelected = props.numSelected;
 
-  console.log(props);
-
   const editWord = props.allWords.find((word) => word.id === props.selectedId);
 
   return (
@@ -63,6 +61,7 @@ export default function WordHeader(props) {
                 size="small"
                 form={
                   <NewWord
+                    fetchAll={props.fetchAll}
                     langs={props.langs}
                     themes={props.themes}
                     editWord={editWord}
