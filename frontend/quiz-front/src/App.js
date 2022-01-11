@@ -1,5 +1,11 @@
 import Main from "./Pages/Main";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  Redirect,
+} from "react-router-dom";
 import "./App.css";
 import Admin from "./Pages/Admin";
 import SignIn from "./Pages/SignIn";
@@ -35,6 +41,12 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route
+          path="*"
+          element={
+            <SignIn setLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
+          }
+        />
         <Route
           path="/SignIn"
           element={

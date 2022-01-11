@@ -3,6 +3,7 @@ var cors = require("cors");
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const vocab = require("./Routes/Vocab");
+const path = require("path");
 
 const app = express();
 app.use(express.static("frontend/quiz-front/build"));
