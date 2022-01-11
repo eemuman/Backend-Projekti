@@ -8,15 +8,13 @@ import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
 import InputLabel from "@mui/material/InputLabel";
 import SendIcon from "@mui/icons-material/Send";
-import { postWord } from "../Utils/AxiosUtils";
+import { postWord, updateWordById } from "../Utils/AxiosUtils";
 import RemoveWordAlert from "./RemoveWordAlert";
 
 export default function NewWord(props) {
   const [newWord, setNewWord] = useState({});
   const [isDisabled, setIsDisabled] = useState(true);
   const isEdit = props.isEdit;
-
-  console.log(props);
 
   useEffect(() => {
     if (isEdit) setNewWord({ ...props.editWord });
@@ -47,7 +45,9 @@ export default function NewWord(props) {
   };
 
   const handleClickkeri = async () => {
-    const data = await postWord(newWord);
+    const data = isEdit
+      ? await updateWordById(newWord)
+      : await postWord(newWord);
     console.log(data);
     await handleData();
   };

@@ -67,3 +67,22 @@ export const deleteWordById = async (whatToDelete) => {
     console.log(err);
   }
 };
+
+export const updateWordById = async (data) => {
+  const joinedUpdt = Object.entries(data)
+    .map(([key, val]) => {
+      if (key !== "id") return `${key} = "${val}"`;
+      return `${key} = ${val}`;
+    })
+    .join(", ");
+  const id = data.id;
+  try {
+    const resp = await axios.patch(`http://localhost:8080/word`, {
+      data: joinedUpdt,
+      id: id,
+    });
+    return resp;
+  } catch (err) {
+    console.log(err);
+  }
+};
