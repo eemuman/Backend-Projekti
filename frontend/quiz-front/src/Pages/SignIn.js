@@ -9,25 +9,42 @@ import Container from "@mui/material/Container";
 import { checkLogin, logUserIn } from "../Utils/AxiosUtils";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * Kirjautumiseen käytettävä sivu, sisältää login-paneelin.
+ * @param {*} props
+ * @returns
+ */
 export default function SignIn(props) {
   const navigate = useNavigate();
 
+  /**
+   * Jos storagessa on jo validi JWT tokeni, siirrytään suoraan hallintapaneelisivustolle.
+   */
   useEffect(() => {
     if (props.isLoggedIn) navigate(`/Admin`);
   }, [props.isLoggedIn, navigate]);
 
+  /**
+   * Tällä funktiolla tarkistetaan onko käyttäjällä validi JWT tokeni, jos on, muutetaan setLoggedIn trueksi ja tämän jälkeen useEffect siirtää käyttäjän hallintapaneeliin.
+   */
   const checkifLogged = async () => {
     const resp = await checkLogin();
     if (resp === 200) props.setLoggedIn(true);
   };
 
+  /**
+   * Kun käyttäjä antaa käyttäjänimen sekä salasanan, verrataan niitä tietokannan tietoihin, jos ne mätsää, annetaan käyttäjälle JWT tokeni. Sitten tarkistetaan onko käyttäjällä validia JWT tokenia checkIfLoggedia käyttäen.
+   * @param {*} event
+   */
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     await logUserIn(data.get("username"), data.get("password"));
     await checkifLogged();
   };
-
+  /**
+   * Jos taas vain painetaan playta, Main.js elementtiin.
+   */
   const goPlay = () => {
     navigate(`/Play`);
   };

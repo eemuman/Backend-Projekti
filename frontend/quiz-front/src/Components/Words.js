@@ -1,6 +1,11 @@
 import React from "react";
 import DisplayWords from "./DisplayWords";
 
+/**
+ * Hallintapaneelin sanahallinan pohja.
+ * @param {*} props
+ * @returns
+ */
 export default function Words(props) {
   return props.allWords.length === 0 ||
     props.langs.length === 0 ||

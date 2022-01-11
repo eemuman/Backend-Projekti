@@ -5,6 +5,11 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import FormHelperText from "@mui/material/FormHelperText";
 
+/**
+ * Pelin asetusvalikon kielten valintaselectorit
+ * @param {*} props kaikki tarvittava data
+ * @returns select-menu josta valita kieli. Tämä laittaa sen sitten propseista saatuun stateen.
+ */
 export default function LangMenu(props) {
   return (
     <div>

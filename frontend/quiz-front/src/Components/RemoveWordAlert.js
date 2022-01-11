@@ -7,7 +7,11 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { deleteWordById } from "../Utils/AxiosUtils";
-
+/**
+ * Täysin sama kuin @see {@link RemoveAlert}. Ainoa ero on siinä, että tällä poistetaan haluttu sana ID:tä käyttäen.
+ * @param {*} props
+ * @returns
+ */
 export default function RemoveWordAlert(props) {
   const [open, setOpen] = useState(false);
 

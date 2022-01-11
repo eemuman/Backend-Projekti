@@ -20,6 +20,11 @@ const style = {
   p: 4,
 };
 
+/**
+ * Pohjaelemntti kaikille käytössä oleville modaleille. (Uusi/Muokkaa sanaa, Lisää uusi Kieli/Teema)
+ * @param {*} props otta vastaan tietoja mikä modali on käytössä, voidaan vaihtaa nappi toimimaan joko iconbuttonina sekä normaalina. Sisältää myös halutun formin mikä renderöidään.
+ * @returns
+ */
 export default function TransitionsModal(props) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -27,6 +32,9 @@ export default function TransitionsModal(props) {
 
   const isIcon = props.isIcon;
 
+  /**
+   * Returnissa luodaan haluttu form-elementti uudelleen, jotta siihen saadaan lisättyä modalpohjan handleclose funktio
+   */
   return (
     <div>
       {isIcon ? (

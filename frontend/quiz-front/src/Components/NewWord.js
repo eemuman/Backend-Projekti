@@ -11,11 +11,20 @@ import SendIcon from "@mui/icons-material/Send";
 import { postWord, updateWordById } from "../Utils/AxiosUtils";
 import RemoveWordAlert from "./RemoveWordAlert";
 
+/**
+ * Uuden sanan luomispohja käytettäväksi modalbasessa. Sama elementti käytössä myös kun muokataan vanhaa sanaa.
+ * @param {*} props
+ * @returns
+ */
 export default function NewWord(props) {
   const [newWord, setNewWord] = useState({});
   const [isDisabled, setIsDisabled] = useState(true);
   const isEdit = props.isEdit;
 
+  /**
+   * Jos muokataan sanaa, otetaan vanhat datat newWord-stateen.
+   * Muuaten luodaan vain uusi tyhjä olio käyttäen kieliarraytä hyväkseen.
+   */
   useEffect(() => {
     if (isEdit) setNewWord({ ...props.editWord });
     else {
@@ -25,18 +34,29 @@ export default function NewWord(props) {
     }
   }, [props.langs, props.editWord, isEdit]);
 
+  /**
+   * Kun suljetaan modali, päivitetään kaikki datat, jotta sivulla oleva tieto on tuoretta.
+   */
   const handleData = async () => {
     await props.fetchAll();
     props.handleClose();
   };
 
+  /**
+   * Tällä funktiolla muokataan newWord-staten oliota halutulta kohdalta, jotta kirjoitettu data pidetään yllä.
+   * @param {*} index Halutun muokkauksen tekstin indexi
+   * @param {*} e eventti
+   */
   const handleChange = (index, e) => {
     const upd = newWord;
     upd[index] = e.target.value;
     setNewWord(upd);
     checkDisabled();
   };
-
+  /**
+   * Tällä händlätään newWord-staten teeman valinta, kun käyttäjä valitsee eri teeman valikoista.
+   * @param {*} e
+   */
   const handleTheme = (e) => {
     const upd = newWord;
     upd.theme_id = e.target.value;
@@ -44,6 +64,9 @@ export default function NewWord(props) {
     checkDisabled();
   };
 
+  /**
+   * Tätä kutsutaan kun painetaan tallena näppäintä. isEdit booleania hyväksikäyttäen valitaan joko luodaan uusi vai muokataanko vanhaa tietokannan elementtiä. Sen jälkeen kutsutaan handleDataa.
+   */
   const handleClickkeri = async () => {
     const data = isEdit
       ? await updateWordById(newWord)
@@ -52,6 +75,9 @@ export default function NewWord(props) {
     await handleData();
   };
 
+  /**
+   * Jos Suomenkielisessä käännöksessä on tekstiä, sekä on valittu joka teema, enabloidaan tallennanäppäin.
+   */
   const checkDisabled = () => {
     if (newWord.Suomi !== "" && newWord.theme_id !== "") {
       setIsDisabled(false);

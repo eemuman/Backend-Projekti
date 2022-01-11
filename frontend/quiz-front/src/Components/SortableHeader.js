@@ -7,6 +7,11 @@ import TableRow from "@mui/material/TableRow";
 import TableHead from "@mui/material/TableHead";
 import { visuallyHidden } from "@mui/utils";
 
+/**
+ * Sanojen näyttämisen yläpalkki jossa on kaikki eri vaihtoehdot (id,theme_id,kielet). Painamalla näitä järjestellään datat uudestaan halutulla tavalla.
+ * @param {*} props
+ * @returns
+ */
 export default function SortableHeader(props) {
   const { order, orderBy, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {

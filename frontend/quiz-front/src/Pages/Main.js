@@ -8,6 +8,10 @@ import { useNavigate } from "react-router-dom";
 
 const axios = require("axios").default;
 
+/**
+ * Pelin pelaamisen pääsivu, täällä hallitaan kaikki mitä tapahtuu pelisivuilla. Valitut kielet, teemat, sanojen määrät, pelataanko vai ei, onko sanoja tarpeeksi, pohjaArray vastauksille.
+ * @returns
+ */
 export default function Main() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [primaryLang, setPrimaryLang] = useState("");
@@ -19,6 +23,9 @@ export default function Main() {
   const [isFalse, setIsFalse] = useState(false);
   const navigate = useNavigate();
 
+  /**
+   * Kun settings.js painetaan pelaa näppäintä, tällä haetaan halutut sanat tietokannasta. (Kielet, teema, määrä) Jos sanoja ei löydy tarpeeksi laitetaan isFalse trueksi, joka avaa alertin jossa lukee, että sanoja ei löytynyt halutuilla vaihtoehdoilla tarpeeks.
+   */
   const fetchData = async () => {
     const wantedWords = await axios.get("/word", {
       params: {
@@ -33,6 +40,9 @@ export default function Main() {
       : setIsFalse(true);
   };
 
+  /**
+   * Kun siirrytään settings.js tiedostoon, halutaan, että kaikki vaihtoehdot ovat taas nollattuja. Se tehdään tällä funktiolla.
+   */
   const resetAll = () => {
     setPrimaryLang("");
     setSecondaryLang("");
@@ -42,10 +52,16 @@ export default function Main() {
     setIsPlaying(false);
   };
 
+  /**
+   * Jos painetaan hallintapaneeli näppäintä, tällä siirrytään kirjautumissivulle.
+   */
   const goAdmin = () => {
     navigate(`/SignIn`);
   };
 
+  /**
+   * Kun on haettu sanat ja niitä on haluttu määrä, tällä useEffectillä luodaan tyhjä AnswerArray joka on yhtä pitkä kun haluttujen sanojen array ja täytetään se (correct: false, disabled: false, data: "") objekteilla.
+   */
   useEffect(() => {
     if (Object.keys(fetchedWords).length !== 0) {
       const test = Array(fetchedWords.length)

@@ -8,13 +8,25 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { delByName } from "../Utils/AxiosUtils";
 
+/**
+ * Tämä on hallintapaneelin teema/kieli-valintojen poistonappi. Kun nappia painetaan aukeaa tämä alert.
+ * @param {*} props
+ * @returns
+ */
 export default function RemoveAlert(props) {
   const [open, setOpen] = useState(false);
 
+  /**
+   * Nappia painettu, avataan alert.
+   */
   const handleClickOpen = () => {
     setOpen(true);
   };
 
+  /**
+   * Jos käyttäjä painaa poista näppäintä alertissa, niin poistetaan kyseinen kieli/teema databasesta. props.isLang päättää onko kyseessä kieli vai teema.
+   * Sen jälkeen ladataan datat uudestaan ja suljetaan alert.
+   */
   const handleDelete = async () => {
     const whereToDelete = props.isLang ? "lang" : "theme";
     const deleted = await delByName(whereToDelete, props.toDelete);
@@ -23,6 +35,9 @@ export default function RemoveAlert(props) {
     handleClose();
   };
 
+  /**
+   * tällä suljetaan alert.
+   */
   const handleClose = () => {
     setOpen(false);
   };
