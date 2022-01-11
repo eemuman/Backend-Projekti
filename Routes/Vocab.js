@@ -134,4 +134,13 @@ module.exports = {
       });
     });
   },
+  checkUser: (username, password) => {
+    return new Promise((resolve, reject) => {
+      const query = `SELECT * FROM users WHERE username="${username}" AND password="${password}"`;
+      connection.query(query, (err, res) => {
+        if (err) reject(err);
+        resolve(res);
+      });
+    });
+  },
 };

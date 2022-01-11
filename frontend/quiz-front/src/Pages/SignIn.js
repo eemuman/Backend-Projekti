@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -6,17 +6,26 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { checkLogin, logUserIn } from "../Utils/AxiosUtils";
+import { useNavigate } from "react-router-dom";
 
-export default function SignIn() {
-  const handleSubmit = (event) => {
+export default function SignIn(props) {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (props.isLoggedIn) navigate(`/Admin`);
+  }, [props.isLoggedIn, navigate]);
+
+  const checkifLogged = async () => {
+    const resp = await checkLogin();
+    if (resp === 200) props.setLoggedIn(true);
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    await logUserIn(data.get("username"), data.get("password"));
+    await checkifLogged();
   };
 
   return (

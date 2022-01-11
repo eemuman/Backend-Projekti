@@ -3,26 +3,51 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
 import Admin from "./Pages/Admin";
 import SignIn from "./Pages/SignIn";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { checkLogin } from "./Utils/AxiosUtils";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+
+  const checkStatus = async () => {
+    const resp = await checkLogin();
+    resp === 200 ? setIsLoggedIn(true) : setIsLoggedIn(false);
+  };
+  useEffect(() => {
+    checkStatus();
+  }, []);
+
+  useEffect(() => {
+    if (isLoggedIn !== undefined) {
+      setIsLoading(false);
+    }
+  }, [isLoggedIn]);
 
   const RequireAuth = ({ children, redirectTo }) => {
-    console.log(isLoggedIn);
     return isLoggedIn ? children : <Navigate to={redirectTo} />;
   };
+
+  if (isLoading) {
+    return <div>LOADING...</div>;
+  }
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/SignIn" element={<SignIn />} />
+        <Route
+          path="/SignIn"
+          element={
+            <SignIn setLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
+          }
+        />
         <Route path="/Play" element={<Main />} />
 
         <Route
           path="/Admin"
           element={
             <RequireAuth redirectTo="/SignIn">
-              <Admin />
+              <Admin setLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
             </RequireAuth>
           }
         />

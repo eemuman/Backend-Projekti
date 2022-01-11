@@ -1,6 +1,7 @@
 const express = require("express");
 var cors = require("cors");
 require("dotenv").config();
+const jwt = require("jsonwebtoken");
 const vocab = require("./Routes/Vocab");
 
 const app = express();
@@ -121,8 +122,8 @@ app.delete(`/lang`, async (req, res) => {
 
 app.patch(`/word`, async (req, res) => {
   try {
-    const id = req.body.id;
-    const data = req.body.data;
+    const { id, data } = req.body;
+
     await vocab.updateWordById(id, data);
     res.send(`SUCCESFULLY UPDATED ID= ${id} WORD`);
   } catch (err) {
@@ -139,4 +140,34 @@ app.delete(`/word`, async (req, res) => {
   } catch (err) {
     res.status(400).send(err);
   }
+});
+
+app.post(`/login`, async (req, res) => {
+  const { username, password } = req.body;
+  try {
+    const user = await vocab.checkUser(username, password);
+    if (user.length > 0) {
+      const userToken = jwt.sign({ id: user.id }, "TESTSECRETKEY");
+      res.json({
+        username: user.username,
+        accesToken: userToken,
+      });
+    }
+    res.status(401).send("INVALIDUSERPASS");
+  } catch (err) {}
+});
+
+app.get(`/login`, async (req, res) => {
+  console.log(req.query);
+  const token = req.query.curUser;
+  if (!token) {
+    res.status(400).send("INVALID TOKEN");
+  }
+  try {
+    const validateToken = jwt.verify(token, "TESTSECRETKEY");
+    if (validateToken) {
+      res.status(200).send("TOKEN VALIDATED");
+    }
+    res.status(401).send("INVALIDTOKEN");
+  } catch (err) {}
 });

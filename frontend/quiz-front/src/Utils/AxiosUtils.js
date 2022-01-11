@@ -86,3 +86,34 @@ export const updateWordById = async (data) => {
     console.log(err);
   }
 };
+export const logUserIn = async (username, password) => {
+  try {
+    const resp = await axios.post(`http://localhost:8080/login`, {
+      username: username,
+      password: password,
+    });
+    if (resp.data.accesToken) {
+      localStorage.setItem("user", JSON.stringify(resp.data));
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+export const getCurrentUser = () => {
+  if (localStorage.getItem("user") !== null)
+    return JSON.parse(localStorage.getItem("user"));
+
+  return -1;
+};
+
+export const checkLogin = async () => {
+  const curUser = getCurrentUser().accesToken;
+  if (curUser !== undefined) {
+    try {
+      const resp = await axios.get(`http://localhost:8080/login`, {
+        params: { curUser },
+      });
+      return resp.status;
+    } catch (err) {}
+  }
+};
