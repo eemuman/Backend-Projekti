@@ -8,7 +8,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { delByName } from "../Utils/AxiosUtils";
 
-export default function AlertDialog(props) {
+export default function RemoveAlert(props) {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -19,7 +19,7 @@ export default function AlertDialog(props) {
     const whereToDelete = props.isLang ? "lang" : "theme";
     const deleted = await delByName(whereToDelete, props.toDelete);
     console.log(deleted);
-    props.fetchAll();
+    await props.fetchAll();
     handleClose();
   };
 
