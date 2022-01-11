@@ -1,5 +1,4 @@
 const express = require("express");
-var cors = require("cors");
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const vocab = require("./Routes/Vocab");
@@ -13,7 +12,6 @@ app.listen(process.env.PORT || 8080, () => {
 });
 
 app.use(express.json());
-app.use(cors());
 
 app.get(`/theme`, async (req, res) => {
   try {
