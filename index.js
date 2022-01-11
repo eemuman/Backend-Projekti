@@ -7,7 +7,7 @@ const vocab = require("./Routes/Vocab");
 const app = express();
 //app.use(express.static("frontend/quiz-front/build"));
 
-app.listen(8080, () => {
+app.listen(process.env.PORT || 8080, () => {
   console.log("Yhteys upis");
 });
 
@@ -147,7 +147,7 @@ app.post(`/login`, async (req, res) => {
   try {
     const user = await vocab.checkUser(username, password);
     if (user.length > 0) {
-      const userToken = jwt.sign({ id: user.id }, "TESTSECRETKEY");
+      const userToken = jwt.sign({ id: user.id }, process.env.SECKEY);
       res.json({
         username: user.username,
         accesToken: userToken,
@@ -164,7 +164,7 @@ app.get(`/login`, async (req, res) => {
     res.status(400).send("INVALID TOKEN");
   }
   try {
-    const validateToken = jwt.verify(token, "TESTSECRETKEY");
+    const validateToken = jwt.verify(token, process.env.SECKEY);
     if (validateToken) {
       res.status(200).send("TOKEN VALIDATED");
     }
