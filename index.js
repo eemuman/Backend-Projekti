@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const vocab = require("./Routes/Vocab");
 
 const app = express();
-app.use(express.static("frontend/quiz-front/build/index.html"));
+app.use(express.static("frontend/quiz-front/build"));
 
 app.listen(process.env.PORT || 8080, () => {
   console.log("Yhteys upis");
