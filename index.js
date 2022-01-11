@@ -121,9 +121,10 @@ app.delete(`/lang`, async (req, res) => {
 
 app.delete(`/word`, async (req, res) => {
   try {
-    const name = req.body.name;
-    const deleted = await vocab.deleteDataName("words", name);
-    res.send(`SUCCESFULLY DELETED! ${name} FROM WORDS`);
+    const id = req.body.id;
+    console.log(id);
+    const deleted = await vocab.deleteWordById(id);
+    res.send(`SUCCESFULLY DELETED! ${id} FROM WORDS`);
   } catch (err) {
     res.status(400).send(err);
   }

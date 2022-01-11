@@ -103,9 +103,20 @@ module.exports = {
       });
     });
   },
+
+  deleteWordById: (whatToDelete) => {
+    return new Promise((resolve, reject) => {
+      const query = `DELETE FROM word WHERE id="${whatToDelete}"`;
+      console.log(query);
+      connection.query(query, (err, res) => {
+        if (err) reject(err);
+        resolve(res);
+      });
+    });
+  },
   deleteWordByTheme: (whatToDelete) => {
     return new Promise((resolve, reject) => {
-      const query = `DELETE FROM word WHERE theme_id="${whatToDelete}"`;
+      const query = `DELETE FROM word WHERE theme_id=${whatToDelete}`;
       console.log(query);
       connection.query(query, (err, res) => {
         if (err) reject(err);

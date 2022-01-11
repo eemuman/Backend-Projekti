@@ -54,3 +54,16 @@ export const delByName = async (whereToDelete, whatToDelete) => {
     console.log(err);
   }
 };
+
+export const deleteWordById = async (whatToDelete) => {
+  try {
+    const resp = await axios.delete(`http://localhost:8080/word`, {
+      data: {
+        id: whatToDelete,
+      },
+    });
+    return resp;
+  } catch (err) {
+    console.log(err);
+  }
+};
