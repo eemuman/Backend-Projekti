@@ -116,7 +116,7 @@ module.exports = {
   },
   deleteWordByTheme: (whatToDelete) => {
     return new Promise((resolve, reject) => {
-      const query = `DELETE FROM word WHERE theme_id=${whatToDelete}`;
+      const query = `DELETE FROM word WHERE theme_id="${whatToDelete}"`;
       console.log(query);
       connection.query(query, (err, res) => {
         if (err) reject(err);
