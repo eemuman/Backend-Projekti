@@ -20,7 +20,7 @@ export default function Main() {
   const navigate = useNavigate();
 
   const fetchData = async () => {
-    const wantedWords = await axios.get("http://localhost:8080/word", {
+    const wantedWords = await axios.get("/word", {
       params: {
         primLang: primaryLang,
         secondLang: secondaryLang,
