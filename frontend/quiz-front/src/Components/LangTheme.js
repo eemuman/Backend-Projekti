@@ -48,7 +48,9 @@ export default function LangTheme(props) {
             btnTitle={`LUO UUSI ${props.elem}`}
             title={`LUO UUSI ${props.elem}`}
             isIcon={false}
-            form={<NewLangThem isLang={props.isLang} />}
+            form={
+              <NewLangThem isLang={props.isLang} fetchAll={props.fetchAll} />
+            }
           ></ModalBase>
         </Grid>
 
@@ -67,10 +69,10 @@ export default function LangTheme(props) {
             >
               {props.isLang
                 ? props.langs.map((lang) => {
-                    if (lang.Name !== "Suomi")
+                    if (lang.name !== "Suomi")
                       return (
-                        <MenuItem key={lang.Name} value={lang.Name}>
-                          {lang.Name}
+                        <MenuItem key={lang.name} value={lang.name}>
+                          {lang.name}
                         </MenuItem>
                       );
                     return null;
@@ -84,7 +86,12 @@ export default function LangTheme(props) {
           </FormControl>
         </Grid>
         <Grid item>
-          <RemoveAlert disabled={isDisabled} isLang={props.isLang} />
+          <RemoveAlert
+            disabled={isDisabled}
+            isLang={props.isLang}
+            toDelete={curEle}
+            fetchAll={props.fetchAll}
+          />
         </Grid>
       </Grid>
     </>

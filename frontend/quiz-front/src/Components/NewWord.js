@@ -7,12 +7,12 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
 import InputLabel from "@mui/material/InputLabel";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import SendIcon from "@mui/icons-material/Send";
-import { postWord } from "../Utils/AxiosUtils";
+import { postWord, updateWordById } from "../Utils/AxiosUtils";
+import RemoveWordAlert from "./RemoveWordAlert";
 
 export default function NewWord(props) {
-  const [newWord, setNewWord] = useState("");
+  const [newWord, setNewWord] = useState({});
   const [isDisabled, setIsDisabled] = useState(true);
   const isEdit = props.isEdit;
 
@@ -20,10 +20,15 @@ export default function NewWord(props) {
     if (isEdit) setNewWord({ ...props.editWord });
     else {
       const newWordBase = { theme_id: "" };
-      props.langs.map((langg) => (newWordBase[langg.Name] = ""));
+      props.langs.map((langg) => (newWordBase[langg.name] = ""));
       setNewWord(newWordBase);
     }
   }, [props.langs, props.editWord, isEdit]);
+
+  const handleData = async () => {
+    await props.fetchAll();
+    props.handleClose();
+  };
 
   const handleChange = (index, e) => {
     const upd = newWord;
@@ -39,8 +44,12 @@ export default function NewWord(props) {
     checkDisabled();
   };
 
-  const handleClickkeri = () => {
-    postWord(newWord);
+  const handleClickkeri = async () => {
+    const data = isEdit
+      ? await updateWordById(newWord)
+      : await postWord(newWord);
+    console.log(data);
+    await handleData();
   };
 
   const checkDisabled = () => {
@@ -51,7 +60,7 @@ export default function NewWord(props) {
     }
   };
 
-  return newWord.length === 0 ? (
+  return Object.keys(newWord).length === 0 ? (
     <div>
       <h3>Loading...</h3>
     </div>
@@ -65,11 +74,11 @@ export default function NewWord(props) {
             id={index.toString()}
             margin="normal"
             key={index}
-            label={test.Name}
-            defaultValue={newWord[test.Name]}
+            label={test.name}
+            defaultValue={newWord[test.name]}
             variant="outlined"
-            helperText={`Lisää sanan käännös kielelle ${test.Name}`}
-            onChange={(e) => handleChange(test.Name, e)}
+            helperText={`Lisää sanan käännös kielelle ${test.name}`}
+            onChange={(e) => handleChange(test.name, e)}
           />
         </Grid>
       ))}
@@ -112,15 +121,7 @@ export default function NewWord(props) {
         <Grid item>
           {" "}
           <FormControl sx={{ m: 1 }}>
-            <Button
-              style={{ width: 200, height: 60 }}
-              variant="contained"
-              color="error"
-              onClick={handleClickkeri}
-              endIcon={<DeleteForeverIcon />}
-            >
-              POISTA
-            </Button>
+            <RemoveWordAlert id={newWord.id} handleClose={handleData} />
           </FormControl>
         </Grid>
       ) : (

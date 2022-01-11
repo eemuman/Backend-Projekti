@@ -61,6 +61,7 @@ export default function WordHeader(props) {
                 size="small"
                 form={
                   <NewWord
+                    fetchAll={props.fetchAll}
                     langs={props.langs}
                     themes={props.themes}
                     editWord={editWord}
@@ -81,6 +82,7 @@ export default function WordHeader(props) {
               variant={<AddIcon fontSize="large" />}
               form={
                 <NewWord
+                  fetchAll={props.fetchAll}
                   langs={props.langs}
                   themes={props.themes}
                   isEdit={false}

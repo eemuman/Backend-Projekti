@@ -3,6 +3,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 import SendIcon from "@mui/icons-material/Send";
+import { postNew } from "../Utils/AxiosUtils";
 
 export default function NewLangThem(props) {
   const [newElement, setNewElement] = useState("");
@@ -20,8 +21,12 @@ export default function NewLangThem(props) {
     [newElement]
   );
 
-  const handleClickkeri = () => {
-    //TODO PUSKE UUTTA DATAA BEISSII
+  const handleClickkeri = async () => {
+    const whatToPost = props.isLang ? "lang" : "theme";
+    const data = await postNew(newElement, whatToPost);
+    console.log(data.status);
+    await props.fetchAll();
+    props.handleClose();
   };
 
   return (
