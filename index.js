@@ -55,7 +55,7 @@ app.use(express.json());
  *
  * Haetaan teemat ja palautetaan ne frontendille
  */
-app.get(`/theme`, async (req, res) => {
+app.get(`/themes`, async (req, res) => {
   try {
     const themes = await vocab.getWanted("themes");
     console.log(themes);
@@ -71,7 +71,7 @@ app.get(`/theme`, async (req, res) => {
  *
  * Haetaan kielet ja palautetaan ne frontendille
  */
-app.get(`/lang`, async (req, res) => {
+app.get(`/langs`, async (req, res) => {
   try {
     const langs = await vocab.getWanted("langs");
     console.log(langs);
@@ -86,7 +86,7 @@ app.get(`/lang`, async (req, res) => {
  *
  * Haetaan sanat, jos queryssä on kielet, teema ja sanojen määrä, niin haetaan käyttäen niitä parametrejä, muuten haetaan kaikki ja lähetetään ne frontendille.
  */
-app.get(`/word`, async (req, res) => {
+app.get(`/words`, async (req, res) => {
   console.log(req.query);
   try {
     if (req.query.primLang != null && req.query.secondLang != null) {
@@ -112,7 +112,7 @@ app.get(`/word`, async (req, res) => {
  *
  * Haetaan kaikki sanat jotka löytyvät tietyllä kielellä.
  */
-app.get(`/word/:lang`, async (req, res) => {
+app.get(`/words/:lang`, async (req, res) => {
   try {
     const allWordsLang = await vocab.getWordsLang(req.params.lang);
     res.send(allWordsLang);
@@ -126,12 +126,13 @@ app.get(`/word/:lang`, async (req, res) => {
  *
  * Luodaan uusi teema tietokantaan, haluttu nimi otetaan requestin bodystä.
  */
-app.post(`/theme`, verifyToken, async (req, res) => {
+app.post(`/themes`, verifyToken, async (req, res) => {
   try {
     const name = req.body.name;
     console.log(req.body.name);
     const addThemeData = await vocab.addNew(name, "themes");
-    res.send("NEW THEME ADDED");
+    console.log(addThemeData);
+    res.status(201).send(addThemeData);
   } catch (err) {
     res.status(400).send(err);
   }
@@ -142,10 +143,14 @@ app.post(`/theme`, verifyToken, async (req, res) => {
  *
  * Luodaan uusi nimi tietokantaan, Halutut käännökset ja niitten kielet otetaan requestin bodystä, jossa ne on valmiiksi laitettu sql sopivaan muotoon.
  */
-app.post(`/word`, verifyToken, async (req, res) => {
+app.post(`/words`, verifyToken, async (req, res) => {
   try {
-    await vocab.addNewWord(req.body.joinedValues, req.body.joinedKeys);
-    res.send("SUCCESS?");
+    const data = await vocab.addNewWord(
+      req.body.joinedValues,
+      req.body.joinedKeys
+    );
+    console.log(data);
+    res.status(201).send(data);
   } catch (err) {
     res.status(400).send(err);
   }
@@ -157,13 +162,13 @@ app.post(`/word`, verifyToken, async (req, res) => {
  * Luodaan uusi kieli tietokantaan, haluttu nimi otetaan requestin bodystä.
  * Samalla luodaan myös uusi kolumni sanojen tietokantaan, jotta kyseiselle kielelle voi lisätä käännöksiä.
  */
-app.post(`/lang`, verifyToken, async (req, res) => {
+app.post(`/langs`, verifyToken, async (req, res) => {
   try {
     const name = req.body.name;
-    console.log(req.body.name);
     const addThemeData = await vocab.addNew(name, "langs");
-    const updNames = await vocab.updNames(name, false);
-    res.send("NEW LANG ADDED");
+    console.log(addThemeData);
+    await vocab.updNames(name, false);
+    res.status(201).send(addThemeData);
   } catch (err) {
     res.status(400).send(err);
   }
@@ -173,12 +178,12 @@ app.post(`/lang`, verifyToken, async (req, res) => {
  *
  * Tällä poistetaan teemoja, ensiksi teemojen omasta tietokannasta, sekä sen jälkeen kaikki kyseisen teeman alla olevat sanat poistetaan sanojen tietokannasta.
  */
-app.delete(`/theme`, verifyToken, async (req, res) => {
+app.delete(`/themes`, verifyToken, async (req, res) => {
   try {
     const name = req.body.name;
     await vocab.deleteDataName("themes", name);
     await vocab.deleteWordByTheme(name);
-    res.send(`SUCCESFULLY DELETED! ${name} FROM THEMES`);
+    res.status(204).send(`SUCCESFULLY DELETED! ${name} FROM THEMES`);
   } catch (err) {
     res.status(400).send(err);
   }
@@ -189,13 +194,13 @@ app.delete(`/theme`, verifyToken, async (req, res) => {
  *
  * Tällä poistetaan kieliä, ensiksi teemojen omasta tietokannasta, sekä sen jälkeen kyseinen kolumni sanojen tietokannasta, jotta niitä ei enään turhaan loju siellä.
  */
-app.delete(`/lang`, verifyToken, async (req, res) => {
+app.delete(`/langs`, verifyToken, async (req, res) => {
   try {
     const name = req.body.name;
     console.log(req.body);
     await vocab.deleteDataName("langs", name);
     await vocab.updNames(name, true);
-    res.send(`SUCCESFULLY DELETED! ${name} FROM LANGS`);
+    res.status(204).send(`SUCCESFULLY DELETED! ${name} FROM LANGS`);
   } catch (err) {
     res.status(400).send(err);
   }
@@ -206,12 +211,12 @@ app.delete(`/lang`, verifyToken, async (req, res) => {
  *
  * Tällä voidaan päivittää sanan käännökset sekä teema. data sisältää jo valmiiksi sql komentomuodossa olevat muutokset, jotka on sitten helppo pätsää.
  */
-app.patch(`/word`, verifyToken, async (req, res) => {
+app.patch(`/words`, verifyToken, async (req, res) => {
   try {
     const { id, data } = req.body;
 
     await vocab.updateWordById(id, data);
-    res.send(`SUCCESFULLY UPDATED ID= ${id} WORD`);
+    res.status(202).send(`SUCCESFULLY UPDATED ID= ${id} WORD`);
   } catch (err) {
     res.status(400).send(err);
   }
@@ -222,12 +227,12 @@ app.patch(`/word`, verifyToken, async (req, res) => {
  *
  * Tällä voidaan poistaa sana käyttäen ID:tä.
  */
-app.delete(`/word`, verifyToken, async (req, res) => {
+app.delete(`/words`, verifyToken, async (req, res) => {
   try {
     const id = req.body.id;
     console.log(id);
     const deleted = await vocab.deleteWordById(id);
-    res.send(`SUCCESFULLY DELETED! ID= ${id} FROM WORDS`);
+    res.status(204).send(`SUCCESFULLY DELETED! ID= ${id} FROM WORDS`);
   } catch (err) {
     res.status(400).send(err);
   }
