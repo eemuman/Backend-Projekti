@@ -4,7 +4,7 @@ import LangTheme from "./LangTheme";
 /**
  * Hallintapaneelin teemojen pohja.
  * @param {*} props
- * @returns
+ * @returns Teemaelementin pohja
  */
 export default function Themes(props) {
   return (

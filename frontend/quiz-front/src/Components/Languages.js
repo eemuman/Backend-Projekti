@@ -5,7 +5,7 @@ import LangTheme from "./LangTheme";
 /**
  * Pohjaelementti hallintapaneelin kieltenvalinnalle
  * @param {*} props
- * @returns
+ * @returns Kielten pohjaelementti
  */
 export default function Languages(props) {
   return (

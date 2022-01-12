@@ -54,7 +54,7 @@ export default function DisplayWords(props) {
    * Haetaan haluttu järjestys
    * @param {*} order
    * @param {*} orderBy
-   * @returns
+   * @returns Järjestys
    */
   const getComparator = (order, orderBy) => {
     return order === "desc"

@@ -16,7 +16,7 @@ import { fetchData } from "../Utils/AxiosUtils";
 /**
  * Tämä on pelin asetusten valintaelementti. Tämän avulla valitaan halutut kielet, sanojen määrä, sekä teema.
  * @param {*} props
- * @returns
+ * @returns Asetusten elementti
  */
 export default function Settings(props) {
   const [isDisabled, setDisabled] = useState(true);

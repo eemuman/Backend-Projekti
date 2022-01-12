@@ -66,7 +66,7 @@ module.exports = {
    * @param {*} secondLang Kieli mitä halutaan oppia
    * @param {*} theme_id Minkä teeman sanoja on
    * @param {*} amountofWords Kuinka monta sanaa halutaan
-   * @returns
+   * @returns Haettu data
    */
   getWantedWords: (primLang, secondLang, theme_id, amountofWords) => {
     return new Promise((resolve, reject) => {
@@ -86,7 +86,7 @@ module.exports = {
    * Tällä lisätään kieliin sekä teemoihin uusia kieliä/teemoja.
    * @param {*} nameToAdd Halutun lisäyksen nimi
    * @param {*} whereToAdd Lisätäänkö kieli vai teema.
-   * @returns
+   * @returns Haettu data
    */
   addNew: (nameToAdd, whereToAdd) => {
     return new Promise((resolve, reject) => {
@@ -103,7 +103,7 @@ module.exports = {
    * Tällä luodaan uusia sanoja tietokantaan. Values ja keys on valmiiksi laitettu sql sopivaan muotoon aina ihan frontendissä asti.
    * @param {*} values Uuden sanan käännökset sekä teema
    * @param {*} keys Kielten nimet, theme_id, jne..
-   * @returns
+   * @returns Haettu data
    */
   addNewWord: (values, keys) => {
     return new Promise((resolve, reject) => {
@@ -119,7 +119,7 @@ module.exports = {
    * Tätä käytetään kun poistetaan tai lisätään kieli, eli tällä poistetaan tai lisätään sana-tietokantaan kolumni halutulla nimellä.
    * @param {*} updName Haluttu nimi
    * @param {*} isDelete Onko kyseessä poisto vai lisäys.
-   * @returns
+   * @returns Haettu data
    */
   updNames: (updName, isDelete) => {
     return new Promise((resolve, reject) => {
@@ -136,7 +136,7 @@ module.exports = {
    * Tällä poistetaan kielet tai teemat niiden omista tietokannoistaan.
    * @param {*} whereToDelete Mistä poistetaan (kieli/teema)
    * @param {*} whatToDelete Mitä poistetaan (nimi)
-   * @returns
+   * @returns Haettu data
    */
   deleteDataName: (whereToDelete, whatToDelete) => {
     return new Promise((resolve, reject) => {
@@ -151,7 +151,7 @@ module.exports = {
   /**
    * Tällä poistetaan sana ID:tä käyttäen
    * @param {*} whatToDelete Halutun sanan ID
-   * @returns
+   * @returns Haettu data
    */
   deleteWordById: (whatToDelete) => {
     return new Promise((resolve, reject) => {
@@ -166,7 +166,7 @@ module.exports = {
   /**
    * Kun poistetaan teema, käytetään tätä siihen, että poistetaan sanat-tietokannasta halutun teeman alla olevat sanat.
    * @param {*} whatToDelete Poistettavan teeman nimi
-   * @returns
+   * @returns Haettu data
    */
   deleteWordByTheme: (whatToDelete) => {
     return new Promise((resolve, reject) => {
@@ -183,7 +183,7 @@ module.exports = {
    * Tällä funktiolla päivitetään sana tietokantaan ID:tä käyttäen.. Data sisältää varmiiksi SQL-sopivan komentosarjan päivittämiselle.
    * @param {*} id Päivitettävän sanan ID
    * @param {*} data Uusi päivitetty data
-   * @returns
+   * @returns Haettu data
    */
   updateWordById: (id, data) => {
     return new Promise((resolve, reject) => {

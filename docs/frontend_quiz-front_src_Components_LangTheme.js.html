@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: frontend/quiz-front/src/Components/LangTheme.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: frontend/quiz-front/src/Components/LangTheme.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState, useEffect } from "react";
+import ModalBase from "./ModalBase";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+
+import Select from "@mui/material/Select";
+import Typography from "@mui/material/Typography";
+import InputLabel from "@mui/material/InputLabel";
+import { Grid } from "@mui/material";
+import RemoveAlert from "./RemoveAlert";
+import NewLangThem from "./NewLangThem";
+
+/**
+ * Hallintapaneelin kielten/teemojen hallinan pohjaelementti. Sisältää napit joilla lisätä uusia ja select-menu josta valita kielet sekä poisto-nappi niiden poistoon. Muokataan kumpaankin (kieli/teema) sopivaksi propseja käyttämällä.
+ * @param {*} props Tarvittava data, jotta saadaan muokattua halutun näköiseksi
+ * @returns Kielten/teemojen pohjaelementti
+ */
+export default function LangTheme(props) {
+  const [curEle, setCurLang] = useState("");
+  const [isDisabled, setIsDisabled] = useState(true);
+
+  const handleChange = (e) => {
+    setCurLang(e.target.value);
+  };
+
+  useEffect(() => setIsDisabled(curEle === "" ? true : false), [curEle]);
+
+  return (
+    &lt;>
+      &lt;Typography
+        sx={{
+          borderBottom: 1,
+          borderColor: "grey.400",
+          padding: "5px",
+        }}
+        variant="button"
+        fontSize={"1em"}
+        gutterBottom
+        component="div"
+      >
+        {`LUO JA POISTA ${props.elemModified}`}
+      &lt;/Typography>
+      &lt;Grid
+        marginTop={"25px"}
+        marginBottom={"100px"}
+        container
+        direction="row"
+        justifyContent="space-evenly"
+        alignItems="center"
+      >
+        &lt;Grid item>
+          &lt;ModalBase
+            btnTitle={`LUO UUSI ${props.elem}`}
+            title={`LUO UUSI ${props.elem}`}
+            isIcon={false}
+            form={
+              &lt;NewLangThem isLang={props.isLang} fetchAll={props.fetchAll} />
+            }
+          >&lt;/ModalBase>
+        &lt;/Grid>
+
+        &lt;Grid item>
+          &lt;FormControl sx={{ minWidth: 300 }}>
+            &lt;InputLabel id="demo-simple-select-standard-label">
+              {props.elemSmallMod}
+            &lt;/InputLabel>
+            &lt;Select
+              placeholder="Valitse kieli jonka haluat poistaa..."
+              labelId="demo-simple-select-standard-label"
+              id="demo-simple-select-standard"
+              value={curEle}
+              onChange={handleChange}
+              label="Kielet"
+            >
+              {props.isLang
+                ? props.langs.map((lang) => {
+                    if (lang.name !== "Suomi")
+                      return (
+                        &lt;MenuItem key={lang.name} value={lang.name}>
+                          {lang.name}
+                        &lt;/MenuItem>
+                      );
+                    return null;
+                  })
+                : props.themes.map((theme) => (
+                    &lt;MenuItem key={theme.name} value={theme.name}>
+                      {theme.name}
+                    &lt;/MenuItem>
+                  ))}
+            &lt;/Select>
+          &lt;/FormControl>
+        &lt;/Grid>
+        &lt;Grid item>
+          &lt;RemoveAlert
+            disabled={isDisabled}
+            isLang={props.isLang}
+            toDelete={curEle}
+            fetchAll={props.fetchAll}
+          />
+        &lt;/Grid>
+      &lt;/Grid>
+    &lt;/>
+  );
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#app">app</a></li><li><a href="global.html#checkLogin">checkLogin</a></li><li><a href="global.html#delByName">delByName</a></li><li><a href="global.html#deleteWordById">deleteWordById</a></li><li><a href="global.html#fetchData">fetchData</a></li><li><a href="global.html#getCurrentUser">getCurrentUser</a></li><li><a href="global.html#logUserIn">logUserIn</a></li><li><a href="global.html#postNew">postNew</a></li><li><a href="global.html#postWord">postWord</a></li><li><a href="global.html#updateWordById">updateWordById</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Jan 12 2022 12:12:44 GMT+0200 (Itä-Euroopan normaaliaika)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

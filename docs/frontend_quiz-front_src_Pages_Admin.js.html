@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: frontend/quiz-front/src/Pages/Admin.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: frontend/quiz-front/src/Pages/Admin.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState, useEffect } from "react";
+import CssBaseline from "@mui/material/CssBaseline";
+import { Typography, Box, Container, Tab, Button } from "@mui/material";
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
+import Words from "../Components/Words";
+import Languages from "../Components/Languages";
+import Themes from "../Components/Themes";
+import { fetchData, checkLogin } from "../Utils/AxiosUtils";
+
+/**
+ * Hallintapaneelin pohjaelementti. Tällä hallitaan mm. datan hakemista, varmistaen että käyttäjä on kirjautuneena sisään, hallitaan uloskirjaus, sekä mikä hallintapaneelin elementti halutaan näyttää
+ * @param {*} props
+ * @returns Hallintapaneelin pohjaelementti
+ */
+export default function Admin(props) {
+  const [pageVal, setPageVal] = useState("1");
+  const [langs, setLangs] = useState([]);
+  const [themes, setThemes] = useState([]);
+  const [allWords, setAllWords] = useState([]);
+
+  /**
+   * Funktio jolla haetaan kaikki tietokantojen sanoihin liittyvä data, (kielet, teemat ja itse sanat).
+   * Ensiksi kuitenkin ennen jokaista hakua varmistetaan, että käyttäjä on autentikoitu JWT tokenin validoinilla.
+   */
+  async function fetchAll() {
+    const resp = await checkLogin();
+    if (resp !== 200) {
+      localStorage.removeItem("user");
+      props.setLoggedIn(false);
+    }
+    if (props.isLoggedIn) {
+      const langData = await fetchData("lang");
+      setLangs(langData);
+      const themeData = await fetchData("theme");
+      setThemes(themeData);
+      const wordData = await fetchData("word");
+      setAllWords(wordData);
+    }
+  }
+
+  /**
+   * Kun hallintasivulle tullaan, haetaan ensiksi kaikki datat.
+   */
+  useEffect(() => {
+    fetchAll();
+  }, []);
+
+  /**
+   * Vaihdetaan eri hallintapaneelin elementtien avulla tätä hyväksikäyttäen
+   * @param {*} e
+   * @param {*} val Mikä sivu on valittu
+   */
+  const handleChange = (e, val) => {
+    setPageVal(val);
+  };
+
+  /**
+   * Uloskirjautumisnäppäintä painettaessa kutsutaan tätä, eli ensiksi poistetaan kekseistä JWT tokeni ja sen jälkeen poistetaan loggedIn flagi fetchAll funktiota käyttäen.
+   */
+  const logOut = async () => {
+    localStorage.removeItem("user");
+    await fetchAll();
+  };
+
+  /**
+   * Propsit mitkä lähetetään kaikille elementeille.
+   */
+  const propsit = {
+    langs: langs,
+    themes: themes,
+    allWords: allWords,
+    fetchAll: fetchAll,
+  };
+
+  return (
+    &lt;React.Fragment>
+      &lt;CssBaseline />
+      &lt;Container fixed>
+        &lt;Box
+          sx={{
+            border: 1,
+            borderRadius: 3,
+            borderColor: "grey.400",
+            flexGrow: 1,
+            marginTop: "25px",
+            bgcolor: "grey.50",
+            boxShadow: 3,
+          }}
+        >
+          &lt;Typography
+            sx={{
+              fontWeight: "bold",
+              borderBottom: 1,
+              borderColor: "grey.400",
+              padding: "5px",
+            }}
+            variant="h3"
+            gutterBottom
+            component="div"
+          >
+            HALLINTAPANEELI
+            &lt;Button onClick={logOut}>KIRJAUDU ULOS&lt;/Button>
+          &lt;/Typography>
+          &lt;TabContext value={pageVal}>
+            &lt;TabList value={pageVal} onChange={handleChange} centered>
+              &lt;Tab value="1" label="SANAT" />
+              &lt;Tab value="2" label="KIELET" />
+              &lt;Tab value="3" label="TEEMAT" />
+            &lt;/TabList>
+            &lt;TabPanel value="1">
+              &lt;Words {...propsit} />
+            &lt;/TabPanel>
+            &lt;TabPanel value="2">
+              &lt;Languages {...propsit} />
+            &lt;/TabPanel>
+            &lt;TabPanel value="3">
+              &lt;Themes {...propsit} />
+            &lt;/TabPanel>
+          &lt;/TabContext>
+        &lt;/Box>
+      &lt;/Container>
+    &lt;/React.Fragment>
+  );
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#app">app</a></li><li><a href="global.html#checkLogin">checkLogin</a></li><li><a href="global.html#delByName">delByName</a></li><li><a href="global.html#deleteWordById">deleteWordById</a></li><li><a href="global.html#fetchData">fetchData</a></li><li><a href="global.html#getCurrentUser">getCurrentUser</a></li><li><a href="global.html#logUserIn">logUserIn</a></li><li><a href="global.html#postNew">postNew</a></li><li><a href="global.html#postWord">postWord</a></li><li><a href="global.html#updateWordById">updateWordById</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Jan 12 2022 12:12:44 GMT+0200 (Itä-Euroopan normaaliaika)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -13,7 +13,7 @@ import NewWord from "./NewWord";
 /**
  * Sanojen yläpalkin hallintaelementti. Tämän avulla voidaan luoda uusia sanoja sekä muokata vanhoja. Kun jotain elementtiä listassa painetaan, sen id lähetetään tänne ja haluttu sana haetaan editwWordiin.
  * @param {*} props
- * @returns
+ * @returns Yläpalkin hallintaelementti
  */
 export default function WordHeader(props) {
   const numSelected = props.numSelected;

@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 /**
  * Kirjautumiseen käytettävä sivu, sisältää login-paneelin.
  * @param {*} props
- * @returns
+ * @returns sign-in elementti
  */
 export default function SignIn(props) {
   const navigate = useNavigate();

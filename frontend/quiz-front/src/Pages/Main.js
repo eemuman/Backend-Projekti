@@ -10,7 +10,7 @@ const axios = require("axios").default;
 
 /**
  * Pelin pelaamisen pääsivu, täällä hallitaan kaikki mitä tapahtuu pelisivuilla. Valitut kielet, teemat, sanojen määrät, pelataanko vai ei, onko sanoja tarpeeksi, pohjaArray vastauksille.
- * @returns
+ * @returns Pelin pelaamiselmentti
  */
 export default function Main() {
   const [isPlaying, setIsPlaying] = useState(false);

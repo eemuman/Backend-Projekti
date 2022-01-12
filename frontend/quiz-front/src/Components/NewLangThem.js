@@ -8,7 +8,7 @@ import { postNew } from "../Utils/AxiosUtils";
 /**
  * Uuden kielen/Teeman formi, käytetään ModalBasessa.
  * @param {*} props
- * @returns
+ * @returns Uuden kieli/teeman formi
  */
 export default function NewLangThem(props) {
   const [newElement, setNewElement] = useState("");

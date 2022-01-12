@@ -12,7 +12,7 @@ import { fetchData, checkLogin } from "../Utils/AxiosUtils";
 /**
  * Hallintapaneelin pohjaelementti. Tällä hallitaan mm. datan hakemista, varmistaen että käyttäjä on kirjautuneena sisään, hallitaan uloskirjaus, sekä mikä hallintapaneelin elementti halutaan näyttää
  * @param {*} props
- * @returns
+ * @returns Hallintapaneelin pohjaelementti
  */
 export default function Admin(props) {
   const [pageVal, setPageVal] = useState("1");

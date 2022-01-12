@@ -11,7 +11,7 @@ import { delByName } from "../Utils/AxiosUtils";
 /**
  * Tämä on hallintapaneelin teema/kieli-valintojen poistonappi. Kun nappia painetaan aukeaa tämä alert.
  * @param {*} props
- * @returns
+ * @returns Poistahäly-elementti
  */
 export default function RemoveAlert(props) {
   const [open, setOpen] = useState(false);

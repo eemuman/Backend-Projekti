@@ -16,7 +16,7 @@ import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 /**
  * Tämä on pelaamissivun pohjaelementti. Tämä hallitsee mm. Sanojen näyttämisen, textfieldien datan tallentamisen sekä oikeiden vastausten tarkistamisen.
  * @param {*} props
- * @returns
+ * @returns Pelaamisen pohjaelementti
  */
 export default function Play(props) {
   const [isVis, setisVis] = useState("none");

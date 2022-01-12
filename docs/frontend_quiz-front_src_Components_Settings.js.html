@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: frontend/quiz-front/src/Components/Settings.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: frontend/quiz-front/src/Components/Settings.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState, useEffect } from "react";
+import LangMenu from "./LangMenu";
+import Box from "@mui/material/Box";
+import { Button, Grid, Typography } from "@mui/material";
+import Select from "@mui/material/Select";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import FormHelperText from "@mui/material/FormHelperText";
+import MenuItem from "@mui/material/MenuItem";
+import SendIcon from "@mui/icons-material/Send";
+import Alert from "@mui/material/Alert";
+import Snackbar from "@mui/material/Snackbar";
+import Slide from "@mui/material/Slide";
+import { fetchData } from "../Utils/AxiosUtils";
+
+/**
+ * Tämä on pelin asetusten valintaelementti. Tämän avulla valitaan halutut kielet, sanojen määrä, sekä teema.
+ * @param {*} props
+ * @returns Asetusten elementti
+ */
+export default function Settings(props) {
+  const [isDisabled, setDisabled] = useState(true);
+  const [langs, setLangs] = useState([]);
+  const [themes, setThemes] = useState([]);
+
+  /**
+   * Kun settingsit aukeaa, ladataan ensimmäiseksi kielet ja teemat databasesta.
+   */
+  useEffect(() => {
+    async function fetchAll() {
+      const langData = await fetchData("lang");
+      setLangs(langData);
+      const themeData = await fetchData("theme");
+      setThemes(themeData);
+    }
+    fetchAll();
+  }, []);
+
+  /**
+   * Kun kaikissa valinnoissa on joku vaihtoehto, enabloidaan Pelaa näppäin.
+   */
+  useEffect(() => {
+    if (
+      props.primaryLang !== "" &amp;&amp;
+      props.secondaryLang !== "" &amp;&amp;
+      props.amountofWords !== "" &amp;&amp;
+      props.curTheme !== ""
+    ) {
+      setDisabled(false);
+    }
+  }, [
+    props.primaryLang,
+    props.secondaryLang,
+    props.amountofWords,
+    props.curTheme,
+  ]);
+
+  /**
+   * Kaikki handlerit eri kohdille
+   * @param {*} e
+   */
+  const handlePrimary = (e) => {
+    props.setPrimaryLang(e.target.value.name);
+  };
+  /**
+   * Kaikki handlerit eri kohdille
+   * @param {*} e
+   */
+  const handleSecondary = (e) => {
+    props.setSecondaryLang(e.target.value.name);
+  };
+  /**
+   * Kaikki handlerit eri kohdille
+   * @param {*} e
+   */
+  const handleAmount = (e) => {
+    props.setAmountofWords(e.target.value);
+  };
+  /**
+   * Kaikki handlerit eri kohdille
+   * @param {*} e
+   */
+  const handleTheme = (e) => {
+    props.setCurTheme(e.target.value.name);
+  };
+  /**
+   * Kun painetaan pelaa näppäintä, kutsutaan Main.js fetchData funktiota @see {@link fetchData}
+   * @param {*} e
+   */
+  const handleClickkeri = () => {
+    props.fetchData();
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    props.setFalse(false);
+  };
+
+  return (
+    &lt;div>
+      &lt;Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        TransitionComponent={Slide}
+        open={props.false}
+        autoHideDuration={4000}
+        onClose={handleClose}
+      >
+        &lt;Alert onClose={handleClose} severity="error" variant="filled">
+          {`Halutuilla vaihtoehdoilla ei löytynyt tarpeeksi sanoja!
+          Yritä
+          uudestaan!`}
+        &lt;/Alert>
+      &lt;/Snackbar>
+      &lt;Box
+        sx={{
+          border: 1,
+          borderRadius: 3,
+          borderColor: "grey.400",
+          flexGrow: 1,
+          marginTop: "25px",
+          bgcolor: "grey.50",
+          boxShadow: 3,
+        }}
+      >
+        &lt;Typography
+          sx={{
+            fontWeight: "bold",
+            borderBottom: 1,
+            borderColor: "grey.400",
+            padding: "5px",
+          }}
+          variant="h3"
+          gutterBottom
+          component="div"
+        >
+          ASETUKSET
+        &lt;/Typography>
+        &lt;Grid
+          container
+          spacing={1}
+          justifyContent="space-evenly"
+          alignItems="center"
+          direction={{ xs: "column", sm: "column", md: "row" }}
+        >
+          &lt;Grid item>
+            &lt;LangMenu
+              labelId="Primary lang"
+              id="Primary helper"
+              label="Kysymyskieli"
+              handle={handlePrimary}
+              curLang={props.primaryLang}
+              secondLang={props.secondaryLang}
+              langs={langs}
+              helperTxt="VALITSE KYSYTTÄVÄN SANAN KIELI"
+            />
+          &lt;/Grid>
+          &lt;Grid item>
+            &lt;LangMenu
+              labelId="Secondary lang"
+              id="Secondary helper"
+              label="Vastauskieli"
+              handle={handleSecondary}
+              curLang={props.secondaryLang}
+              secondLang={props.primaryLang}
+              langs={langs}
+              helperTxt="VALITSE VASTATTAVAN SANAN KIELI"
+            />
+          &lt;/Grid>
+
+          &lt;Grid item>
+            &lt;div>Sanojen määrä&lt;/div>
+            &lt;FormControl sx={{ m: 1 }}>
+              &lt;InputLabel id={"WORDLBL"}>Määrä&lt;/InputLabel>
+              &lt;Select
+                labelId="Amount of Words"
+                id="AmountofWords"
+                defaultValue=""
+                label="Määrä"
+                onChange={handleAmount}
+              >
+                &lt;MenuItem value={1}>Yksi&lt;/MenuItem>
+                &lt;MenuItem value={3}>Kolme&lt;/MenuItem>
+                &lt;MenuItem value={5}>Viisi&lt;/MenuItem>
+                &lt;MenuItem value={7}>Seitsemän&lt;/MenuItem>
+                &lt;MenuItem value={10}>Kymmenen&lt;/MenuItem>
+              &lt;/Select>
+              &lt;FormHelperText>VALITSE HALUTTU MÄÄRÄ SANOJA&lt;/FormHelperText>
+            &lt;/FormControl>
+          &lt;/Grid>
+          &lt;Grid item>
+            &lt;div>Sanojen teema&lt;/div>
+
+            &lt;FormControl sx={{ m: 1 }}>
+              &lt;InputLabel id={"THMLBL"}>Teema&lt;/InputLabel>
+              &lt;Select
+                labelId="Theme"
+                id="Themes"
+                defaultValue=""
+                label="teema"
+                onChange={handleTheme}
+              >
+                {themes.map((theme, index) => (
+                  &lt;MenuItem key={index} value={theme}>
+                    {theme.name}
+                  &lt;/MenuItem>
+                ))}
+              &lt;/Select>
+              &lt;FormHelperText>VALITSE SANOJEN TEEMA&lt;/FormHelperText>
+            &lt;/FormControl>
+          &lt;/Grid>
+          &lt;Grid item>
+            &lt;FormControl sx={{ m: 1 }}>
+              &lt;Button
+                style={{ width: 200, height: 60 }}
+                disabled={isDisabled}
+                variant="contained"
+                color="success"
+                onClick={handleClickkeri}
+                endIcon={&lt;SendIcon />}
+              >
+                PELAAMAAN
+              &lt;/Button>
+            &lt;/FormControl>
+          &lt;/Grid>
+        &lt;/Grid>
+      &lt;/Box>
+    &lt;/div>
+  );
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#app">app</a></li><li><a href="global.html#checkLogin">checkLogin</a></li><li><a href="global.html#delByName">delByName</a></li><li><a href="global.html#deleteWordById">deleteWordById</a></li><li><a href="global.html#fetchData">fetchData</a></li><li><a href="global.html#getCurrentUser">getCurrentUser</a></li><li><a href="global.html#logUserIn">logUserIn</a></li><li><a href="global.html#postNew">postNew</a></li><li><a href="global.html#postWord">postWord</a></li><li><a href="global.html#updateWordById">updateWordById</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Jan 12 2022 12:12:44 GMT+0200 (Itä-Euroopan normaaliaika)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

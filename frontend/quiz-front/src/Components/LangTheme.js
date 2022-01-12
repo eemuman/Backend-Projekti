@@ -13,7 +13,7 @@ import NewLangThem from "./NewLangThem";
 /**
  * Hallintapaneelin kielten/teemojen hallinan pohjaelementti. Sisältää napit joilla lisätä uusia ja select-menu josta valita kielet sekä poisto-nappi niiden poistoon. Muokataan kumpaankin (kieli/teema) sopivaksi propseja käyttämällä.
  * @param {*} props Tarvittava data, jotta saadaan muokattua halutun näköiseksi
- * @returns
+ * @returns Kielten/teemojen pohjaelementti
  */
 export default function LangTheme(props) {
   const [curEle, setCurLang] = useState("");

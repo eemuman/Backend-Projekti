@@ -10,7 +10,7 @@ import { deleteWordById } from "../Utils/AxiosUtils";
 /**
  * Täysin sama kuin @see {@link RemoveAlert}. Ainoa ero on siinä, että tällä poistetaan haluttu sana ID:tä käyttäen.
  * @param {*} props
- * @returns
+ * @returns Poistahäly-elementti
  */
 export default function RemoveWordAlert(props) {
   const [open, setOpen] = useState(false);

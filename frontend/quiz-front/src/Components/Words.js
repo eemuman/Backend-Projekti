@@ -4,7 +4,7 @@ import DisplayWords from "./DisplayWords";
 /**
  * Hallintapaneelin sanahallinan pohja.
  * @param {*} props
- * @returns
+ * @returns Sanojen hallinan pohjaelementti
  */
 export default function Words(props) {
   return props.allWords.length === 0 ||

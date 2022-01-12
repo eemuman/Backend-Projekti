@@ -14,7 +14,7 @@ import RemoveWordAlert from "./RemoveWordAlert";
 /**
  * Uuden sanan luomispohja käytettäväksi modalbasessa. Sama elementti käytössä myös kun muokataan vanhaa sanaa.
  * @param {*} props
- * @returns
+ * @returns Uuuden sanan pohjaelementti
  */
 export default function NewWord(props) {
   const [newWord, setNewWord] = useState({});

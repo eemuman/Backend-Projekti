@@ -3,7 +3,7 @@ const axios = require("axios").default;
 /**
  * Yksinkertainen funktio, jolla voi hakea kaikki halutut datat databasesta.
  * @param {*} dataToFetch Mitä halutaan hakea (sanat, teemat, kielet).
- * @returns
+ * @returns Vastaus serveriltä
  */
 export const fetchData = async (dataToFetch) => {
   try {
@@ -21,7 +21,7 @@ export const fetchData = async (dataToFetch) => {
 /**
  * Uuden sanan lisääminen databaseen. Data tulee objektina, josta otetaan erilleen avaimet ja arvot, tämän jälkeen avaimet yhdistetään pilkulla ja arvot laitetaan lainausmerkkeihin ennen yhdistämistä.
  * @param {*} data Uuden sanan kaikki tarvittava data. Minimissään suomenkielinen käännös sekä theme_id
- * @returns
+ * @returns Vastaus serveriltä
  */
 export const postWord = async (data) => {
   try {
@@ -45,7 +45,7 @@ export const postWord = async (data) => {
  * Tällä perusfunktiolla voidaan luoda uusi kieli tai teema.
  * @param {*} newName Uuden kielen/teeman nimi
  * @param {*} WhatToPost Kumpi tämä uusi on kieli vai teema.
- * @returns
+ * @returns Vastaus serveriltä
  */
 export const postNew = async (newName, WhatToPost) => {
   try {
@@ -62,7 +62,7 @@ export const postNew = async (newName, WhatToPost) => {
  * Tällä funktiolla voidaan poistaa dataa tietokannasta käyttäen nimeä.
  * @param {*} whereToDelete Mistä haluttu data poistaa. Kieli/Teema/Sana
  * @param {*} whatToDelete Millä nimellä haluttu data löytyy.
- * @returns
+ * @returns Vastaus serveriltä
  */
 export const delByName = async (whereToDelete, whatToDelete) => {
   try {
@@ -79,7 +79,7 @@ export const delByName = async (whereToDelete, whatToDelete) => {
 /**
  * Tällä funktiolla voidaan poistaa Sana käyttäen ID:tä (!!TURVALLISEMPI TAPA POISTAA SANOJA!!)
  * @param {*} whatToDelete halutun sanan ID
- * @returns
+ * @returns Vastaus serveriltä
  */
 export const deleteWordById = async (whatToDelete) => {
   try {
@@ -98,7 +98,7 @@ export const deleteWordById = async (whatToDelete) => {
  * Sanan päivittämiseen käytettävä funktio, päivitettävä sana haetaan ID:llä tietokannasta.
  * Datan avainarvoparit mapataan Avain = "Arvo" tyyliin erilliseen constiin. Id mapataan ilman lainausmerkkejä, koska se ei ole VARCHAR.
  * @param {*} data Päivitetty data
- * @returns
+ * @returns Vastaus serveriltä
  */
 export const updateWordById = async (data) => {
   const joinedUpdt = Object.entries(data)

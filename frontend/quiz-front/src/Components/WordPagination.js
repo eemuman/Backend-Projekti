@@ -10,7 +10,7 @@ import Box from "@mui/material/Box";
 /**
  * Pagination elementti sanalistassa. Tämän avulla haetaan haluttu sivu ja pysytään kartalla siitä, montako sivua on ja millä sivulla ollaan.
  * @param {*} props
- * @returns
+ * @returns Pagination elementti
  */
 export default function WordPagination(props) {
   const theme = useTheme();
