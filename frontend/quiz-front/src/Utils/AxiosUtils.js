@@ -1,5 +1,17 @@
 const axios = require("axios").default;
 
+/**
+@FUNCTION
+ * @module AxiosUtils
+ */
+
+/**
+@FUNCTION
+ *
+ * Yksinkertainen funktio, jolla voi hakea kaikki halutut datat databasesta.
+ * @param {*} dataToFetch Mitä halutaan hakea (sanat, teemat, kielet).
+ * @returns Vastaus serveriltä
+ */
 export const fetchData = async (dataToFetch) => {
   try {
     const data = await axios.get(`/${dataToFetch}`);
@@ -13,6 +25,13 @@ export const fetchData = async (dataToFetch) => {
   }
 };
 
+/**
+@FUNCTION
+ *
+ * Uuden sanan lisääminen databaseen. Data tulee objektina, josta otetaan erilleen avaimet ja arvot, tämän jälkeen avaimet yhdistetään pilkulla ja arvot laitetaan lainausmerkkeihin ennen yhdistämistä.
+ * @param {*} data Uuden sanan kaikki tarvittava data. Minimissään suomenkielinen käännös sekä theme_id
+ * @returns Vastaus serveriltä
+ */
 export const postWord = async (data) => {
   try {
     const values = Object.values(data);
@@ -31,6 +50,14 @@ export const postWord = async (data) => {
   }
 };
 
+/**
+@FUNCTION
+ *
+ * Tällä perusfunktiolla voidaan luoda uusi kieli tai teema.
+ * @param {*} newName Uuden kielen/teeman nimi
+ * @param {*} WhatToPost Kumpi tämä uusi on kieli vai teema.
+ * @returns Vastaus serveriltä
+ */
 export const postNew = async (newName, WhatToPost) => {
   try {
     const resp = await axios.post(`/${WhatToPost}`, {
@@ -42,6 +69,14 @@ export const postNew = async (newName, WhatToPost) => {
   }
 };
 
+/**
+@FUNCTION
+ *
+ * Tällä funktiolla voidaan poistaa dataa tietokannasta käyttäen nimeä.
+ * @param {*} whereToDelete Mistä haluttu data poistaa. Kieli/Teema/Sana
+ * @param {*} whatToDelete Millä nimellä haluttu data löytyy.
+ * @returns Vastaus serveriltä
+ */
 export const delByName = async (whereToDelete, whatToDelete) => {
   try {
     const resp = await axios.delete(`/${whereToDelete}`, {
@@ -54,7 +89,13 @@ export const delByName = async (whereToDelete, whatToDelete) => {
     console.log(err);
   }
 };
-
+/**
+@FUNCTION
+ *
+ * Tällä funktiolla voidaan poistaa Sana käyttäen ID:tä (!!TURVALLISEMPI TAPA POISTAA SANOJA!!)
+ * @param {*} whatToDelete halutun sanan ID
+ * @returns Vastaus serveriltä
+ */
 export const deleteWordById = async (whatToDelete) => {
   try {
     const resp = await axios.delete(`/word`, {
@@ -68,6 +109,14 @@ export const deleteWordById = async (whatToDelete) => {
   }
 };
 
+/**
+@FUNCTION
+ *
+ * Sanan päivittämiseen käytettävä funktio, päivitettävä sana haetaan ID:llä tietokannasta.
+ * Datan avainarvoparit mapataan Avain = "Arvo" tyyliin erilliseen constiin. Id mapataan ilman lainausmerkkejä, koska se ei ole VARCHAR.
+ * @param {*} data Päivitetty data
+ * @returns Vastaus serveriltä
+ */
 export const updateWordById = async (data) => {
   const joinedUpdt = Object.entries(data)
     .map(([key, val]) => {
@@ -86,6 +135,16 @@ export const updateWordById = async (data) => {
     console.log(err);
   }
 };
+/**
+@FUNCTION
+ *
+ * Autentisoidaan annetut käyttäjänimi sekä salasana tätä funktiota käyttäen.
+ * Jos autentisointi feilaa, ts. ei saada accesstokenia, mitään ei tapahdu.
+ * Jos saadaan accestokeni, asetetaan se localStorageen userin alle.
+ * Kyseessä on siis JWT tokeni.
+ * @param {*} username annettu käyttäjänimi
+ * @param {*} password annettu salasana
+ */
 export const logUserIn = async (username, password) => {
   try {
     const resp = await axios.post(`/login`, {
@@ -99,6 +158,13 @@ export const logUserIn = async (username, password) => {
     console.log(err);
   }
 };
+
+/**
+@FUNCTION
+ *
+ * Tällä haetaan käyttäjä localstoragesta, jos semmoinen löytyy, muuten palautetaan -1.
+ * @returns user tai -1
+ */
 export const getCurrentUser = () => {
   if (localStorage.getItem("user") !== null)
     return JSON.parse(localStorage.getItem("user"));
@@ -106,6 +172,12 @@ export const getCurrentUser = () => {
   return -1;
 };
 
+/**
+@FUNCTION
+ *
+ * Jos localstoragesta löytyy accesTokeni, Se validoidaan secretKeytä vasten ja sen jälkeen palautetaan saatu status. Käytetään Admin sivulla aina ennen kuin fetchataan dataa.
+ * @returns Saatu status
+ */
 export const checkLogin = async () => {
   const curUser = getCurrentUser().accesToken;
   if (curUser !== undefined) {

@@ -13,11 +13,26 @@ import Snackbar from "@mui/material/Snackbar";
 import Slide from "@mui/material/Slide";
 import { fetchData } from "../Utils/AxiosUtils";
 
+/**
+ * @function
+ * @module Settings
+ */
+
+/**
+ * @function
+ * Tämä on pelin asetusten valintaelementti. Tämän avulla valitaan halutut kielet, sanojen määrä, sekä teema.
+ * @param {*} props
+ * @returns Asetusten elementti
+ */
 export default function Settings(props) {
   const [isDisabled, setDisabled] = useState(true);
   const [langs, setLangs] = useState([]);
   const [themes, setThemes] = useState([]);
 
+  /**
+   * @function
+   * Kun settingsit aukeaa, ladataan ensimmäiseksi kielet ja teemat databasesta.
+   */
   useEffect(() => {
     async function fetchAll() {
       const langData = await fetchData("lang");
@@ -28,6 +43,10 @@ export default function Settings(props) {
     fetchAll();
   }, []);
 
+  /**
+   * @function
+   * Kun kaikissa valinnoissa on joku vaihtoehto, enabloidaan Pelaa näppäin.
+   */
   useEffect(() => {
     if (
       props.primaryLang !== "" &&
@@ -44,22 +63,43 @@ export default function Settings(props) {
     props.curTheme,
   ]);
 
+  /**
+   * @function
+   * Kaikki handlerit eri kohdille
+   * @param {*} e
+   */
   const handlePrimary = (e) => {
     props.setPrimaryLang(e.target.value.name);
   };
-
+  /**
+   * @function
+   * Kaikki handlerit eri kohdille
+   * @param {*} e
+   */
   const handleSecondary = (e) => {
     props.setSecondaryLang(e.target.value.name);
   };
-
+  /**
+   * @function
+   * Kaikki handlerit eri kohdille
+   * @param {*} e
+   */
   const handleAmount = (e) => {
     props.setAmountofWords(e.target.value);
   };
-
+  /**
+   * @function
+   * Kaikki handlerit eri kohdille
+   * @param {*} e
+   */
   const handleTheme = (e) => {
     props.setCurTheme(e.target.value.name);
   };
-
+  /**
+   * @function
+   * Kun painetaan pelaa näppäintä, kutsutaan Main.js fetchData funktiota @see {@link fetchData}
+   * @param {*} e
+   */
   const handleClickkeri = () => {
     props.fetchData();
   };

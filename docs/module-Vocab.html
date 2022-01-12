@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Module: Vocab</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Module: Vocab</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~Haetaankaikkisanatmill%C3%A4ontietynkielenk%C3%A4%C3%A4nn%C3%B6s."><span class="type-signature">(inner) </span>Haetaan kaikki sanat millä on tietyn kielen käännös.<span class="signature">(lang)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>lang</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Mitä kieltä haetaan</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Routes_Vocab.js.html">Routes/Vocab.js</a>, <a href="Routes_Vocab.js.html#line55">line 55</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Kaikki kyseisen kielen sisältävät sanat.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~Haetaankaikkisanatmit%C3%A4sana-tietokannastal%C3%B6ytyy."><span class="type-signature">(inner) </span>Haetaan kaikki sanat mitä sana-tietokannasta löytyy.<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Routes_Vocab.js.html">Routes/Vocab.js</a>, <a href="Routes_Vocab.js.html#line40">line 40</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Kaikki sanat mitä tietokannassa on.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~Haetaansanatk%C3%A4ytt%C3%A4enhaluttujakieli%C3%A4,teemaajasanojenm%C3%A4%C3%A4r%C3%A4%C3%A4.J%C3%A4rjestell%C3%A4%C3%A4nnerandomilla,jottajokakertaeipelattaessatulesamojasanoja.T%C3%A4t%C3%A4k%C3%A4ytet%C3%A4%C3%A4nkunpelataan.Jostheme_idon0,onvalittukaikkiteemat,jotenotetaanilmanerillist%C3%A4teemanm%C3%A4%C3%A4rittely%C3%A4."><span class="type-signature">(inner) </span>Haetaan sanat käyttäen haluttuja kieliä, teemaa ja sanojen määrää. Järjestellään ne randomilla, jotta joka kerta ei pelattaessa tule samoja sanoja. Tätä käytetään kun pelataan.Jos theme_id on 0, on valittu kaikki teemat, joten otetaan ilman erillistä teeman määrittelyä.<span class="signature">(primLang, secondLang, theme_id, amountofWords)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>primLang</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Kieli mikä valittiin aloituskieleksi</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>secondLang</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Kieli mitä halutaan oppia</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>theme_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Minkä teeman sanoja on</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>amountofWords</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Kuinka monta sanaa halutaan</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Routes_Vocab.js.html">Routes/Vocab.js</a>, <a href="Routes_Vocab.js.html#line73">line 73</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Haettu data
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~T%C3%A4ll%C3%A4lis%C3%A4t%C3%A4%C3%A4nkieliinsek%C3%A4teemoihinuusiakieli%C3%A4/teemoja."><span class="type-signature">(inner) </span>Tällä lisätään kieliin sekä teemoihin uusia kieliä/teemoja.<span class="signature">(nameToAdd, whereToAdd)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>nameToAdd</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Halutun lisäyksen nimi</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>whereToAdd</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Lisätäänkö kieli vai teema.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Routes_Vocab.js.html">Routes/Vocab.js</a>, <a href="Routes_Vocab.js.html#line98">line 98</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Haettu data
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~T%C3%A4ll%C3%A4poistetaankielettaiteematniidenomistatietokannoistaan."><span class="type-signature">(inner) </span>Tällä poistetaan kielet tai teemat niiden omista tietokannoistaan.<span class="signature">(whereToDelete, whatToDelete)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>whereToDelete</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Mistä poistetaan (kieli/teema)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>whatToDelete</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Mitä poistetaan (nimi)</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Routes_Vocab.js.html">Routes/Vocab.js</a>, <a href="Routes_Vocab.js.html#line154">line 154</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Haettu data
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~T%C3%A4ll%C3%A4poistetaansanaID:t%C3%A4k%C3%A4ytt%C3%A4en"><span class="type-signature">(inner) </span>Tällä poistetaan sana ID:tä käyttäen<span class="signature">(whatToDelete)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>whatToDelete</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Halutun sanan ID</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Routes_Vocab.js.html">Routes/Vocab.js</a>, <a href="Routes_Vocab.js.html#line172">line 172</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Haettu data
+</div>
+
+
+
+    
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Admin.html">Admin</a></li><li><a href="module-AxiosUtils.html">AxiosUtils</a></li><li><a href="module-DisplayWords.html">DisplayWords</a></li><li><a href="module-Index.html">Index</a></li><li><a href="module-LangMenu.html">LangMenu</a></li><li><a href="module-LangTheme.html">LangTheme</a></li><li><a href="module-Languages.html">Languages</a></li><li><a href="module-Main.html">Main</a></li><li><a href="module-ModalBase.html">ModalBase</a></li><li><a href="module-NewLangThem.html">NewLangThem</a></li><li><a href="module-NewWord.html">NewWord</a></li><li><a href="module-Play.html">Play</a></li><li><a href="module-RemoveAlert.html">RemoveAlert</a></li><li><a href="module-RemoveWordAlert.html">RemoveWordAlert</a></li><li><a href="module-Settings.html">Settings</a></li><li><a href="module-SignIn.html">SignIn</a></li><li><a href="module-SortableHeader.html">SortableHeader</a></li><li><a href="module-Themes.html">Themes</a></li><li><a href="module-Vocab.html">Vocab</a></li><li><a href="module-WordHeader.html">WordHeader</a></li><li><a href="module-WordPagination.html">WordPagination</a></li><li><a href="module-Words.html">Words</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Jan 12 2022 12:45:51 GMT+0200 (Itä-Euroopan normaaliaika)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

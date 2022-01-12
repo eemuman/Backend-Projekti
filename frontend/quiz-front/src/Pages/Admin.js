@@ -9,12 +9,28 @@ import Languages from "../Components/Languages";
 import Themes from "../Components/Themes";
 import { fetchData, checkLogin } from "../Utils/AxiosUtils";
 
+/**
+ * @function
+ * @module Admin
+ */
+
+/**
+ * @function
+ * Hallintapaneelin pohjaelementti. Tällä hallitaan mm. datan hakemista, varmistaen että käyttäjä on kirjautuneena sisään, hallitaan uloskirjaus, sekä mikä hallintapaneelin elementti halutaan näyttää
+ * @param {*} props
+ * @returns Hallintapaneelin pohjaelementti
+ */
 export default function Admin(props) {
   const [pageVal, setPageVal] = useState("1");
   const [langs, setLangs] = useState([]);
   const [themes, setThemes] = useState([]);
   const [allWords, setAllWords] = useState([]);
 
+  /**
+   * @function
+   * Funktio jolla haetaan kaikki tietokantojen sanoihin liittyvä data, (kielet, teemat ja itse sanat).
+   * Ensiksi kuitenkin ennen jokaista hakua varmistetaan, että käyttäjä on autentikoitu JWT tokenin validoinilla.
+   */
   async function fetchAll() {
     const resp = await checkLogin();
     if (resp !== 200) {
@@ -31,19 +47,37 @@ export default function Admin(props) {
     }
   }
 
+  /**
+   * @function
+   * Kun hallintasivulle tullaan, haetaan ensiksi kaikki datat.
+   */
   useEffect(() => {
     fetchAll();
   }, []);
 
+  /**
+   * @function
+   * Vaihdetaan eri hallintapaneelin elementtien avulla tätä hyväksikäyttäen
+   * @param {*} e
+   * @param {*} val Mikä sivu on valittu
+   */
   const handleChange = (e, val) => {
     setPageVal(val);
   };
 
+  /**
+   * @function
+   * Uloskirjautumisnäppäintä painettaessa kutsutaan tätä, eli ensiksi poistetaan kekseistä JWT tokeni ja sen jälkeen poistetaan loggedIn flagi fetchAll funktiota käyttäen.
+   */
   const logOut = async () => {
     localStorage.removeItem("user");
     await fetchAll();
   };
 
+  /**
+   * @function
+   * Propsit mitkä lähetetään kaikille elementeille.
+   */
   const propsit = {
     langs: langs,
     themes: themes,

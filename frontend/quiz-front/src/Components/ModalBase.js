@@ -7,6 +7,11 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 
+/**
+ * @function
+ * @module ModalBase
+ */
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -20,6 +25,12 @@ const style = {
   p: 4,
 };
 
+/**
+ * @function
+ * Pohjaelemntti kaikille käytössä oleville modaleille. (Uusi/Muokkaa sanaa, Lisää uusi Kieli/Teema)
+ * @param {*} props otta vastaan tietoja mikä modali on käytössä, voidaan vaihtaa nappi toimimaan joko iconbuttonina sekä normaalina. Sisältää myös halutun formin mikä renderöidään.
+ * @returns Modalpohja elementti
+ */
 export default function TransitionsModal(props) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -27,6 +38,10 @@ export default function TransitionsModal(props) {
 
   const isIcon = props.isIcon;
 
+  /**
+   * @function
+   * Returnissa luodaan haluttu form-elementti uudelleen, jotta siihen saadaan lisättyä modalpohjan handleclose funktio
+   */
   return (
     <div>
       {isIcon ? (

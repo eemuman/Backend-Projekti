@@ -13,11 +13,28 @@ import SendIcon from "@mui/icons-material/Send";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 
+/**
+ * @function
+ * @module Play
+ */
+
+/**
+ * @function
+ * Tämä on pelaamissivun pohjaelementti. Tämä hallitsee mm. Sanojen näyttämisen, textfieldien datan tallentamisen sekä oikeiden vastausten tarkistamisen.
+ * @param {*} props
+ * @returns Pelaamisen pohjaelementti
+ */
 export default function Play(props) {
   const [isVis, setisVis] = useState("none");
 
   const style = { display: isVis, marginTop: "0.75em" };
 
+  /**
+   * @function
+   * Tämä funktio tarkistaa arrayn lävitse ja vertaa onko kirjoitettu sana sama kuin halutun kielen vastaava sana.
+   * Tämä tehdään mappamalla ja jos vastaus on oikein laitetaan siittä answArrayn correct flagiin true ja vastaavasti väärän kohdalla false.
+   * Samalla laitetaan haluttu iconi näkymään textfieldin viereen.
+   */
   const checkAnsw = () => {
     props.answArray.map((ans, index) => {
       const upd = [...props.answArray];
@@ -34,12 +51,22 @@ export default function Play(props) {
     });
   };
 
+  /**
+   * @function
+   * Kun johnkin textfieldiin kirjoitetaan, päivitetään sen indeksin kohdalla oleva answArray.data.
+   * @param {*} index halutun textfieldin index
+   * @param {*} e data mitä halutaan.
+   */
   const handleData = (index, e) => {
     const upd = [...props.answArray];
     upd[index].data = e.target.value;
     props.setAnswArray(upd);
   };
 
+  /**
+   * @function
+   * Painettaessa palaa takaisin, kutsutaan tätä. kun isPlaying on false, näkyy käyttäjälle settings sivu ja toistepäin.
+   */
   const handleBack = () => {
     props.setIsPlaying();
   };

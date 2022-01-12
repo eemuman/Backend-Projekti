@@ -7,6 +7,17 @@ import LastPageIcon from "@mui/icons-material/LastPage";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 
+/**
+ * @function
+ * @module WordPagination
+ */
+
+/**
+ * @function
+ * Pagination elementti sanalistassa. Tämän avulla haetaan haluttu sivu ja pysytään kartalla siitä, montako sivua on ja millä sivulla ollaan.
+ * @param {*} props
+ * @returns Pagination elementti
+ */
 export default function WordPagination(props) {
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;

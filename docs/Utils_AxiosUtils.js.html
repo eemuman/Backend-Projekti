@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>JSDoc: Source: Utils/AxiosUtils.js</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="styles/prettify-tomorrow.css"
+    />
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css" />
+  </head>
+
+  <body>
+    <div id="main">
+      <h1 class="page-title">Source: Utils/AxiosUtils.js</h1>
+
+      <section>
+        <article>
+          <pre
+            class="prettyprint source linenums"
+          ><code>const axios = require("axios").default;
+
+/**
+@FUNCTION
+ * @module AxiosUtils
+ */
+
+/**
+@FUNCTION
+ * Yksinkertainen funktio, jolla voi hakea kaikki halutut datat databasesta.
+ * @param {*} dataToFetch Mitä halutaan hakea (sanat, teemat, kielet).
+ * @returns Vastaus serveriltä
+ */
+export const fetchData = async (dataToFetch) => {
+  try {
+    const data = await axios.get(`/${dataToFetch}`);
+    if (data.data != null) {
+      return data.data;
+    } else {
+      return [];
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+/**
+@FUNCTION
+ * Uuden sanan lisääminen databaseen. Data tulee objektina, josta otetaan erilleen avaimet ja arvot, tämän jälkeen avaimet yhdistetään pilkulla ja arvot laitetaan lainausmerkkeihin ennen yhdistämistä.
+ * @param {*} data Uuden sanan kaikki tarvittava data. Minimissään suomenkielinen käännös sekä theme_id
+ * @returns Vastaus serveriltä
+ */
+export const postWord = async (data) => {
+  try {
+    const values = Object.values(data);
+    const keys = Object.keys(data);
+    const joinedKeys = keys.join(",");
+    const joinedValues = values.map((val) => `"${val}"`).join(",");
+    console.log(joinedValues);
+
+    const resp = await axios.post(`/word`, {
+      joinedValues,
+      joinedKeys,
+    });
+    return resp;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+/**
+@FUNCTION
+ * Tällä perusfunktiolla voidaan luoda uusi kieli tai teema.
+ * @param {*} newName Uuden kielen/teeman nimi
+ * @param {*} WhatToPost Kumpi tämä uusi on kieli vai teema.
+ * @returns Vastaus serveriltä
+ */
+export const postNew = async (newName, WhatToPost) => {
+  try {
+    const resp = await axios.post(`/${WhatToPost}`, {
+      name: newName,
+    });
+    return resp;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+/**
+@FUNCTION
+ * Tällä funktiolla voidaan poistaa dataa tietokannasta käyttäen nimeä.
+ * @param {*} whereToDelete Mistä haluttu data poistaa. Kieli/Teema/Sana
+ * @param {*} whatToDelete Millä nimellä haluttu data löytyy.
+ * @returns Vastaus serveriltä
+ */
+export const delByName = async (whereToDelete, whatToDelete) => {
+  try {
+    const resp = await axios.delete(`/${whereToDelete}`, {
+      data: {
+        name: whatToDelete,
+      },
+    });
+    return resp;
+  } catch (err) {
+    console.log(err);
+  }
+};
+/**
+@FUNCTION
+ * Tällä funktiolla voidaan poistaa Sana käyttäen ID:tä (!!TURVALLISEMPI TAPA POISTAA SANOJA!!)
+ * @param {*} whatToDelete halutun sanan ID
+ * @returns Vastaus serveriltä
+ */
+export const deleteWordById = async (whatToDelete) => {
+  try {
+    const resp = await axios.delete(`/word`, {
+      data: {
+        id: whatToDelete,
+      },
+    });
+    return resp;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+/**
+@FUNCTION
+ * Sanan päivittämiseen käytettävä funktio, päivitettävä sana haetaan ID:llä tietokannasta.
+ * Datan avainarvoparit mapataan Avain = "Arvo" tyyliin erilliseen constiin. Id mapataan ilman lainausmerkkejä, koska se ei ole VARCHAR.
+ * @param {*} data Päivitetty data
+ * @returns Vastaus serveriltä
+ */
+export const updateWordById = async (data) => {
+  const joinedUpdt = Object.entries(data)
+    .map(([key, val]) => {
+      if (key !== "id") return `${key} = "${val}"`;
+      return `${key} = ${val}`;
+    })
+    .join(", ");
+  const id = data.id;
+  try {
+    const resp = await axios.patch(`/word`, {
+      data: joinedUpdt,
+      id: id,
+    });
+    return resp;
+  } catch (err) {
+    console.log(err);
+  }
+};
+/**
+@FUNCTION
+ * Autentisoidaan annetut käyttäjänimi sekä salasana tätä funktiota käyttäen.
+ * Jos autentisointi feilaa, ts. ei saada accesstokenia, mitään ei tapahdu.
+ * Jos saadaan accestokeni, asetetaan se localStorageen userin alle.
+ * Kyseessä on siis JWT tokeni.
+ * @param {*} username annettu käyttäjänimi
+ * @param {*} password annettu salasana
+ */
+export const logUserIn = async (username, password) => {
+  try {
+    const resp = await axios.post(`/login`, {
+      username: username,
+      password: password,
+    });
+    if (resp.data.accesToken) {
+      localStorage.setItem("user", JSON.stringify(resp.data));
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+/**
+@FUNCTION
+ * Tällä haetaan käyttäjä localstoragesta, jos semmoinen löytyy, muuten palautetaan -1.
+ * @returns user tai -1
+ */
+export const getCurrentUser = () => {
+  if (localStorage.getItem("user") !== null)
+    return JSON.parse(localStorage.getItem("user"));
+
+  return -1;
+};
+
+/**
+@FUNCTION
+ * Jos localstoragesta löytyy accesTokeni, Se validoidaan secretKeytä vasten ja sen jälkeen palautetaan saatu status. Käytetään Admin sivulla aina ennen kuin fetchataan dataa.
+ * @returns Saatu status
+ */
+export const checkLogin = async () => {
+  const curUser = getCurrentUser().accesToken;
+  if (curUser !== undefined) {
+    try {
+      const resp = await axios.get(`/login`, {
+        params: { curUser },
+      });
+      return resp.status;
+    } catch (err) {}
+  }
+};
+</code></pre>
+        </article>
+      </section>
+    </div>
+
+    <nav>
+      <h2><a href="index.html">Home</a></h2>
+      <h3>Modules</h3>
+      <ul>
+        <li><a href="module-Admin.html">Admin</a></li>
+        <li><a href="module-AxiosUtils.html">AxiosUtils</a></li>
+        <li><a href="module-DisplayWords.html">DisplayWords</a></li>
+        <li><a href="module-LangMenu.html">LangMenu</a></li>
+        <li><a href="module-LangTheme.html">LangTheme</a></li>
+        <li><a href="module-Languages.html">Languages</a></li>
+        <li><a href="module-Main.html">Main</a></li>
+        <li><a href="module-ModalBase.html">ModalBase</a></li>
+        <li><a href="module-NewLangThem.html">NewLangThem</a></li>
+        <li><a href="module-NewWord.html">NewWord</a></li>
+        <li><a href="module-Play.html">Play</a></li>
+        <li><a href="module-RemoveAlert.html">RemoveAlert</a></li>
+        <li><a href="module-RemoveWordAlert.html">RemoveWordAlert</a></li>
+        <li><a href="module-Settings.html">Settings</a></li>
+        <li><a href="module-SignIn.html">SignIn</a></li>
+        <li><a href="module-SortableHeader.html">SortableHeader</a></li>
+        <li><a href="module-Themes.html">Themes</a></li>
+        <li><a href="module-WordHeader.html">WordHeader</a></li>
+        <li><a href="module-WordPagination.html">WordPagination</a></li>
+        <li><a href="module-Words.html">Words</a></li>
+      </ul>
+    </nav>
+
+    <br class="clear" />
+
+    <footer>
+      Documentation generated by
+      <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Jan 12
+      2022 12:39:17 GMT+0200 (Itä-Euroopan normaaliaika)
+    </footer>
+
+    <script>
+      prettyPrint();
+    </script>
+    <script src="scripts/linenumber.js"></script>
+  </body>
+</html>

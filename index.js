@@ -2,17 +2,34 @@ const express = require("express");
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const vocab = require("./Routes/Vocab");
-const path = require("path");
 
+/**
+@FUNCTION
+ * @module Index
+ */
+
+/**
+@FUNCTION
+ * Käytetään expressiä sekä haetaan buildattu frontti käyttöön
+ */
 const app = express();
 app.use(express.static("frontend/quiz-front/build"));
 
+/**
+@FUNCTION
+ * Käytetään joko herokun antamaa porttia tai sitten 8080.
+ */
 app.listen(process.env.PORT || 8080, () => {
   console.log("Yhteys upis");
 });
 
 app.use(express.json());
 
+/**
+@FUNCTION
+ *
+ * Haetaan teemat ja palautetaan ne frontendille
+ */
 app.get(`/theme`, async (req, res) => {
   try {
     const themes = await vocab.getWanted("themes");
@@ -24,6 +41,11 @@ app.get(`/theme`, async (req, res) => {
   }
 });
 
+/**
+@FUNCTION
+ *
+ * Haetaan kielet ja palautetaan ne frontendille
+ */
 app.get(`/lang`, async (req, res) => {
   try {
     const langs = await vocab.getWanted("langs");
@@ -34,6 +56,11 @@ app.get(`/lang`, async (req, res) => {
   }
 });
 
+/**
+@FUNCTION
+ *
+ * Haetaan sanat, jos queryssä on kielet, teema ja sanojen määrä, niin haetaan käyttäen niitä parametrejä, muuten haetaan kaikki ja lähetetään ne frontendille.
+ */
 app.get(`/word`, async (req, res) => {
   console.log(req.query);
   try {
@@ -55,6 +82,11 @@ app.get(`/word`, async (req, res) => {
   }
 });
 
+/**
+@FUNCTION
+ *
+ * Haetaan kaikki sanat jotka löytyvät tietyllä kielellä.
+ */
 app.get(`/word/:lang`, async (req, res) => {
   try {
     const allWordsLang = await vocab.getWordsLang(req.params.lang);
@@ -64,6 +96,11 @@ app.get(`/word/:lang`, async (req, res) => {
   }
 });
 
+/**
+@FUNCTION
+ *
+ * Luodaan uusi teema tietokantaan, haluttu nimi otetaan requestin bodystä.
+ */
 app.post(`/theme`, async (req, res) => {
   try {
     const name = req.body.name;
@@ -75,6 +112,11 @@ app.post(`/theme`, async (req, res) => {
   }
 });
 
+/**
+@FUNCTION
+ *
+ * Luodaan uusi nimi tietokantaan, Halutut käännökset ja niitten kielet otetaan requestin bodystä, jossa ne on valmiiksi laitettu sql sopivaan muotoon.
+ */
 app.post(`/word`, async (req, res) => {
   try {
     await vocab.addNewWord(req.body.joinedValues, req.body.joinedKeys);
@@ -84,6 +126,12 @@ app.post(`/word`, async (req, res) => {
   }
 });
 
+/**
+@FUNCTION
+ *
+ * Luodaan uusi kieli tietokantaan, haluttu nimi otetaan requestin bodystä.
+ * Samalla luodaan myös uusi kolumni sanojen tietokantaan, jotta kyseiselle kielelle voi lisätä käännöksiä.
+ */
 app.post(`/lang`, async (req, res) => {
   try {
     const name = req.body.name;
@@ -95,7 +143,11 @@ app.post(`/lang`, async (req, res) => {
     res.status(400).send(err);
   }
 });
-
+/**
+@FUNCTION
+ *
+ * Tällä poistetaan teemoja, ensiksi teemojen omasta tietokannasta, sekä sen jälkeen kaikki kyseisen teeman alla olevat sanat poistetaan sanojen tietokannasta.
+ */
 app.delete(`/theme`, async (req, res) => {
   try {
     const name = req.body.name;
@@ -107,6 +159,11 @@ app.delete(`/theme`, async (req, res) => {
   }
 });
 
+/**
+@FUNCTION
+ *
+ * Tällä poistetaan kieliä, ensiksi teemojen omasta tietokannasta, sekä sen jälkeen kyseinen kolumni sanojen tietokannasta, jotta niitä ei enään turhaan loju siellä.
+ */
 app.delete(`/lang`, async (req, res) => {
   try {
     const name = req.body.name;
@@ -119,6 +176,11 @@ app.delete(`/lang`, async (req, res) => {
   }
 });
 
+/**
+@FUNCTION
+ *
+ * Tällä voidaan päivittää sanan käännökset sekä teema. data sisältää jo valmiiksi sql komentomuodossa olevat muutokset, jotka on sitten helppo pätsää.
+ */
 app.patch(`/word`, async (req, res) => {
   try {
     const { id, data } = req.body;
@@ -130,6 +192,11 @@ app.patch(`/word`, async (req, res) => {
   }
 });
 
+/**
+@FUNCTION
+ *
+ * Tällä voidaan poistaa sana käyttäen ID:tä.
+ */
 app.delete(`/word`, async (req, res) => {
   try {
     const id = req.body.id;
@@ -141,6 +208,11 @@ app.delete(`/word`, async (req, res) => {
   }
 });
 
+/**
+@FUNCTION
+ *
+ * Tätä käytetään kun koitetaan kirjautua sisään. Jos käyttäjänimi sekä salasana täsmäävät ja saadaan validi vastaus, luodaan JWT tokeni käyttäen käyttäjän idtä sekä erillistä secret keytä. J
+ */
 app.post(`/login`, async (req, res) => {
   const { username, password } = req.body;
   console.log("HERE");
@@ -156,7 +228,11 @@ app.post(`/login`, async (req, res) => {
     res.status(401).send("INVALIDUSERPASS");
   } catch (err) {}
 });
-
+/**
+@FUNCTION
+ *
+ * Tällä voidaan varmistaa, että käyttäjän antama JWT tokeni on validi. Jos on, annetaan käyttäjän tehdä mitä haluaa, muuten estetään.
+ */
 app.get(`/login`, async (req, res) => {
   console.log(req.query);
   const token = req.query.curUser;

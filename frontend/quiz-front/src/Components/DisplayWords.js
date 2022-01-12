@@ -12,19 +12,42 @@ import WordPagination from "./WordPagination";
 import WordHeader from "./WordHeader";
 import SortableHeader from "./SortableHeader";
 
+/**
+ * @function
+ * @module DisplayWords
+ */
+
+/**
+ * @function
+ * Tämä on sanojen listaamiseen hallintapaneelissa käytettävä elementti
+ */
 export default function DisplayWords(props) {
-  const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("calories");
+  const [order, setOrder] = useState("asc");
+  const [orderBy, setOrderBy] = useState("");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [selected, setSelected] = useState([]);
 
+  /**
+   * @function
+   * Tämän avulla järjestetään listat halutun elementin mukaan
+   * @param {} event Mikä triggeröi
+   * @param {*} property Mitä @WordHeader elementtiä painettiin
+   */
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
 
+  /**
+   * @function
+   * Avustusfunktio sanojen oikean järjestyksen hakuu
+   * @param {*} a
+   * @param {*} b
+   * @param {*} orderBy
+   * @returns 1 tai -1
+   */
   const descendingComparator = (a, b, orderBy) => {
     if (b[orderBy] < a[orderBy]) {
       return -1;
@@ -35,6 +58,13 @@ export default function DisplayWords(props) {
     return 0;
   };
 
+  /**
+   * @function
+   * Haetaan haluttu järjestys
+   * @param {*} order
+   * @param {*} orderBy
+   * @returns Järjestys
+   */
   const getComparator = (order, orderBy) => {
     return order === "desc"
       ? (a, b) => descendingComparator(a, b, orderBy)
@@ -47,17 +77,40 @@ export default function DisplayWords(props) {
       ? Math.max(0, (1 + page) * rowsPerPage - props.allWords.length)
       : 0;
 
+  /**
+   * @function
+   * Kun vaihdetaan paginationin sivua, tämä vaihtaa staten halutulle sivulle
+   * @param {*} event millä vaihdettini
+   * @param {*} newPage uuden sivun numero
+   */
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
+  /**
+   * @function
+   * Tämän avulla vaihdetaan montako sanaa nähdän kerralla paginationissa
+   * @param {*} event  mikä triggeröi
+   */
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
 
+  /**
+   * @function
+   * haetaan sen elementin indexi mitä on painettu.
+   * @param {*} name elementin nimi
+   * @returns elementin indeksin
+   */
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
+  /**
+   * @function
+   * Handlataan elementin klikkaus
+   * @param {*} event
+   * @param {*} name  mmitä klikattu
+   */
   const handleClick = (event, name) => {
     const selectedIndex = selected.indexOf(name);
     let newSelected = [];
