@@ -54,7 +54,7 @@ export default function LangTheme(props) {
         justifyContent="space-evenly"
         alignItems="center"
       >
-        <Grid item>
+        <Grid item sx={{ m: "15px" }}>
           <ModalBase
             btnTitle={`LUO UUSI ${props.elem}`}
             title={`LUO UUSI ${props.elem}`}
@@ -100,7 +100,7 @@ export default function LangTheme(props) {
             </Select>
           </FormControl>
         </Grid>
-        <Grid item>
+        <Grid item sx={{ m: "15px" }}>
           <RemoveAlert
             setError={props.setError}
             disabled={isDisabled}

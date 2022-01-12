@@ -9,6 +9,11 @@ import Languages from "../Components/Languages";
 import Themes from "../Components/Themes";
 import { fetchData, checkLogin } from "../Utils/AxiosUtils";
 import ErrAlert from "../Components/ErrAlert";
+import {
+  createTheme,
+  responsiveFontSizes,
+  ThemeProvider,
+} from "@mui/material/styles";
 
 /**
  * @function
@@ -29,6 +34,9 @@ export default function Admin(props) {
   const [isSuccess, setSuccess] = useState(false);
   const [isError, setIsError] = useState("error");
   const [errText, setErrText] = useState("");
+
+  let theme = createTheme();
+  theme = responsiveFontSizes(theme);
 
   /**
    * @function
@@ -113,32 +121,38 @@ export default function Admin(props) {
         isErr={isError}
       />
       <CssBaseline />
-      <Container fixed sx={{ p: "50px" }}>
+
+      <Container fluid>
+        <Button onClick={logOut} sx={{ m: { sm: "5px", md: "20px" } }}>
+          KIRJAUDU ULOS
+        </Button>
         <Box
           sx={{
             border: 1,
             borderRadius: 3,
             borderColor: "grey.400",
             flexGrow: 1,
-            p: "50px",
+            p: "25px 15px 60px 16px",
             bgcolor: "grey.50",
             boxShadow: 3,
           }}
         >
-          <Typography
-            sx={{
-              fontWeight: "bold",
-              borderBottom: 1,
-              borderColor: "grey.400",
-              padding: "5px",
-            }}
-            variant="h3"
-            gutterBottom
-            component="div"
-          >
-            HALLINTAPANEELI
-            <Button onClick={logOut}>KIRJAUDU ULOS</Button>
-          </Typography>
+          <ThemeProvider theme={theme}>
+            <Typography
+              sx={{
+                fontWeight: "bold",
+                borderBottom: 1,
+                borderColor: "grey.400",
+                padding: "5px",
+                mt: "15px",
+              }}
+              variant="h3"
+              gutterBottom
+              component="div"
+            >
+              HALLINTAPANEELI
+            </Typography>
+          </ThemeProvider>
           <TabContext value={pageVal}>
             <TabList value={pageVal} onChange={handleChange} centered>
               <Tab value="1" label="SANAT" />
