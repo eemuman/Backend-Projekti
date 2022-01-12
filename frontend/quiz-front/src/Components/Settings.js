@@ -34,9 +34,9 @@ export default function Settings(props) {
    */
   useEffect(() => {
     async function fetchAll() {
-      const langData = await fetchData("lang");
+      const langData = await fetchData("langs");
       setLangs(langData);
-      const themeData = await fetchData("theme");
+      const themeData = await fetchData("themes");
       setThemes(themeData);
     }
     fetchAll();

@@ -42,19 +42,22 @@ export default function Admin(props) {
       props.setLoggedIn(false);
     }
     if (props.isLoggedIn) {
-      const langData = await fetchData("lang");
+      const langData = await fetchData("langs");
       setLangs(langData);
-      const themeData = await fetchData("theme");
+      const themeData = await fetchData("themes");
       setThemes(themeData);
-      const wordData = await fetchData("word");
+      const wordData = await fetchData("words");
       setAllWords(wordData);
     }
   };
-
+  /**
+   * Tämän avulla näytetään käyttäjälle josko haluttu tehtävä onnistui (lisäys,poisto,muokkaus)
+   * @param {*} status Palvelimelta saatu statusteksti
+   */
   const setError = (status) => {
-    if (status === 200) {
+    if (status === 200 || status === 201 || status === 202 || status === 204) {
       setIsError("success");
-      setErrText(`Lisäys suoritettu onnistuneesti!`);
+      setErrText(`Tehtävä suoritettu onnistuneesti!`);
     } else {
       setIsError("error");
       setErrText(`Tapahtui virhe! Yritä uudelleen!`);
