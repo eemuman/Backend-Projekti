@@ -194,7 +194,6 @@ export const logUserIn = async (username, password) => {
  */
 export const checkLogin = async () => {
   const token = getCurrentUserToken();
-  console.log(token);
   if (token !== -1) {
     try {
       const resp = await axios.get(`/login`, {
