@@ -85,8 +85,8 @@ module.exports = {
     return new Promise((resolve, reject) => {
       const sqlQuery =
         theme_id !== 0
-          ? `SELECT ${primLang}, ${secondLang} FROM word WHERE ${primLang} IS NOT NULL AND ${secondLang} IS NOT NULL AND theme_id = "${theme_id}" ORDER BY RAND() LIMIT ${amountofWords}`
-          : `SELECT ${primLang}, ${secondLang} FROM word WHERE ${primLang} IS NOT NULL AND ${secondLang} IS NOT NULL ORDER BY RAND() LIMIT ${amountofWords}`;
+          ? `SELECT ${primLang}, ${secondLang} FROM word WHERE ${primLang} <> '' AND ${secondLang} <> '' AND theme_id = "${theme_id}" ORDER BY RAND() LIMIT ${amountofWords}`
+          : `SELECT ${primLang}, ${secondLang} FROM word WHERE ${primLang} <> ''  AND ${secondLang} <> ''  ORDER BY RAND() LIMIT ${amountofWords}`;
 
       connection.query(sqlQuery, (err, res) => {
         if (err) reject(err);
