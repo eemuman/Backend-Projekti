@@ -265,11 +265,17 @@ app.post(`/login`, async (req, res) => {
  */
 app.get(`/login`, async (req, res) => {
   const token = req.query.token;
+  console.log("HERE");
   if (!token) {
     res.status(400).send("INVALID TOKEN");
   }
   try {
-    const validateToken = jwt.verify(token, process.env.SECKEY);
+    const validateToken = jwt.verify(
+      token,
+      process.env.SECKEY,
+      (err, validateToken) => validateToken
+    );
+    console.log(validateToken);
     if (validateToken) {
       res.status(200).send("TOKEN VALIDATED");
     }
