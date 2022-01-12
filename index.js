@@ -9,6 +9,30 @@ const vocab = require("./Routes/Vocab");
  */
 
 /**
+ * TARKISTETAAN _AINA_ ENNEN POST/PATCH/DELETEÄ, ETTÄ KUTSUN TEKIJÄLLÄ ON VALIDI JWT TOKEN.
+ * MIDDLEWARE
+ * @param {*} req mistä kutsu tulee
+ * @param {*} res vastaus
+ * @param {*} next Mihin mennään seuraavaksi
+ * @returns
+ */
+const verifyToken = (req, res, next) => {
+  const token =
+    req.body.token || req.query.token || req.headers["x-access-token"];
+
+  if (!token) {
+    return res.status(403).send("A token is required for authentication");
+  }
+  try {
+    const decoded = jwt.verify(token, process.env.SECKEY);
+    req.user = decoded;
+  } catch (err) {
+    return res.status(401).send("Invalid Token");
+  }
+  return next();
+};
+
+/**
 @FUNCTION
  * Käytetään expressiä sekä haetaan buildattu frontti käyttöön
  */
@@ -101,7 +125,7 @@ app.get(`/word/:lang`, async (req, res) => {
  *
  * Luodaan uusi teema tietokantaan, haluttu nimi otetaan requestin bodystä.
  */
-app.post(`/theme`, async (req, res) => {
+app.post(`/theme`, verifyToken, async (req, res) => {
   try {
     const name = req.body.name;
     console.log(req.body.name);
@@ -117,7 +141,7 @@ app.post(`/theme`, async (req, res) => {
  *
  * Luodaan uusi nimi tietokantaan, Halutut käännökset ja niitten kielet otetaan requestin bodystä, jossa ne on valmiiksi laitettu sql sopivaan muotoon.
  */
-app.post(`/word`, async (req, res) => {
+app.post(`/word`, verifyToken, async (req, res) => {
   try {
     await vocab.addNewWord(req.body.joinedValues, req.body.joinedKeys);
     res.send("SUCCESS?");
@@ -132,7 +156,7 @@ app.post(`/word`, async (req, res) => {
  * Luodaan uusi kieli tietokantaan, haluttu nimi otetaan requestin bodystä.
  * Samalla luodaan myös uusi kolumni sanojen tietokantaan, jotta kyseiselle kielelle voi lisätä käännöksiä.
  */
-app.post(`/lang`, async (req, res) => {
+app.post(`/lang`, verifyToken, async (req, res) => {
   try {
     const name = req.body.name;
     console.log(req.body.name);
@@ -148,7 +172,7 @@ app.post(`/lang`, async (req, res) => {
  *
  * Tällä poistetaan teemoja, ensiksi teemojen omasta tietokannasta, sekä sen jälkeen kaikki kyseisen teeman alla olevat sanat poistetaan sanojen tietokannasta.
  */
-app.delete(`/theme`, async (req, res) => {
+app.delete(`/theme`, verifyToken, async (req, res) => {
   try {
     const name = req.body.name;
     await vocab.deleteDataName("themes", name);
@@ -164,7 +188,7 @@ app.delete(`/theme`, async (req, res) => {
  *
  * Tällä poistetaan kieliä, ensiksi teemojen omasta tietokannasta, sekä sen jälkeen kyseinen kolumni sanojen tietokannasta, jotta niitä ei enään turhaan loju siellä.
  */
-app.delete(`/lang`, async (req, res) => {
+app.delete(`/lang`, verifyToken, async (req, res) => {
   try {
     const name = req.body.name;
     console.log(req.body);
@@ -181,7 +205,7 @@ app.delete(`/lang`, async (req, res) => {
  *
  * Tällä voidaan päivittää sanan käännökset sekä teema. data sisältää jo valmiiksi sql komentomuodossa olevat muutokset, jotka on sitten helppo pätsää.
  */
-app.patch(`/word`, async (req, res) => {
+app.patch(`/word`, verifyToken, async (req, res) => {
   try {
     const { id, data } = req.body;
 
@@ -197,7 +221,7 @@ app.patch(`/word`, async (req, res) => {
  *
  * Tällä voidaan poistaa sana käyttäen ID:tä.
  */
-app.delete(`/word`, async (req, res) => {
+app.delete(`/word`, verifyToken, async (req, res) => {
   try {
     const id = req.body.id;
     console.log(id);
@@ -234,8 +258,7 @@ app.post(`/login`, async (req, res) => {
  * Tällä voidaan varmistaa, että käyttäjän antama JWT tokeni on validi. Jos on, annetaan käyttäjän tehdä mitä haluaa, muuten estetään.
  */
 app.get(`/login`, async (req, res) => {
-  console.log(req.query);
-  const token = req.query.curUser;
+  const token = req.query.token;
   if (!token) {
     res.status(400).send("INVALID TOKEN");
   }

@@ -5,6 +5,13 @@ const axios = require("axios").default;
  * @module AxiosUtils
  */
 
+export const getCurrentUserToken = () => {
+  if (localStorage.getItem("user") !== null)
+    return JSON.parse(localStorage.getItem("user")).accesToken;
+
+  return -1;
+};
+
 /**
 @FUNCTION
  *
@@ -33,6 +40,8 @@ export const fetchData = async (dataToFetch) => {
  * @returns Vastaus serveriltä
  */
 export const postWord = async (data) => {
+  const token = getCurrentUserToken();
+
   try {
     const values = Object.values(data);
     const keys = Object.keys(data);
@@ -41,6 +50,7 @@ export const postWord = async (data) => {
     console.log(joinedValues);
 
     const resp = await axios.post(`/word`, {
+      token: token,
       joinedValues,
       joinedKeys,
     });
@@ -59,8 +69,11 @@ export const postWord = async (data) => {
  * @returns Vastaus serveriltä
  */
 export const postNew = async (newName, WhatToPost) => {
+  const token = getCurrentUserToken();
+
   try {
     const resp = await axios.post(`/${WhatToPost}`, {
+      token: token,
       name: newName,
     });
     return resp;
@@ -78,9 +91,12 @@ export const postNew = async (newName, WhatToPost) => {
  * @returns Vastaus serveriltä
  */
 export const delByName = async (whereToDelete, whatToDelete) => {
+  const token = getCurrentUserToken();
+
   try {
     const resp = await axios.delete(`/${whereToDelete}`, {
       data: {
+        token: token,
         name: whatToDelete,
       },
     });
@@ -97,9 +113,11 @@ export const delByName = async (whereToDelete, whatToDelete) => {
  * @returns Vastaus serveriltä
  */
 export const deleteWordById = async (whatToDelete) => {
+  const token = getCurrentUserToken();
   try {
     const resp = await axios.delete(`/word`, {
       data: {
+        token: token,
         id: whatToDelete,
       },
     });
@@ -118,6 +136,7 @@ export const deleteWordById = async (whatToDelete) => {
  * @returns Vastaus serveriltä
  */
 export const updateWordById = async (data) => {
+  const token = getCurrentUserToken();
   const joinedUpdt = Object.entries(data)
     .map(([key, val]) => {
       if (key !== "id") return `${key} = "${val}"`;
@@ -129,6 +148,7 @@ export const updateWordById = async (data) => {
     const resp = await axios.patch(`/word`, {
       data: joinedUpdt,
       id: id,
+      token: token,
     });
     return resp;
   } catch (err) {
@@ -165,12 +185,6 @@ export const logUserIn = async (username, password) => {
  * Tällä haetaan käyttäjä localstoragesta, jos semmoinen löytyy, muuten palautetaan -1.
  * @returns user tai -1
  */
-export const getCurrentUser = () => {
-  if (localStorage.getItem("user") !== null)
-    return JSON.parse(localStorage.getItem("user"));
-
-  return -1;
-};
 
 /**
 @FUNCTION
@@ -179,11 +193,12 @@ export const getCurrentUser = () => {
  * @returns Saatu status
  */
 export const checkLogin = async () => {
-  const curUser = getCurrentUser().accesToken;
-  if (curUser !== undefined) {
+  const token = getCurrentUserToken();
+  console.log(token);
+  if (token !== -1) {
     try {
       const resp = await axios.get(`/login`, {
-        params: { curUser },
+        params: { token },
       });
       return resp.status;
     } catch (err) {}
