@@ -104,7 +104,7 @@ export default function Main() {
             curTheme={curTheme}
             setCurTheme={setCurTheme}
             fetchData={fetchData}
-            false={isFalse}
+            isFalse={isFalse}
             setFalse={setIsFalse}
           />
         ) : (
