@@ -12,6 +12,7 @@ import TextField from "@mui/material/TextField";
 import SendIcon from "@mui/icons-material/Send";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
+import CorAmountShower from "./CorAmountShower";
 
 /**
  * @function
@@ -26,7 +27,7 @@ import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
  */
 export default function Play(props) {
   const [isVis, setisVis] = useState("none");
-
+  const [corAmount, setCorAmount] = useState(0);
   const style = { display: isVis, marginTop: "0.75em" };
 
   /**
@@ -36,6 +37,7 @@ export default function Play(props) {
    * Samalla laitetaan haluttu iconi näkymään textfieldin viereen.
    */
   const checkAnsw = () => {
+    var totalCorrect = 0;
     props.answArray.map((ans, index) => {
       const upd = [...props.answArray];
       upd[index].correct =
@@ -43,12 +45,14 @@ export default function Play(props) {
         props.words[index][props.secondaryLang].toLowerCase()
           ? true
           : false;
-
+      if (upd[index].correct) totalCorrect += 1;
       upd[index].disabled = true;
       setisVis("inline-block");
       props.setAnswArray(upd);
       return ans;
     });
+
+    setCorAmount(totalCorrect);
   };
 
   /**
@@ -69,6 +73,16 @@ export default function Play(props) {
    */
   const handleBack = () => {
     props.setIsPlaying();
+  };
+
+  /**
+   * @function
+   * Kun on tarkistettu vastaukset, nappi vaihtuu nappiin, jolla voidaan hakea uudet sanat databasesta. TS. pelata uudestaan, se hoidetaan tämän funktion avulla.
+   * Samalla piiloitetaan iconit
+   */
+  const playAgain = () => {
+    props.fetchData();
+    setisVis("none");
   };
 
   if (props.answArray.length === 0) {
@@ -131,6 +145,7 @@ export default function Play(props) {
                             id={index.toString()}
                             label="Vastaus tähän"
                             variant="standard"
+                            value={props.answArray[index].data}
                             disabled={props.answArray[index].disabled}
                             onChange={(e) => handleData(index, e)}
                           />
@@ -149,6 +164,18 @@ export default function Play(props) {
             <Grid
               container
               justifyContent="space-evenly"
+              textAlign="center"
+              sx={{ display: isVis }}
+              alignItems="center"
+            >
+              <CorAmountShower
+                corAmount={corAmount}
+                totalAmount={props.answArray.length}
+              />
+            </Grid>
+            <Grid
+              container
+              justifyContent="space-evenly"
               alignItems="center"
               marginBottom={2}
             >
@@ -156,15 +183,27 @@ export default function Play(props) {
                 PALAA TAKAISIN
               </Button>
 
-              <Button
-                style={{ width: 200, height: 60 }}
-                variant="contained"
-                color="success"
-                onClick={checkAnsw}
-                endIcon={<SendIcon />}
-              >
-                TARKISTA VASTAUKSET
-              </Button>
+              {isVis === "none" ? (
+                <Button
+                  style={{ width: 200, height: 60 }}
+                  variant="contained"
+                  color="success"
+                  onClick={checkAnsw}
+                  endIcon={<SendIcon />}
+                >
+                  TARKISTA VASTAUKSET
+                </Button>
+              ) : (
+                <Button
+                  style={{ width: 200, height: 60 }}
+                  variant="contained"
+                  color="success"
+                  onClick={playAgain}
+                  endIcon={<SendIcon />}
+                >
+                  PELAA UUDESTAAN
+                </Button>
+              )}
             </Grid>
           </Grid>
         </Box>
