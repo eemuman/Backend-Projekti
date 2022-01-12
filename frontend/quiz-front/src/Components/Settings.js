@@ -216,6 +216,9 @@ export default function Settings(props) {
                 label="teema"
                 onChange={handleTheme}
               >
+                <MenuItem key={-1} value={0}>
+                  Kaikki Teemat
+                </MenuItem>
                 {themes.map((theme, index) => (
                   <MenuItem key={index} value={theme}>
                     {theme.name}
