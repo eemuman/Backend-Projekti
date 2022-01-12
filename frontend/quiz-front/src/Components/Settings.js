@@ -133,7 +133,8 @@ export default function Settings(props) {
           borderRadius: 3,
           borderColor: "grey.400",
           flexGrow: 1,
-          marginTop: "25px",
+          p: "50px",
+          pt: "-25px",
           bgcolor: "grey.50",
           boxShadow: 3,
         }}
@@ -215,6 +216,9 @@ export default function Settings(props) {
                 label="teema"
                 onChange={handleTheme}
               >
+                <MenuItem key={-1} value={0}>
+                  Kaikki Teemat
+                </MenuItem>
                 {themes.map((theme, index) => (
                   <MenuItem key={index} value={theme}>
                     {theme.name}
