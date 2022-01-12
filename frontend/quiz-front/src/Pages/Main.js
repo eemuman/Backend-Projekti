@@ -90,8 +90,10 @@ export default function Main() {
     <React.Fragment>
       <CssBaseline />
 
-      <Container fixed sx={{ p: "50px" }}>
-        <Button onClick={goAdmin}>HALLINTAPANEELI</Button>
+      <Container fluid>
+        <Button onClick={goAdmin} sx={{ m: { sm: "5px", md: "20px" } }}>
+          HALLINTAPANEELI
+        </Button>
 
         {!isPlaying ? (
           <Settings

@@ -62,7 +62,7 @@ export default function NewLangThem(props) {
         onChange={(e) => handleChange(e)}
       />
       <Button
-        style={{ width: 200, height: 60 }}
+        style={{ width: 200, height: 60, m: "15px" }}
         disabled={isDisabled}
         variant="contained"
         color="success"

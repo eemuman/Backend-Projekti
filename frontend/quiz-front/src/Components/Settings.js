@@ -8,7 +8,11 @@ import InputLabel from "@mui/material/InputLabel";
 import FormHelperText from "@mui/material/FormHelperText";
 import MenuItem from "@mui/material/MenuItem";
 import SendIcon from "@mui/icons-material/Send";
-
+import {
+  createTheme,
+  responsiveFontSizes,
+  ThemeProvider,
+} from "@mui/material/styles";
 import { fetchData } from "../Utils/AxiosUtils";
 import ErrAlert from "./ErrAlert";
 
@@ -27,7 +31,8 @@ export default function Settings(props) {
   const [isDisabled, setDisabled] = useState(true);
   const [langs, setLangs] = useState([]);
   const [themes, setThemes] = useState([]);
-
+  let theme = createTheme();
+  theme = responsiveFontSizes(theme);
   /**
    * @function
    * Kun settingsit aukeaa, ladataan ensimmäiseksi kielet ja teemat databasesta.
@@ -119,25 +124,27 @@ export default function Settings(props) {
           borderRadius: 3,
           borderColor: "grey.400",
           flexGrow: 1,
-          p: "50px",
-          pt: "-25px",
+          p: "25px 15px 60px 16px",
           bgcolor: "grey.50",
           boxShadow: 3,
         }}
       >
-        <Typography
-          sx={{
-            fontWeight: "bold",
-            borderBottom: 1,
-            borderColor: "grey.400",
-            padding: "5px",
-          }}
-          variant="h3"
-          gutterBottom
-          component="div"
-        >
-          ASETUKSET
-        </Typography>
+        <ThemeProvider theme={theme}>
+          <Typography
+            sx={{
+              fontWeight: "bold",
+              borderBottom: 1,
+              borderColor: "grey.400",
+              padding: "5px",
+              mt: "15px",
+            }}
+            variant="h3"
+            gutterBottom
+            component="div"
+          >
+            ASETUKSET
+          </Typography>
+        </ThemeProvider>
         <Grid
           container
           spacing={1}

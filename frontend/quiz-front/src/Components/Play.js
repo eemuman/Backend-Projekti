@@ -13,6 +13,11 @@ import SendIcon from "@mui/icons-material/Send";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import CorAmountShower from "./CorAmountShower";
+import {
+  createTheme,
+  responsiveFontSizes,
+  ThemeProvider,
+} from "@mui/material/styles";
 
 /**
  * @function
@@ -29,6 +34,9 @@ export default function Play(props) {
   const [isVis, setisVis] = useState("none");
   const [corAmount, setCorAmount] = useState(0);
   const style = { display: isVis, marginTop: "0.75em" };
+
+  let theme = createTheme();
+  theme = responsiveFontSizes(theme);
 
   /**
    * @function
@@ -96,25 +104,27 @@ export default function Play(props) {
             borderRadius: 3,
             borderColor: "grey.400",
             flexGrow: 1,
-            p: "50px",
-            pt: "-25px",
+            p: "25px 15px 60px 16px",
             bgcolor: "grey.50",
             boxShadow: 3,
           }}
         >
-          <Typography
-            sx={{
-              fontWeight: "bold",
-              borderBottom: 1,
-              borderColor: "grey.400",
-              padding: "5px",
-            }}
-            variant="h3"
-            gutterBottom
-            component="div"
-          >
-            KÄÄNNÄ SANAT
-          </Typography>
+          <ThemeProvider theme={theme}>
+            <Typography
+              sx={{
+                fontWeight: "bold",
+                borderBottom: 1,
+                borderColor: "grey.400",
+                padding: "5px",
+                mt: "15px",
+              }}
+              variant="h3"
+              gutterBottom
+              component="div"
+            >
+              KÄÄNNÄ SANAT
+            </Typography>
+          </ThemeProvider>
           <Grid container rowGap={3}>
             <Grid
               container
@@ -185,7 +195,7 @@ export default function Play(props) {
 
               {isVis === "none" ? (
                 <Button
-                  style={{ width: 200, height: 60 }}
+                  sx={{ width: 200, height: 60, m: "15px" }}
                   variant="contained"
                   color="success"
                   onClick={checkAnsw}
@@ -195,7 +205,7 @@ export default function Play(props) {
                 </Button>
               ) : (
                 <Button
-                  style={{ width: 200, height: 60 }}
+                  sx={{ width: 200, height: 60, m: "15px" }}
                   variant="contained"
                   color="success"
                   onClick={playAgain}
