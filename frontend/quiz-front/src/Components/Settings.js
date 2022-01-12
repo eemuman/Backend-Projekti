@@ -8,10 +8,9 @@ import InputLabel from "@mui/material/InputLabel";
 import FormHelperText from "@mui/material/FormHelperText";
 import MenuItem from "@mui/material/MenuItem";
 import SendIcon from "@mui/icons-material/Send";
-import Alert from "@mui/material/Alert";
-import Snackbar from "@mui/material/Snackbar";
-import Slide from "@mui/material/Slide";
+
 import { fetchData } from "../Utils/AxiosUtils";
+import ErrAlert from "./ErrAlert";
 
 /**
  * @function
@@ -35,9 +34,9 @@ export default function Settings(props) {
    */
   useEffect(() => {
     async function fetchAll() {
-      const langData = await fetchData("lang");
+      const langData = await fetchData("langs");
       setLangs(langData);
-      const themeData = await fetchData("theme");
+      const themeData = await fetchData("themes");
       setThemes(themeData);
     }
     fetchAll();
@@ -104,29 +103,16 @@ export default function Settings(props) {
     props.fetchData();
   };
 
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    props.setFalse(false);
-  };
-
   return (
     <div>
-      <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        TransitionComponent={Slide}
-        open={props.false}
-        autoHideDuration={4000}
-        onClose={handleClose}
-      >
-        <Alert onClose={handleClose} severity="error" variant="filled">
-          {`Halutuilla vaihtoehdoilla ei löytynyt tarpeeksi sanoja!
+      <ErrAlert
+        text={`Halutuilla vaihtoehdoilla ei löytynyt tarpeeksi sanoja!
           Yritä
           uudestaan!`}
-        </Alert>
-      </Snackbar>
+        isErr={"error"}
+        isFalse={props.isFalse}
+        setFalse={props.setFalse}
+      />
       <Box
         sx={{
           border: 1,

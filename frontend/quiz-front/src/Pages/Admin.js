@@ -8,6 +8,7 @@ import Words from "../Components/Words";
 import Languages from "../Components/Languages";
 import Themes from "../Components/Themes";
 import { fetchData, checkLogin } from "../Utils/AxiosUtils";
+import ErrAlert from "../Components/ErrAlert";
 
 /**
  * @function
@@ -25,27 +26,44 @@ export default function Admin(props) {
   const [langs, setLangs] = useState([]);
   const [themes, setThemes] = useState([]);
   const [allWords, setAllWords] = useState([]);
+  const [isSuccess, setSuccess] = useState(false);
+  const [isError, setIsError] = useState("error");
+  const [errText, setErrText] = useState("");
 
   /**
    * @function
    * Funktio jolla haetaan kaikki tietokantojen sanoihin liittyvä data, (kielet, teemat ja itse sanat).
    * Ensiksi kuitenkin ennen jokaista hakua varmistetaan, että käyttäjä on autentikoitu JWT tokenin validoinilla.
    */
-  async function fetchAll() {
+  const fetchAll = async () => {
     const resp = await checkLogin();
     if (resp !== 200) {
       localStorage.removeItem("user");
       props.setLoggedIn(false);
     }
     if (props.isLoggedIn) {
-      const langData = await fetchData("lang");
+      const langData = await fetchData("langs");
       setLangs(langData);
-      const themeData = await fetchData("theme");
+      const themeData = await fetchData("themes");
       setThemes(themeData);
-      const wordData = await fetchData("word");
+      const wordData = await fetchData("words");
       setAllWords(wordData);
     }
-  }
+  };
+  /**
+   * Tämän avulla näytetään käyttäjälle josko haluttu tehtävä onnistui (lisäys,poisto,muokkaus)
+   * @param {*} status Palvelimelta saatu statusteksti
+   */
+  const setError = (status) => {
+    if (status === 200 || status === 201 || status === 202 || status === 204) {
+      setIsError("success");
+      setErrText(`Tehtävä suoritettu onnistuneesti!`);
+    } else {
+      setIsError("error");
+      setErrText(`Tapahtui virhe! Yritä uudelleen!`);
+    }
+    setSuccess(true);
+  };
 
   /**
    * @function
@@ -83,10 +101,17 @@ export default function Admin(props) {
     themes: themes,
     allWords: allWords,
     fetchAll: fetchAll,
+    setError: setError,
   };
 
   return (
     <React.Fragment>
+      <ErrAlert
+        text={errText}
+        isFalse={isSuccess}
+        setFalse={setSuccess}
+        isErr={isError}
+      />
       <CssBaseline />
       <Container fixed sx={{ p: "50px" }}>
         <Box

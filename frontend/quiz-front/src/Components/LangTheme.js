@@ -60,7 +60,11 @@ export default function LangTheme(props) {
             title={`LUO UUSI ${props.elem}`}
             isIcon={false}
             form={
-              <NewLangThem isLang={props.isLang} fetchAll={props.fetchAll} />
+              <NewLangThem
+                setError={props.setError}
+                isLang={props.isLang}
+                fetchAll={props.fetchAll}
+              />
             }
           ></ModalBase>
         </Grid>
@@ -98,6 +102,7 @@ export default function LangTheme(props) {
         </Grid>
         <Grid item>
           <RemoveAlert
+            setError={props.setError}
             disabled={isDisabled}
             isLang={props.isLang}
             toDelete={curEle}

@@ -77,6 +77,7 @@ export default function WordHeader(props) {
                     themes={props.themes}
                     editWord={editWord}
                     isEdit={true}
+                    setError={props.setError}
                   />
                 }
               />
@@ -97,6 +98,7 @@ export default function WordHeader(props) {
                   langs={props.langs}
                   themes={props.themes}
                   isEdit={false}
+                  setError={props.setError}
                 />
               }
             />

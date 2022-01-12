@@ -34,7 +34,7 @@ export default function Main() {
    * Kun settings.js painetaan pelaa näppäintä, tällä haetaan halutut sanat tietokannasta. (Kielet, teema, määrä) Jos sanoja ei löydy tarpeeksi laitetaan isFalse trueksi, joka avaa alertin jossa lukee, että sanoja ei löytynyt halutuilla vaihtoehdoilla tarpeeks.
    */
   const fetchData = async () => {
-    const wantedWords = await axios.get("/word", {
+    const wantedWords = await axios.get("/words", {
       params: {
         primLang: primaryLang,
         secondLang: secondaryLang,
@@ -104,7 +104,7 @@ export default function Main() {
             curTheme={curTheme}
             setCurTheme={setCurTheme}
             fetchData={fetchData}
-            false={isFalse}
+            isFalse={isFalse}
             setFalse={setIsFalse}
           />
         ) : (

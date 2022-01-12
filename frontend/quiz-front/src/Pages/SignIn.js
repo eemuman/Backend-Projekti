@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { checkLogin, logUserIn } from "../Utils/AxiosUtils";
 import { useNavigate } from "react-router-dom";
+import ErrAlert from "../Components/ErrAlert";
 
 /**
  * @function
@@ -23,6 +24,7 @@ import { useNavigate } from "react-router-dom";
  */
 export default function SignIn(props) {
   const navigate = useNavigate();
+  const [isFalse, setIsFalse] = useState(false);
 
   /**
    * @function
@@ -40,7 +42,7 @@ export default function SignIn(props) {
    */
   const checkifLogged = async () => {
     const resp = await checkLogin();
-    if (resp === 200) props.setLoggedIn(true);
+    resp === 200 ? props.setLoggedIn(true) : setIsFalse(true);
   };
 
   /**
@@ -65,69 +67,77 @@ export default function SignIn(props) {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <Box
-        sx={{
-          border: 1,
-          borderRadius: 3,
-          borderColor: "grey.400",
-          flexGrow: 1,
-          marginTop: "25px",
-          bgcolor: "grey.50",
-          boxShadow: 3,
-        }}
-      >
+    <div>
+      <ErrAlert
+        text={`Kirjautuminen epäonnistui! Tarkista käyttäjänimi ja salasana!`}
+        isFalse={isFalse}
+        setFalse={setIsFalse}
+        isErr={"error"}
+      />
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
         <Box
-          component="form"
-          onSubmit={handleSubmit}
-          noValidate
           sx={{
-            mt: 1,
-            p: "50px",
-            textAlign: "center",
+            border: 1,
+            borderRadius: 3,
+            borderColor: "grey.400",
+            flexGrow: 1,
+            marginTop: "25px",
+            bgcolor: "grey.50",
+            boxShadow: 3,
           }}
         >
-          <Typography component="h1" variant="h5">
-            KIRJAUDU SISÄÄN
-          </Typography>
-          <TextField
-            margin="normal"
-            fullWidth
-            id="username"
-            label="Käyttäjänimi"
-            name="username"
-            autoComplete="username"
-            autoFocus
-          />
-          <TextField
-            margin="normal"
-            fullWidth
-            name="password"
-            label="Salasana"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 2, mb: 2 }}
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            noValidate
+            sx={{
+              mt: 1,
+              p: "50px",
+              textAlign: "center",
+            }}
           >
-            Sign In
-          </Button>
-          <Button
-            color="success"
-            variant="contained"
-            size="large"
-            sx={{ mt: 1, mb: 3, pl: 3, pr: 3, height: 50 }}
-            onClick={goPlay}
-          >
-            SIIRRY PELAAMAAN
-          </Button>
+            <Typography component="h1" variant="h5">
+              KIRJAUDU SISÄÄN
+            </Typography>
+            <TextField
+              margin="normal"
+              fullWidth
+              id="username"
+              label="Käyttäjänimi"
+              name="username"
+              autoComplete="username"
+              autoFocus
+            />
+            <TextField
+              margin="normal"
+              fullWidth
+              name="password"
+              label="Salasana"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 2, mb: 2 }}
+            >
+              Sign In
+            </Button>
+            <Button
+              color="success"
+              variant="contained"
+              size="large"
+              sx={{ mt: 1, mb: 3, pl: 3, pr: 3, height: 50 }}
+              onClick={goPlay}
+            >
+              SIIRRY PELAAMAAN
+            </Button>
+          </Box>
         </Box>
-      </Box>
-    </Container>
+      </Container>
+    </div>
   );
 }

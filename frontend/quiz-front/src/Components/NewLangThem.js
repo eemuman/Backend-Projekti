@@ -41,11 +41,11 @@ export default function NewLangThem(props) {
    * Nappia klikattaessa postataan databaseen uusi elementti (joko kieli tai teema)
    */
   const handleClickkeri = async () => {
-    const whatToPost = props.isLang ? "lang" : "theme";
+    const whatToPost = props.isLang ? "langs" : "themes";
     const data = await postNew(newElement, whatToPost);
-    console.log(data.status);
-    await props.fetchAll();
     props.handleClose();
+    await props.fetchAll();
+    props.setError(data.status);
   };
 
   return (

@@ -49,11 +49,12 @@ export const postWord = async (data) => {
     const joinedValues = values.map((val) => `"${val}"`).join(",");
     console.log(joinedValues);
 
-    const resp = await axios.post(`/word`, {
+    const resp = await axios.post(`/words`, {
       token: token,
       joinedValues,
       joinedKeys,
     });
+    console.log(resp);
     return resp;
   } catch (err) {
     console.log(err);
@@ -76,6 +77,8 @@ export const postNew = async (newName, WhatToPost) => {
       token: token,
       name: newName,
     });
+    console.log(resp);
+
     return resp;
   } catch (err) {
     console.log(err);
@@ -100,6 +103,8 @@ export const delByName = async (whereToDelete, whatToDelete) => {
         name: whatToDelete,
       },
     });
+    console.log(resp);
+
     return resp;
   } catch (err) {
     console.log(err);
@@ -115,12 +120,14 @@ export const delByName = async (whereToDelete, whatToDelete) => {
 export const deleteWordById = async (whatToDelete) => {
   const token = getCurrentUserToken();
   try {
-    const resp = await axios.delete(`/word`, {
+    const resp = await axios.delete(`/words`, {
       data: {
         token: token,
         id: whatToDelete,
       },
     });
+    console.log(resp);
+
     return resp;
   } catch (err) {
     console.log(err);
@@ -145,11 +152,13 @@ export const updateWordById = async (data) => {
     .join(", ");
   const id = data.id;
   try {
-    const resp = await axios.patch(`/word`, {
+    const resp = await axios.patch(`/words`, {
       data: joinedUpdt,
       id: id,
       token: token,
     });
+    console.log(resp);
+
     return resp;
   } catch (err) {
     console.log(err);

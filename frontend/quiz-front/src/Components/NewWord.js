@@ -82,8 +82,8 @@ export default function NewWord(props) {
     const data = isEdit
       ? await updateWordById(newWord)
       : await postWord(newWord);
-    console.log(data);
     await handleData();
+    props.setError(data.status);
   };
 
   /**
@@ -159,7 +159,11 @@ export default function NewWord(props) {
         <Grid item>
           {" "}
           <FormControl sx={{ m: 1 }}>
-            <RemoveWordAlert id={newWord.id} handleClose={handleData} />
+            <RemoveWordAlert
+              id={newWord.id}
+              setError={props.setError}
+              handleClose={handleData}
+            />
           </FormControl>
         </Grid>
       ) : (
