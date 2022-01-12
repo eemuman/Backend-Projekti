@@ -39,7 +39,7 @@ export default function RemoveAlert(props) {
    * Sen jälkeen ladataan datat uudestaan ja suljetaan alert.
    */
   const handleDelete = async () => {
-    const whereToDelete = props.isLang ? "lang" : "theme";
+    const whereToDelete = props.isLang ? "langs" : "themes";
     const deleted = await delByName(whereToDelete, props.toDelete);
     await props.fetchAll();
     handleClose();
