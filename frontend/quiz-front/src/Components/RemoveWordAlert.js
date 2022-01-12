@@ -29,9 +29,9 @@ export default function RemoveWordAlert(props) {
 
   const handleDelete = async () => {
     const deleted = await deleteWordById(props.id);
-    console.log(deleted);
     handleClose();
     props.handleClose();
+    props.setError(deleted.status);
   };
 
   const handleClose = () => {

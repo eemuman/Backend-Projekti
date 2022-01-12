@@ -41,9 +41,9 @@ export default function RemoveAlert(props) {
   const handleDelete = async () => {
     const whereToDelete = props.isLang ? "lang" : "theme";
     const deleted = await delByName(whereToDelete, props.toDelete);
-    console.log(deleted);
     await props.fetchAll();
     handleClose();
+    props.setError(deleted.status);
   };
 
   /**
