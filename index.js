@@ -2,6 +2,7 @@ const express = require("express");
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const vocab = require("./Routes/Vocab");
+const path = require("path");
 
 /**
 @FUNCTION
@@ -37,7 +38,7 @@ const verifyToken = (req, res, next) => {
  * Käytetään expressiä sekä haetaan buildattu frontti käyttöön
  */
 const app = express();
-app.use(express.static("frontend/quiz-front/build"));
+app.use(express.static(path.join(__dirname, "frontend/quiz-front/build")));
 
 /**
 @FUNCTION
