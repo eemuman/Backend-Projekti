@@ -82,7 +82,8 @@ export default function Play(props) {
             borderRadius: 3,
             borderColor: "grey.400",
             flexGrow: 1,
-            marginTop: "25px",
+            p: "50px",
+            pt: "-25px",
             bgcolor: "grey.50",
             boxShadow: 3,
           }}

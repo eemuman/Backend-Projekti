@@ -88,14 +88,14 @@ export default function Admin(props) {
   return (
     <React.Fragment>
       <CssBaseline />
-      <Container fixed>
+      <Container fixed sx={{ p: "50px" }}>
         <Box
           sx={{
             border: 1,
             borderRadius: 3,
             borderColor: "grey.400",
             flexGrow: 1,
-            marginTop: "25px",
+            p: "50px",
             bgcolor: "grey.50",
             boxShadow: 3,
           }}

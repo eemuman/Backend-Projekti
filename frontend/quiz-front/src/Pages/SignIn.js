@@ -69,10 +69,13 @@ export default function SignIn(props) {
       <CssBaseline />
       <Box
         sx={{
-          marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          border: 1,
+          borderRadius: 3,
+          borderColor: "grey.400",
+          flexGrow: 1,
+          marginTop: "25px",
+          bgcolor: "grey.50",
+          boxShadow: 3,
         }}
       >
         <Box
@@ -81,9 +84,7 @@ export default function SignIn(props) {
           noValidate
           sx={{
             mt: 1,
-            border: 1,
-            padding: "50px",
-            borderRadius: 3,
+            p: "50px",
             textAlign: "center",
           }}
         >
@@ -116,17 +117,16 @@ export default function SignIn(props) {
           >
             Sign In
           </Button>
+          <Button
+            color="success"
+            variant="contained"
+            size="large"
+            sx={{ mt: 1, mb: 3, pl: 3, pr: 3, height: 50 }}
+            onClick={goPlay}
+          >
+            SIIRRY PELAAMAAN
+          </Button>
         </Box>
-        <Button
-          color="success"
-          fullWidth
-          variant="contained"
-          size="large"
-          sx={{ mt: 3, mb: 2 }}
-          onClick={goPlay}
-        >
-          SIIRRY PELAAMAAN
-        </Button>
       </Box>
     </Container>
   );

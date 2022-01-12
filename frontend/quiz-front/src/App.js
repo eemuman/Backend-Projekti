@@ -1,12 +1,5 @@
 import Main from "./Pages/Main";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  Redirect,
-} from "react-router-dom";
-import "./App.css";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Admin from "./Pages/Admin";
 import SignIn from "./Pages/SignIn";
 import React, { useState, useEffect } from "react";
@@ -39,32 +32,34 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path="*"
-          element={
-            <SignIn setLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
-          }
-        />
-        <Route
-          path="/SignIn"
-          element={
-            <SignIn setLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
-          }
-        />
-        <Route path="/Play" element={<Main />} />
+    <div className="App">
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="*"
+            element={
+              <SignIn setLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
+            }
+          />
+          <Route
+            path="/SignIn"
+            element={
+              <SignIn setLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
+            }
+          />
+          <Route path="/Play" element={<Main />} />
 
-        <Route
-          path="/Admin"
-          element={
-            <RequireAuth redirectTo="/SignIn">
-              <Admin setLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
-            </RequireAuth>
-          }
-        />
-      </Routes>
-    </BrowserRouter>
+          <Route
+            path="/Admin"
+            element={
+              <RequireAuth redirectTo="/SignIn">
+                <Admin setLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
+              </RequireAuth>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 
