@@ -3,6 +3,12 @@ import React from "react";
 import LangTheme from "./LangTheme";
 
 /**
+ * @function
+ * @module Languages
+ */
+
+/**
+ * @function
  * Pohjaelementti hallintapaneelin kieltenvalinnalle
  * @param {*} props
  * @returns Kielten pohjaelementti

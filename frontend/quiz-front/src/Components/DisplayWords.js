@@ -13,6 +13,12 @@ import WordHeader from "./WordHeader";
 import SortableHeader from "./SortableHeader";
 
 /**
+ * @function
+ * @module DisplayWords
+ */
+
+/**
+ * @function
  * Tämä on sanojen listaamiseen hallintapaneelissa käytettävä elementti
  */
 export default function DisplayWords(props) {
@@ -23,6 +29,7 @@ export default function DisplayWords(props) {
   const [selected, setSelected] = useState([]);
 
   /**
+   * @function
    * Tämän avulla järjestetään listat halutun elementin mukaan
    * @param {} event Mikä triggeröi
    * @param {*} property Mitä @WordHeader elementtiä painettiin
@@ -34,6 +41,7 @@ export default function DisplayWords(props) {
   };
 
   /**
+   * @function
    * Avustusfunktio sanojen oikean järjestyksen hakuu
    * @param {*} a
    * @param {*} b
@@ -51,6 +59,7 @@ export default function DisplayWords(props) {
   };
 
   /**
+   * @function
    * Haetaan haluttu järjestys
    * @param {*} order
    * @param {*} orderBy
@@ -69,6 +78,7 @@ export default function DisplayWords(props) {
       : 0;
 
   /**
+   * @function
    * Kun vaihdetaan paginationin sivua, tämä vaihtaa staten halutulle sivulle
    * @param {*} event millä vaihdettini
    * @param {*} newPage uuden sivun numero
@@ -78,6 +88,7 @@ export default function DisplayWords(props) {
   };
 
   /**
+   * @function
    * Tämän avulla vaihdetaan montako sanaa nähdän kerralla paginationissa
    * @param {*} event  mikä triggeröi
    */
@@ -87,6 +98,7 @@ export default function DisplayWords(props) {
   };
 
   /**
+   * @function
    * haetaan sen elementin indexi mitä on painettu.
    * @param {*} name elementin nimi
    * @returns elementin indeksin
@@ -94,6 +106,7 @@ export default function DisplayWords(props) {
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
   /**
+   * @function
    * Handlataan elementin klikkaus
    * @param {*} event
    * @param {*} name  mmitä klikattu

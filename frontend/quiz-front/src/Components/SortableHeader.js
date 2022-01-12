@@ -8,6 +8,13 @@ import TableHead from "@mui/material/TableHead";
 import { visuallyHidden } from "@mui/utils";
 
 /**
+@FUNCTION
+ * @module SortableHeader
+ */
+
+/**
+@FUNCTION
+ *
  * Sanojen näyttämisen yläpalkki jossa on kaikki eri vaihtoehdot (id,theme_id,kielet). Painamalla näitä järjestellään datat uudestaan halutulla tavalla.
  * @param {*} props
  * @returns Yläpalkki-elementti

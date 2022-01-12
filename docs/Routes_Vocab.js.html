@@ -42,8 +42,15 @@ config = {
 
 const connection = mysql.createPool(config);
 
+/**
+@FUNCTION
+ * @module Vocab
+ */
+
 module.exports = {
   /**
+@FUNCTION
+   *
    * Haetaan halutun tietokannan name tiedot. Käytetään kielten ja teemojen hakuun.
    * @param {*} wanted Halutun tietokannan nimi
    * @returns Halutun tietokannan nimi kolumni.
@@ -59,6 +66,8 @@ module.exports = {
   },
 
   /**
+@FUNCTION
+   *
    * Haetaan kaikki sanat mitä sana-tietokannasta löytyy.
    * @returns Kaikki sanat mitä tietokannassa on.
    */
@@ -72,6 +81,8 @@ module.exports = {
   },
 
   /**
+@FUNCTION
+   *
    * Haetaan kaikki sanat millä on tietyn kielen käännös.
    * @param {*} lang Mitä kieltä haetaan
    * @returns Kaikki kyseisen kielen sisältävät sanat.
@@ -88,6 +99,8 @@ module.exports = {
     });
   },
   /**
+@FUNCTION
+   *
    * Haetaan sanat käyttäen haluttuja kieliä, teemaa ja sanojen määrää. Järjestellään ne randomilla, jotta joka kerta ei pelattaessa tule samoja sanoja. Tätä käytetään kun pelataan.
    * Jos theme_id on 0, on valittu kaikki teemat, joten otetaan ilman erillistä teeman määrittelyä.
    * @param {*} primLang Kieli mikä valittiin aloituskieleksi
@@ -111,6 +124,8 @@ module.exports = {
   },
 
   /**
+@FUNCTION
+   *
    * Tällä lisätään kieliin sekä teemoihin uusia kieliä/teemoja.
    * @param {*} nameToAdd Halutun lisäyksen nimi
    * @param {*} whereToAdd Lisätäänkö kieli vai teema.
@@ -128,6 +143,8 @@ module.exports = {
   },
 
   /**
+@FUNCTION
+   *
    * Tällä luodaan uusia sanoja tietokantaan. Values ja keys on valmiiksi laitettu sql sopivaan muotoon aina ihan frontendissä asti.
    * @param {*} values Uuden sanan käännökset sekä teema
    * @param {*} keys Kielten nimet, theme_id, jne..
@@ -144,6 +161,8 @@ module.exports = {
     });
   },
   /**
+@FUNCTION
+   *
    * Tätä käytetään kun poistetaan tai lisätään kieli, eli tällä poistetaan tai lisätään sana-tietokantaan kolumni halutulla nimellä.
    * @param {*} updName Haluttu nimi
    * @param {*} isDelete Onko kyseessä poisto vai lisäys.
@@ -161,6 +180,8 @@ module.exports = {
     });
   },
   /**
+@FUNCTION
+   *
    * Tällä poistetaan kielet tai teemat niiden omista tietokannoistaan.
    * @param {*} whereToDelete Mistä poistetaan (kieli/teema)
    * @param {*} whatToDelete Mitä poistetaan (nimi)
@@ -177,6 +198,8 @@ module.exports = {
     });
   },
   /**
+@FUNCTION
+   *
    * Tällä poistetaan sana ID:tä käyttäen
    * @param {*} whatToDelete Halutun sanan ID
    * @returns Haettu data
@@ -192,6 +215,8 @@ module.exports = {
     });
   },
   /**
+@FUNCTION
+   *
    * Kun poistetaan teema, käytetään tätä siihen, että poistetaan sanat-tietokannasta halutun teeman alla olevat sanat.
    * @param {*} whatToDelete Poistettavan teeman nimi
    * @returns Haettu data
@@ -208,6 +233,8 @@ module.exports = {
   },
 
   /**
+@FUNCTION
+   *
    * Tällä funktiolla päivitetään sana tietokantaan ID:tä käyttäen.. Data sisältää varmiiksi SQL-sopivan komentosarjan päivittämiselle.
    * @param {*} id Päivitettävän sanan ID
    * @param {*} data Uusi päivitetty data
@@ -225,6 +252,8 @@ module.exports = {
   },
 
   /**
+@FUNCTION
+   *
    * Tällä tarkistetaan kirjautumisen yhteydessä mätsäävätkö annetut tiedot tietokannan tietoihin. inputit sanitisioidaan, koska ilman niitä pystyi kirjautumaan " or""=" käyttäen.
    * @param {*} username annettu käyttäjänimi
    * @param {*} password annettu salasana
@@ -252,13 +281,13 @@ module.exports = {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#app">app</a></li><li><a href="global.html#checkLogin">checkLogin</a></li><li><a href="global.html#delByName">delByName</a></li><li><a href="global.html#deleteWordById">deleteWordById</a></li><li><a href="global.html#fetchData">fetchData</a></li><li><a href="global.html#getCurrentUser">getCurrentUser</a></li><li><a href="global.html#logUserIn">logUserIn</a></li><li><a href="global.html#postNew">postNew</a></li><li><a href="global.html#postWord">postWord</a></li><li><a href="global.html#updateWordById">updateWordById</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Admin.html">Admin</a></li><li><a href="module-AxiosUtils.html">AxiosUtils</a></li><li><a href="module-DisplayWords.html">DisplayWords</a></li><li><a href="module-Index.html">Index</a></li><li><a href="module-LangMenu.html">LangMenu</a></li><li><a href="module-LangTheme.html">LangTheme</a></li><li><a href="module-Languages.html">Languages</a></li><li><a href="module-Main.html">Main</a></li><li><a href="module-ModalBase.html">ModalBase</a></li><li><a href="module-NewLangThem.html">NewLangThem</a></li><li><a href="module-NewWord.html">NewWord</a></li><li><a href="module-Play.html">Play</a></li><li><a href="module-RemoveAlert.html">RemoveAlert</a></li><li><a href="module-RemoveWordAlert.html">RemoveWordAlert</a></li><li><a href="module-Settings.html">Settings</a></li><li><a href="module-SignIn.html">SignIn</a></li><li><a href="module-SortableHeader.html">SortableHeader</a></li><li><a href="module-Themes.html">Themes</a></li><li><a href="module-Vocab.html">Vocab</a></li><li><a href="module-WordHeader.html">WordHeader</a></li><li><a href="module-WordPagination.html">WordPagination</a></li><li><a href="module-Words.html">Words</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Jan 12 2022 12:12:44 GMT+0200 (Itä-Euroopan normaaliaika)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Jan 12 2022 12:45:51 GMT+0200 (Itä-Euroopan normaaliaika)
 </footer>
 
 <script> prettyPrint(); </script>

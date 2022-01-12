@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>JSDoc: Source: Pages/SignIn.js</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="styles/prettify-tomorrow.css"
+    />
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css" />
+  </head>
+
+  <body>
+    <div id="main">
+      <h1 class="page-title">Source: Pages/SignIn.js</h1>
+
+      <section>
+        <article>
+          <pre
+            class="prettyprint source linenums"
+          ><code>import React, { useEffect } from "react";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { checkLogin, logUserIn } from "../Utils/AxiosUtils";
+import { useNavigate } from "react-router-dom";
+
+/**
+* @function
+ * @module SignIn
+ */
+
+/**
+* @function
+ * Kirjautumiseen käytettävä sivu, sisältää login-paneelin.
+ * @param {*} props
+ * @returns sign-in elementti
+ */
+export default function SignIn(props) {
+  const navigate = useNavigate();
+
+  /**
+* @function
+   * Jos storagessa on jo validi JWT tokeni, siirrytään suoraan hallintapaneelisivustolle.
+   */
+  useEffect(() => {
+    if (props.isLoggedIn) navigate(`/Admin`);
+  }, [props.isLoggedIn, navigate]);
+
+  /**
+* @function
+   * Tällä funktiolla tarkistetaan onko käyttäjällä validi JWT tokeni, jos on, muutetaan setLoggedIn trueksi ja tämän jälkeen useEffect siirtää käyttäjän hallintapaneeliin.
+   */
+  const checkifLogged = async () => {
+    const resp = await checkLogin();
+    if (resp === 200) props.setLoggedIn(true);
+  };
+
+  /**
+* @function
+   * Kun käyttäjä antaa käyttäjänimen sekä salasanan, verrataan niitä tietokannan tietoihin, jos ne mätsää, annetaan käyttäjälle JWT tokeni. Sitten tarkistetaan onko käyttäjällä validia JWT tokenia checkIfLoggedia käyttäen.
+   * @param {*} event
+   */
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    await logUserIn(data.get("username"), data.get("password"));
+    await checkifLogged();
+  };
+  /**
+* @function
+   * Jos taas vain painetaan playta, Main.js elementtiin.
+   */
+  const goPlay = () => {
+    navigate(`/Play`);
+  };
+
+  return (
+    &lt;Container component="main" maxWidth="xs">
+      &lt;CssBaseline />
+      &lt;Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        &lt;Box
+          component="form"
+          onSubmit={handleSubmit}
+          noValidate
+          sx={{
+            mt: 1,
+            border: 1,
+            padding: "50px",
+            borderRadius: 3,
+            textAlign: "center",
+          }}
+        >
+          &lt;Typography component="h1" variant="h5">
+            KIRJAUDU SISÄÄN
+          &lt;/Typography>
+          &lt;TextField
+            margin="normal"
+            fullWidth
+            id="username"
+            label="Käyttäjänimi"
+            name="username"
+            autoComplete="username"
+            autoFocus
+          />
+          &lt;TextField
+            margin="normal"
+            fullWidth
+            name="password"
+            label="Salasana"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+          />
+          &lt;Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 2, mb: 2 }}
+          >
+            Sign In
+          &lt;/Button>
+        &lt;/Box>
+        &lt;Button
+          color="success"
+          fullWidth
+          variant="contained"
+          size="large"
+          sx={{ mt: 3, mb: 2 }}
+          onClick={goPlay}
+        >
+          SIIRRY PELAAMAAN
+        &lt;/Button>
+      &lt;/Box>
+    &lt;/Container>
+  );
+}
+</code></pre>
+        </article>
+      </section>
+    </div>
+
+    <nav>
+      <h2><a href="index.html">Home</a></h2>
+      <h3>Modules</h3>
+      <ul>
+        <li><a href="module-Admin.html">Admin</a></li>
+        <li><a href="module-AxiosUtils.html">AxiosUtils</a></li>
+        <li><a href="module-DisplayWords.html">DisplayWords</a></li>
+        <li><a href="module-LangMenu.html">LangMenu</a></li>
+        <li><a href="module-LangTheme.html">LangTheme</a></li>
+        <li><a href="module-Languages.html">Languages</a></li>
+        <li><a href="module-Main.html">Main</a></li>
+        <li><a href="module-ModalBase.html">ModalBase</a></li>
+        <li><a href="module-NewLangThem.html">NewLangThem</a></li>
+        <li><a href="module-NewWord.html">NewWord</a></li>
+        <li><a href="module-Play.html">Play</a></li>
+        <li><a href="module-RemoveAlert.html">RemoveAlert</a></li>
+        <li><a href="module-RemoveWordAlert.html">RemoveWordAlert</a></li>
+        <li><a href="module-Settings.html">Settings</a></li>
+        <li><a href="module-SignIn.html">SignIn</a></li>
+        <li><a href="module-SortableHeader.html">SortableHeader</a></li>
+        <li><a href="module-Themes.html">Themes</a></li>
+        <li><a href="module-WordHeader.html">WordHeader</a></li>
+        <li><a href="module-WordPagination.html">WordPagination</a></li>
+        <li><a href="module-Words.html">Words</a></li>
+      </ul>
+    </nav>
+
+    <br class="clear" />
+
+    <footer>
+      Documentation generated by
+      <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Jan 12
+      2022 12:39:17 GMT+0200 (Itä-Euroopan normaaliaika)
+    </footer>
+
+    <script>
+      prettyPrint();
+    </script>
+    <script src="scripts/linenumber.js"></script>
+  </body>
+</html>

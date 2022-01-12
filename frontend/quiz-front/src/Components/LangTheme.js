@@ -11,6 +11,12 @@ import RemoveAlert from "./RemoveAlert";
 import NewLangThem from "./NewLangThem";
 
 /**
+ * @function
+ * @module LangTheme
+ */
+
+/**
+ * @function
  * Hallintapaneelin kielten/teemojen hallinan pohjaelementti. Sisältää napit joilla lisätä uusia ja select-menu josta valita kielet sekä poisto-nappi niiden poistoon. Muokataan kumpaankin (kieli/teema) sopivaksi propseja käyttämällä.
  * @param {*} props Tarvittava data, jotta saadaan muokattua halutun näköiseksi
  * @returns Kielten/teemojen pohjaelementti

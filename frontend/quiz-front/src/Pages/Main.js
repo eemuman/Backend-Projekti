@@ -9,6 +9,12 @@ import { useNavigate } from "react-router-dom";
 const axios = require("axios").default;
 
 /**
+ * @function
+ * @module Main
+ */
+
+/**
+ * @function
  * Pelin pelaamisen pääsivu, täällä hallitaan kaikki mitä tapahtuu pelisivuilla. Valitut kielet, teemat, sanojen määrät, pelataanko vai ei, onko sanoja tarpeeksi, pohjaArray vastauksille.
  * @returns Pelin pelaamiselmentti
  */
@@ -24,6 +30,7 @@ export default function Main() {
   const navigate = useNavigate();
 
   /**
+   * @function
    * Kun settings.js painetaan pelaa näppäintä, tällä haetaan halutut sanat tietokannasta. (Kielet, teema, määrä) Jos sanoja ei löydy tarpeeksi laitetaan isFalse trueksi, joka avaa alertin jossa lukee, että sanoja ei löytynyt halutuilla vaihtoehdoilla tarpeeks.
    */
   const fetchData = async () => {
@@ -41,6 +48,7 @@ export default function Main() {
   };
 
   /**
+   * @function
    * Kun siirrytään settings.js tiedostoon, halutaan, että kaikki vaihtoehdot ovat taas nollattuja. Se tehdään tällä funktiolla.
    */
   const resetAll = () => {
@@ -53,6 +61,7 @@ export default function Main() {
   };
 
   /**
+   * @function
    * Jos painetaan hallintapaneeli näppäintä, tällä siirrytään kirjautumissivulle.
    */
   const goAdmin = () => {
@@ -60,6 +69,7 @@ export default function Main() {
   };
 
   /**
+   * @function
    * Kun on haettu sanat ja niitä on haluttu määrä, tällä useEffectillä luodaan tyhjä AnswerArray joka on yhtä pitkä kun haluttujen sanojen array ja täytetään se (correct: false, disabled: false, data: "") objekteilla.
    */
   useEffect(() => {

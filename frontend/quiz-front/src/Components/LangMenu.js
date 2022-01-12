@@ -6,6 +6,12 @@ import InputLabel from "@mui/material/InputLabel";
 import FormHelperText from "@mui/material/FormHelperText";
 
 /**
+ * @function
+ * @module LangMenu
+ */
+
+/**
+ * @function
  * Pelin asetusvalikon kielten valintaselectorit
  * @param {*} props kaikki tarvittava data
  * @returns select-menu josta valita kieli. Tämä laittaa sen sitten propseista saatuun stateen.

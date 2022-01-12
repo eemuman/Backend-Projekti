@@ -9,6 +9,13 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { delByName } from "../Utils/AxiosUtils";
 
 /**
+@FUNCTION
+ * @module RemoveAlert
+ */
+
+/**
+@FUNCTION
+ *
  * Tämä on hallintapaneelin teema/kieli-valintojen poistonappi. Kun nappia painetaan aukeaa tämä alert.
  * @param {*} props
  * @returns Poistahäly-elementti
@@ -17,6 +24,8 @@ export default function RemoveAlert(props) {
   const [open, setOpen] = useState(false);
 
   /**
+@FUNCTION
+   *
    * Nappia painettu, avataan alert.
    */
   const handleClickOpen = () => {
@@ -24,6 +33,8 @@ export default function RemoveAlert(props) {
   };
 
   /**
+@FUNCTION
+   *
    * Jos käyttäjä painaa poista näppäintä alertissa, niin poistetaan kyseinen kieli/teema databasesta. props.isLang päättää onko kyseessä kieli vai teema.
    * Sen jälkeen ladataan datat uudestaan ja suljetaan alert.
    */
@@ -36,6 +47,8 @@ export default function RemoveAlert(props) {
   };
 
   /**
+@FUNCTION
+   *
    * tällä suljetaan alert.
    */
   const handleClose = () => {

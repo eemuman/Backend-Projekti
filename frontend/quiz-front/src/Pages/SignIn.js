@@ -10,6 +10,13 @@ import { checkLogin, logUserIn } from "../Utils/AxiosUtils";
 import { useNavigate } from "react-router-dom";
 
 /**
+ * @function
+ * @module SignIn
+ */
+
+/**
+ * @function
+ *
  * Kirjautumiseen käytettävä sivu, sisältää login-paneelin.
  * @param {*} props
  * @returns sign-in elementti
@@ -18,6 +25,8 @@ export default function SignIn(props) {
   const navigate = useNavigate();
 
   /**
+   * @function
+   *
    * Jos storagessa on jo validi JWT tokeni, siirrytään suoraan hallintapaneelisivustolle.
    */
   useEffect(() => {
@@ -25,6 +34,8 @@ export default function SignIn(props) {
   }, [props.isLoggedIn, navigate]);
 
   /**
+   * @function
+   *
    * Tällä funktiolla tarkistetaan onko käyttäjällä validi JWT tokeni, jos on, muutetaan setLoggedIn trueksi ja tämän jälkeen useEffect siirtää käyttäjän hallintapaneeliin.
    */
   const checkifLogged = async () => {
@@ -33,6 +44,8 @@ export default function SignIn(props) {
   };
 
   /**
+   * @function
+   *
    * Kun käyttäjä antaa käyttäjänimen sekä salasanan, verrataan niitä tietokannan tietoihin, jos ne mätsää, annetaan käyttäjälle JWT tokeni. Sitten tarkistetaan onko käyttäjällä validia JWT tokenia checkIfLoggedia käyttäen.
    * @param {*} event
    */
@@ -43,6 +56,8 @@ export default function SignIn(props) {
     await checkifLogged();
   };
   /**
+   * @function
+   *
    * Jos taas vain painetaan playta, Main.js elementtiin.
    */
   const goPlay = () => {

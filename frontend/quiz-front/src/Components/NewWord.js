@@ -12,6 +12,12 @@ import { postWord, updateWordById } from "../Utils/AxiosUtils";
 import RemoveWordAlert from "./RemoveWordAlert";
 
 /**
+ * @function
+ * @module NewWord
+ */
+
+/**
+ * @function
  * Uuden sanan luomispohja käytettäväksi modalbasessa. Sama elementti käytössä myös kun muokataan vanhaa sanaa.
  * @param {*} props
  * @returns Uuuden sanan pohjaelementti
@@ -22,6 +28,7 @@ export default function NewWord(props) {
   const isEdit = props.isEdit;
 
   /**
+   * @function
    * Jos muokataan sanaa, otetaan vanhat datat newWord-stateen.
    * Muuaten luodaan vain uusi tyhjä olio käyttäen kieliarraytä hyväkseen.
    */
@@ -35,6 +42,7 @@ export default function NewWord(props) {
   }, [props.langs, props.editWord, isEdit]);
 
   /**
+   * @function
    * Kun suljetaan modali, päivitetään kaikki datat, jotta sivulla oleva tieto on tuoretta.
    */
   const handleData = async () => {
@@ -43,6 +51,7 @@ export default function NewWord(props) {
   };
 
   /**
+   * @function
    * Tällä funktiolla muokataan newWord-staten oliota halutulta kohdalta, jotta kirjoitettu data pidetään yllä.
    * @param {*} index Halutun muokkauksen tekstin indexi
    * @param {*} e eventti
@@ -54,6 +63,7 @@ export default function NewWord(props) {
     checkDisabled();
   };
   /**
+   * @function
    * Tällä händlätään newWord-staten teeman valinta, kun käyttäjä valitsee eri teeman valikoista.
    * @param {*} e
    */
@@ -65,6 +75,7 @@ export default function NewWord(props) {
   };
 
   /**
+   * @function
    * Tätä kutsutaan kun painetaan tallena näppäintä. isEdit booleania hyväksikäyttäen valitaan joko luodaan uusi vai muokataanko vanhaa tietokannan elementtiä. Sen jälkeen kutsutaan handleDataa.
    */
   const handleClickkeri = async () => {
@@ -76,6 +87,7 @@ export default function NewWord(props) {
   };
 
   /**
+   * @function
    * Jos Suomenkielisessä käännöksessä on tekstiä, sekä on valittu joka teema, enabloidaan tallennanäppäin.
    */
   const checkDisabled = () => {

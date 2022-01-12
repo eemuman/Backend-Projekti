@@ -14,6 +14,12 @@ import Slide from "@mui/material/Slide";
 import { fetchData } from "../Utils/AxiosUtils";
 
 /**
+ * @function
+ * @module Settings
+ */
+
+/**
+ * @function
  * Tämä on pelin asetusten valintaelementti. Tämän avulla valitaan halutut kielet, sanojen määrä, sekä teema.
  * @param {*} props
  * @returns Asetusten elementti
@@ -24,6 +30,7 @@ export default function Settings(props) {
   const [themes, setThemes] = useState([]);
 
   /**
+   * @function
    * Kun settingsit aukeaa, ladataan ensimmäiseksi kielet ja teemat databasesta.
    */
   useEffect(() => {
@@ -37,6 +44,7 @@ export default function Settings(props) {
   }, []);
 
   /**
+   * @function
    * Kun kaikissa valinnoissa on joku vaihtoehto, enabloidaan Pelaa näppäin.
    */
   useEffect(() => {
@@ -56,6 +64,7 @@ export default function Settings(props) {
   ]);
 
   /**
+   * @function
    * Kaikki handlerit eri kohdille
    * @param {*} e
    */
@@ -63,6 +72,7 @@ export default function Settings(props) {
     props.setPrimaryLang(e.target.value.name);
   };
   /**
+   * @function
    * Kaikki handlerit eri kohdille
    * @param {*} e
    */
@@ -70,6 +80,7 @@ export default function Settings(props) {
     props.setSecondaryLang(e.target.value.name);
   };
   /**
+   * @function
    * Kaikki handlerit eri kohdille
    * @param {*} e
    */
@@ -77,6 +88,7 @@ export default function Settings(props) {
     props.setAmountofWords(e.target.value);
   };
   /**
+   * @function
    * Kaikki handlerit eri kohdille
    * @param {*} e
    */
@@ -84,6 +96,7 @@ export default function Settings(props) {
     props.setCurTheme(e.target.value.name);
   };
   /**
+   * @function
    * Kun painetaan pelaa näppäintä, kutsutaan Main.js fetchData funktiota @see {@link fetchData}
    * @param {*} e
    */

@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Module: AxiosUtils</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Module: AxiosUtils</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~Autentisoidaanannetutk%C3%A4ytt%C3%A4j%C3%A4nimisek%C3%A4salasanat%C3%A4t%C3%A4funktiotak%C3%A4ytt%C3%A4en.Josautentisointifeilaa,ts.eisaadaaccesstokenia,mit%C3%A4%C3%A4neitapahdu.Jossaadaanaccestokeni,asetetaanselocalStorageenuserinalle.Kyseess%C3%A4onsiisJWTtokeni."><span class="type-signature">(inner) </span>Autentisoidaan annetut käyttäjänimi sekä salasana tätä funktiota käyttäen.Jos autentisointi feilaa, ts. ei saada accesstokenia, mitään ei tapahdu.Jos saadaan accestokeni, asetetaan se localStorageen userin alle.Kyseessä on siis JWT tokeni.<span class="signature">(username, password)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>username</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">annettu käyttäjänimi</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>password</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">annettu salasana</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="frontend_quiz-front_src_Utils_AxiosUtils.js.html">frontend/quiz-front/src/Utils/AxiosUtils.js</a>, <a href="frontend_quiz-front_src_Utils_AxiosUtils.js.html#line138">line 138</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~Sananp%C3%A4ivitt%C3%A4miseenk%C3%A4ytett%C3%A4v%C3%A4funktio,p%C3%A4ivitett%C3%A4v%C3%A4sanahaetaanID:ll%C3%A4tietokannasta.DatanavainarvoparitmapataanAvain=%22Arvo%22tyyliinerilliseenconstiin.Idmapataanilmanlainausmerkkej%C3%A4,koskaseeioleVARCHAR."><span class="type-signature">(inner) </span>Sanan päivittämiseen käytettävä funktio, päivitettävä sana haetaan ID:llä tietokannasta.Datan avainarvoparit mapataan Avain = "Arvo" tyyliin erilliseen constiin. Id mapataan ilman lainausmerkkejä, koska se ei ole VARCHAR.<span class="signature">(data)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Päivitetty data</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="frontend_quiz-front_src_Utils_AxiosUtils.js.html">frontend/quiz-front/src/Utils/AxiosUtils.js</a>, <a href="frontend_quiz-front_src_Utils_AxiosUtils.js.html#line112">line 112</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Vastaus serveriltä
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~T%C3%A4ll%C3%A4funktiollavoidaanpoistaadataatietokannastak%C3%A4ytt%C3%A4ennime%C3%A4."><span class="type-signature">(inner) </span>Tällä funktiolla voidaan poistaa dataa tietokannasta käyttäen nimeä.<span class="signature">(whereToDelete, whatToDelete)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>whereToDelete</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Mistä haluttu data poistaa. Kieli/Teema/Sana</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>whatToDelete</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Millä nimellä haluttu data löytyy.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="frontend_quiz-front_src_Utils_AxiosUtils.js.html">frontend/quiz-front/src/Utils/AxiosUtils.js</a>, <a href="frontend_quiz-front_src_Utils_AxiosUtils.js.html#line72">line 72</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Vastaus serveriltä
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~T%C3%A4ll%C3%A4perusfunktiollavoidaanluodauusikielitaiteema."><span class="type-signature">(inner) </span>Tällä perusfunktiolla voidaan luoda uusi kieli tai teema.<span class="signature">(newName, WhatToPost)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>newName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Uuden kielen/teeman nimi</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>WhatToPost</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Kumpi tämä uusi on kieli vai teema.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="frontend_quiz-front_src_Utils_AxiosUtils.js.html">frontend/quiz-front/src/Utils/AxiosUtils.js</a>, <a href="frontend_quiz-front_src_Utils_AxiosUtils.js.html#line53">line 53</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Vastaus serveriltä
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~T%C3%A4ll%C3%A4funktiollavoidaanpoistaaSanak%C3%A4ytt%C3%A4enID:t%C3%A4!!TURVALLISEMPITAPAPOISTAASANOJA!!"><span class="type-signature">(inner) </span>Tällä funktiolla voidaan poistaa Sana käyttäen ID:tä <span class="signature">(whatToDelete)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>whatToDelete</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">halutun sanan ID</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="frontend_quiz-front_src_Utils_AxiosUtils.js.html">frontend/quiz-front/src/Utils/AxiosUtils.js</a>, <a href="frontend_quiz-front_src_Utils_AxiosUtils.js.html#line92">line 92</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Vastaus serveriltä
+</div>
+
+
+
+    
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Admin.html">Admin</a></li><li><a href="module-AxiosUtils.html">AxiosUtils</a></li><li><a href="module-DisplayWords.html">DisplayWords</a></li><li><a href="module-Index.html">Index</a></li><li><a href="module-LangMenu.html">LangMenu</a></li><li><a href="module-LangTheme.html">LangTheme</a></li><li><a href="module-Languages.html">Languages</a></li><li><a href="module-Main.html">Main</a></li><li><a href="module-ModalBase.html">ModalBase</a></li><li><a href="module-NewLangThem.html">NewLangThem</a></li><li><a href="module-NewWord.html">NewWord</a></li><li><a href="module-Play.html">Play</a></li><li><a href="module-RemoveAlert.html">RemoveAlert</a></li><li><a href="module-RemoveWordAlert.html">RemoveWordAlert</a></li><li><a href="module-Settings.html">Settings</a></li><li><a href="module-SignIn.html">SignIn</a></li><li><a href="module-SortableHeader.html">SortableHeader</a></li><li><a href="module-Themes.html">Themes</a></li><li><a href="module-Vocab.html">Vocab</a></li><li><a href="module-WordHeader.html">WordHeader</a></li><li><a href="module-WordPagination.html">WordPagination</a></li><li><a href="module-Words.html">Words</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Jan 12 2022 12:45:51 GMT+0200 (Itä-Euroopan normaaliaika)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

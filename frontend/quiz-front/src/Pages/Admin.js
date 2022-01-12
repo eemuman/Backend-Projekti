@@ -10,6 +10,12 @@ import Themes from "../Components/Themes";
 import { fetchData, checkLogin } from "../Utils/AxiosUtils";
 
 /**
+ * @function
+ * @module Admin
+ */
+
+/**
+ * @function
  * Hallintapaneelin pohjaelementti. Tällä hallitaan mm. datan hakemista, varmistaen että käyttäjä on kirjautuneena sisään, hallitaan uloskirjaus, sekä mikä hallintapaneelin elementti halutaan näyttää
  * @param {*} props
  * @returns Hallintapaneelin pohjaelementti
@@ -21,6 +27,7 @@ export default function Admin(props) {
   const [allWords, setAllWords] = useState([]);
 
   /**
+   * @function
    * Funktio jolla haetaan kaikki tietokantojen sanoihin liittyvä data, (kielet, teemat ja itse sanat).
    * Ensiksi kuitenkin ennen jokaista hakua varmistetaan, että käyttäjä on autentikoitu JWT tokenin validoinilla.
    */
@@ -41,6 +48,7 @@ export default function Admin(props) {
   }
 
   /**
+   * @function
    * Kun hallintasivulle tullaan, haetaan ensiksi kaikki datat.
    */
   useEffect(() => {
@@ -48,6 +56,7 @@ export default function Admin(props) {
   }, []);
 
   /**
+   * @function
    * Vaihdetaan eri hallintapaneelin elementtien avulla tätä hyväksikäyttäen
    * @param {*} e
    * @param {*} val Mikä sivu on valittu
@@ -57,6 +66,7 @@ export default function Admin(props) {
   };
 
   /**
+   * @function
    * Uloskirjautumisnäppäintä painettaessa kutsutaan tätä, eli ensiksi poistetaan kekseistä JWT tokeni ja sen jälkeen poistetaan loggedIn flagi fetchAll funktiota käyttäen.
    */
   const logOut = async () => {
@@ -65,6 +75,7 @@ export default function Admin(props) {
   };
 
   /**
+   * @function
    * Propsit mitkä lähetetään kaikille elementeille.
    */
   const propsit = {

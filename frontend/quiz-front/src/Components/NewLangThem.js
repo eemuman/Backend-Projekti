@@ -6,6 +6,12 @@ import SendIcon from "@mui/icons-material/Send";
 import { postNew } from "../Utils/AxiosUtils";
 
 /**
+ * @function
+ * @module NewLangThem
+ */
+
+/**
+ * @function
  * Uuden kielen/Teeman formi, käytetään ModalBasessa.
  * @param {*} props
  * @returns Uuden kieli/teeman formi
@@ -22,6 +28,7 @@ export default function NewLangThem(props) {
   };
 
   /**
+   * @function
    * Jos tekstipoksi ei ole tyhjä, enabloidaan nappi
    */
   useEffect(
@@ -30,6 +37,7 @@ export default function NewLangThem(props) {
   );
 
   /**
+   * @function
    * Nappia klikattaessa postataan databaseen uusi elementti (joko kieli tai teema)
    */
   const handleClickkeri = async () => {

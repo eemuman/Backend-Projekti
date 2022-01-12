@@ -2,6 +2,12 @@ import React from "react";
 import DisplayWords from "./DisplayWords";
 
 /**
+ * @function
+ * @module Words
+ */
+
+/**
+ * @function
  * Hallintapaneelin sanahallinan pohja.
  * @param {*} props
  * @returns Sanojen hallinan pohjaelementti

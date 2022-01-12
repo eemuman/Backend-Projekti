@@ -8,6 +8,12 @@ import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 
 /**
+ * @function
+ * @module WordPagination
+ */
+
+/**
+ * @function
  * Pagination elementti sanalistassa. Tämän avulla haetaan haluttu sivu ja pysytään kartalla siitä, montako sivua on ja millä sivulla ollaan.
  * @param {*} props
  * @returns Pagination elementti

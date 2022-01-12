@@ -32,12 +32,19 @@ const jwt = require("jsonwebtoken");
 const vocab = require("./Routes/Vocab");
 
 /**
+@FUNCTION
+ * @module Index
+ */
+
+/**
+@FUNCTION
  * Käytetään expressiä sekä haetaan buildattu frontti käyttöön
  */
 const app = express();
 app.use(express.static("frontend/quiz-front/build"));
 
 /**
+@FUNCTION
  * Käytetään joko herokun antamaa porttia tai sitten 8080.
  */
 app.listen(process.env.PORT || 8080, () => {
@@ -47,6 +54,8 @@ app.listen(process.env.PORT || 8080, () => {
 app.use(express.json());
 
 /**
+@FUNCTION
+ *
  * Haetaan teemat ja palautetaan ne frontendille
  */
 app.get(`/theme`, async (req, res) => {
@@ -61,6 +70,8 @@ app.get(`/theme`, async (req, res) => {
 });
 
 /**
+@FUNCTION
+ *
  * Haetaan kielet ja palautetaan ne frontendille
  */
 app.get(`/lang`, async (req, res) => {
@@ -74,6 +85,8 @@ app.get(`/lang`, async (req, res) => {
 });
 
 /**
+@FUNCTION
+ *
  * Haetaan sanat, jos queryssä on kielet, teema ja sanojen määrä, niin haetaan käyttäen niitä parametrejä, muuten haetaan kaikki ja lähetetään ne frontendille.
  */
 app.get(`/word`, async (req, res) => {
@@ -98,6 +111,8 @@ app.get(`/word`, async (req, res) => {
 });
 
 /**
+@FUNCTION
+ *
  * Haetaan kaikki sanat jotka löytyvät tietyllä kielellä.
  */
 app.get(`/word/:lang`, async (req, res) => {
@@ -110,6 +125,8 @@ app.get(`/word/:lang`, async (req, res) => {
 });
 
 /**
+@FUNCTION
+ *
  * Luodaan uusi teema tietokantaan, haluttu nimi otetaan requestin bodystä.
  */
 app.post(`/theme`, async (req, res) => {
@@ -124,6 +141,8 @@ app.post(`/theme`, async (req, res) => {
 });
 
 /**
+@FUNCTION
+ *
  * Luodaan uusi nimi tietokantaan, Halutut käännökset ja niitten kielet otetaan requestin bodystä, jossa ne on valmiiksi laitettu sql sopivaan muotoon.
  */
 app.post(`/word`, async (req, res) => {
@@ -136,6 +155,8 @@ app.post(`/word`, async (req, res) => {
 });
 
 /**
+@FUNCTION
+ *
  * Luodaan uusi kieli tietokantaan, haluttu nimi otetaan requestin bodystä.
  * Samalla luodaan myös uusi kolumni sanojen tietokantaan, jotta kyseiselle kielelle voi lisätä käännöksiä.
  */
@@ -151,6 +172,8 @@ app.post(`/lang`, async (req, res) => {
   }
 });
 /**
+@FUNCTION
+ *
  * Tällä poistetaan teemoja, ensiksi teemojen omasta tietokannasta, sekä sen jälkeen kaikki kyseisen teeman alla olevat sanat poistetaan sanojen tietokannasta.
  */
 app.delete(`/theme`, async (req, res) => {
@@ -165,6 +188,8 @@ app.delete(`/theme`, async (req, res) => {
 });
 
 /**
+@FUNCTION
+ *
  * Tällä poistetaan kieliä, ensiksi teemojen omasta tietokannasta, sekä sen jälkeen kyseinen kolumni sanojen tietokannasta, jotta niitä ei enään turhaan loju siellä.
  */
 app.delete(`/lang`, async (req, res) => {
@@ -180,6 +205,8 @@ app.delete(`/lang`, async (req, res) => {
 });
 
 /**
+@FUNCTION
+ *
  * Tällä voidaan päivittää sanan käännökset sekä teema. data sisältää jo valmiiksi sql komentomuodossa olevat muutokset, jotka on sitten helppo pätsää.
  */
 app.patch(`/word`, async (req, res) => {
@@ -194,6 +221,8 @@ app.patch(`/word`, async (req, res) => {
 });
 
 /**
+@FUNCTION
+ *
  * Tällä voidaan poistaa sana käyttäen ID:tä.
  */
 app.delete(`/word`, async (req, res) => {
@@ -208,6 +237,8 @@ app.delete(`/word`, async (req, res) => {
 });
 
 /**
+@FUNCTION
+ *
  * Tätä käytetään kun koitetaan kirjautua sisään. Jos käyttäjänimi sekä salasana täsmäävät ja saadaan validi vastaus, luodaan JWT tokeni käyttäen käyttäjän idtä sekä erillistä secret keytä. J
  */
 app.post(`/login`, async (req, res) => {
@@ -226,6 +257,8 @@ app.post(`/login`, async (req, res) => {
   } catch (err) {}
 });
 /**
+@FUNCTION
+ *
  * Tällä voidaan varmistaa, että käyttäjän antama JWT tokeni on validi. Jos on, annetaan käyttäjän tehdä mitä haluaa, muuten estetään.
  */
 app.get(`/login`, async (req, res) => {
@@ -252,13 +285,13 @@ app.get(`/login`, async (req, res) => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#app">app</a></li><li><a href="global.html#checkLogin">checkLogin</a></li><li><a href="global.html#delByName">delByName</a></li><li><a href="global.html#deleteWordById">deleteWordById</a></li><li><a href="global.html#fetchData">fetchData</a></li><li><a href="global.html#getCurrentUser">getCurrentUser</a></li><li><a href="global.html#logUserIn">logUserIn</a></li><li><a href="global.html#postNew">postNew</a></li><li><a href="global.html#postWord">postWord</a></li><li><a href="global.html#updateWordById">updateWordById</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Admin.html">Admin</a></li><li><a href="module-AxiosUtils.html">AxiosUtils</a></li><li><a href="module-DisplayWords.html">DisplayWords</a></li><li><a href="module-Index.html">Index</a></li><li><a href="module-LangMenu.html">LangMenu</a></li><li><a href="module-LangTheme.html">LangTheme</a></li><li><a href="module-Languages.html">Languages</a></li><li><a href="module-Main.html">Main</a></li><li><a href="module-ModalBase.html">ModalBase</a></li><li><a href="module-NewLangThem.html">NewLangThem</a></li><li><a href="module-NewWord.html">NewWord</a></li><li><a href="module-Play.html">Play</a></li><li><a href="module-RemoveAlert.html">RemoveAlert</a></li><li><a href="module-RemoveWordAlert.html">RemoveWordAlert</a></li><li><a href="module-Settings.html">Settings</a></li><li><a href="module-SignIn.html">SignIn</a></li><li><a href="module-SortableHeader.html">SortableHeader</a></li><li><a href="module-Themes.html">Themes</a></li><li><a href="module-Vocab.html">Vocab</a></li><li><a href="module-WordHeader.html">WordHeader</a></li><li><a href="module-WordPagination.html">WordPagination</a></li><li><a href="module-Words.html">Words</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Jan 12 2022 12:12:44 GMT+0200 (Itä-Euroopan normaaliaika)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Jan 12 2022 12:45:51 GMT+0200 (Itä-Euroopan normaaliaika)
 </footer>
 
 <script> prettyPrint(); </script>

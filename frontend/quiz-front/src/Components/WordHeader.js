@@ -11,6 +11,12 @@ import EditIcon from "@mui/icons-material/Edit";
 import NewWord from "./NewWord";
 
 /**
+ * @function
+ * @module WordHeader
+ */
+
+/**
+ * @function
  * Sanojen yläpalkin hallintaelementti. Tämän avulla voidaan luoda uusia sanoja sekä muokata vanhoja. Kun jotain elementtiä listassa painetaan, sen id lähetetään tänne ja haluttu sana haetaan editwWordiin.
  * @param {*} props
  * @returns Yläpalkin hallintaelementti

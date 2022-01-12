@@ -14,8 +14,15 @@ config = {
 
 const connection = mysql.createPool(config);
 
+/**
+@FUNCTION
+ * @module Vocab
+ */
+
 module.exports = {
   /**
+@FUNCTION
+   *
    * Haetaan halutun tietokannan name tiedot. Käytetään kielten ja teemojen hakuun.
    * @param {*} wanted Halutun tietokannan nimi
    * @returns Halutun tietokannan nimi kolumni.
@@ -31,6 +38,8 @@ module.exports = {
   },
 
   /**
+@FUNCTION
+   *
    * Haetaan kaikki sanat mitä sana-tietokannasta löytyy.
    * @returns Kaikki sanat mitä tietokannassa on.
    */
@@ -44,6 +53,8 @@ module.exports = {
   },
 
   /**
+@FUNCTION
+   *
    * Haetaan kaikki sanat millä on tietyn kielen käännös.
    * @param {*} lang Mitä kieltä haetaan
    * @returns Kaikki kyseisen kielen sisältävät sanat.
@@ -60,6 +71,8 @@ module.exports = {
     });
   },
   /**
+@FUNCTION
+   *
    * Haetaan sanat käyttäen haluttuja kieliä, teemaa ja sanojen määrää. Järjestellään ne randomilla, jotta joka kerta ei pelattaessa tule samoja sanoja. Tätä käytetään kun pelataan.
    * Jos theme_id on 0, on valittu kaikki teemat, joten otetaan ilman erillistä teeman määrittelyä.
    * @param {*} primLang Kieli mikä valittiin aloituskieleksi
@@ -83,6 +96,8 @@ module.exports = {
   },
 
   /**
+@FUNCTION
+   *
    * Tällä lisätään kieliin sekä teemoihin uusia kieliä/teemoja.
    * @param {*} nameToAdd Halutun lisäyksen nimi
    * @param {*} whereToAdd Lisätäänkö kieli vai teema.
@@ -100,6 +115,8 @@ module.exports = {
   },
 
   /**
+@FUNCTION
+   *
    * Tällä luodaan uusia sanoja tietokantaan. Values ja keys on valmiiksi laitettu sql sopivaan muotoon aina ihan frontendissä asti.
    * @param {*} values Uuden sanan käännökset sekä teema
    * @param {*} keys Kielten nimet, theme_id, jne..
@@ -116,6 +133,8 @@ module.exports = {
     });
   },
   /**
+@FUNCTION
+   *
    * Tätä käytetään kun poistetaan tai lisätään kieli, eli tällä poistetaan tai lisätään sana-tietokantaan kolumni halutulla nimellä.
    * @param {*} updName Haluttu nimi
    * @param {*} isDelete Onko kyseessä poisto vai lisäys.
@@ -133,6 +152,8 @@ module.exports = {
     });
   },
   /**
+@FUNCTION
+   *
    * Tällä poistetaan kielet tai teemat niiden omista tietokannoistaan.
    * @param {*} whereToDelete Mistä poistetaan (kieli/teema)
    * @param {*} whatToDelete Mitä poistetaan (nimi)
@@ -149,6 +170,8 @@ module.exports = {
     });
   },
   /**
+@FUNCTION
+   *
    * Tällä poistetaan sana ID:tä käyttäen
    * @param {*} whatToDelete Halutun sanan ID
    * @returns Haettu data
@@ -164,6 +187,8 @@ module.exports = {
     });
   },
   /**
+@FUNCTION
+   *
    * Kun poistetaan teema, käytetään tätä siihen, että poistetaan sanat-tietokannasta halutun teeman alla olevat sanat.
    * @param {*} whatToDelete Poistettavan teeman nimi
    * @returns Haettu data
@@ -180,6 +205,8 @@ module.exports = {
   },
 
   /**
+@FUNCTION
+   *
    * Tällä funktiolla päivitetään sana tietokantaan ID:tä käyttäen.. Data sisältää varmiiksi SQL-sopivan komentosarjan päivittämiselle.
    * @param {*} id Päivitettävän sanan ID
    * @param {*} data Uusi päivitetty data
@@ -197,6 +224,8 @@ module.exports = {
   },
 
   /**
+@FUNCTION
+   *
    * Tällä tarkistetaan kirjautumisen yhteydessä mätsäävätkö annetut tiedot tietokannan tietoihin. inputit sanitisioidaan, koska ilman niitä pystyi kirjautumaan " or""=" käyttäen.
    * @param {*} username annettu käyttäjänimi
    * @param {*} password annettu salasana
