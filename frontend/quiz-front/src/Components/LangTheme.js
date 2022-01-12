@@ -61,7 +61,7 @@ export default function LangTheme(props) {
             isIcon={false}
             form={
               <NewLangThem
-                isError={props.isError}
+                setError={props.setError}
                 isLang={props.isLang}
                 fetchAll={props.fetchAll}
               />
