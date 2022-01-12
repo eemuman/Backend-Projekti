@@ -116,6 +116,7 @@ export default function Main() {
             secondaryLang={secondaryLang}
             curTheme={curTheme}
             setIsPlaying={resetAll}
+            fetchData={fetchData}
           ></Play>
         )}
       </Container>
