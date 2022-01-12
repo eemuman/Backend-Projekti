@@ -270,12 +270,13 @@ app.get(`/login`, async (req, res) => {
     res.status(401).send("INVALIDTOKEN");
   } catch (err) {}
 });
-
 app.get("/*", async (req, res) => {
-  res.sendFile("frontend/quiz-front/build/index.html"),
+  res.sendFile(
+    path.join(__dirname, "frontend/quiz-front/build/index.html"),
     function (err) {
       if (err) {
         res.status(500).send(err);
       }
-    };
+    }
+  );
 });
