@@ -2,7 +2,7 @@
 
 #### Toimiva versio löytyy nyt herokusta! https://eemu-backend-projekti.herokuapp.com/
 
-## Featuret:
+## Featuret
 * Opettele useiden kielten eri sanastoja!
 * Voit halutessasi valita vain tietyn teeman mukaisia sanoja! (Esim. Eläimet, Ajoneuvot, ym. Muita)
 * Tai halutessasi voit vain yleisesti opetella tietyn kielen sanastoja.
