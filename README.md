@@ -25,14 +25,15 @@ Backend on toteutettu NodeJSllä.
 * MySql
 * Jsonwebtoken
 
-# Käyttöohjeet sivulle
-### Saapuessa sivuille
+# Käyttöohjeet
+Alla ohjeet pelin pelaamiseen
+## Saapuessa sivuille
 ![Imgur](https://i.imgur.com/vNPHEEr.png)
 * Kun saavut sivuille, ensimmäisenä törmäät kirjautumispaneeliin.
 * Jos haluat vain pelata, paina vihreää Siirry Pelaamaan - nappia.
 * Jos haluat tutustua hallintapaneeliin, lue alta.
 
-### Painettuasi Siirry Pelaamaan - nappia
+## Painettuasi Siirry Pelaamaan - nappia
 ![Imgur](https://i.imgur.com/fSDrSL3.png)
 * Seuraavaksi saavut asetukset sivuille, jossa voit valita haluamasi asetukset.
 * Kysymyskieli on se, millä sanat näkyvät kysyttäessä. 
@@ -42,7 +43,7 @@ Backend on toteutettu NodeJSllä.
 
 #### HUOM sanoja on hyvin pieni määrä, eli jos haluat pelata yli viiden sanan pelejä, suosittelen valitsemaan kaikki teemat!
 
-### Pelin pelaaminen
+## Pelin pelaaminen
 ![Imgur](https://i.imgur.com/fFUcHPN.png)
 * Tämän jälkeen saavut pelin pelaamissivulle.
 * Vasemmalla näkyy sana ja oikealla on paikka, mihin vastata käännökselläsi.
