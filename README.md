@@ -64,5 +64,7 @@ Jos haluat tutustua Hallintapaneeliin sekä sen toimintaan sinulla on kaksi vaih
 # Video
 
 käyttäjänimi: useradmin
+
 salasana: password123
+
 [![VIDEO](http://img.youtube.com/vi/D3XtMd0arTs/0.jpg)](http://www.youtube.com/watch?v=D3XtMd0arTs "Video Title")
