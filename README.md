@@ -1,4 +1,4 @@
-# WORD-APP -- Opettele uusien kielten sanastoja!
+# WORD-APP -- Opettele kielten sanastoja!
 
 #### Toimiva versio löytyy nyt herokusta! https://eemu-backend-projekti.herokuapp.com/
 
