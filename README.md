@@ -61,10 +61,3 @@ Jos haluat tutustua Hallintapaneeliin sekä sen toimintaan sinulla on kaksi vaih
 #### HUOM älä koske mihinkään hallintapaneelissa jo olevaan dataan! Jos haluat testata sen toimintaa, luo uusia ja poista ne lopuksi!
 
 
-# Video
-
-käyttäjänimi: useradmin
-
-salasana: password123
-
-[![VIDEO](http://img.youtube.com/vi/D3XtMd0arTs/0.jpg)](http://www.youtube.com/watch?v=D3XtMd0arTs "Video Title")
